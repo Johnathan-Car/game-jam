@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://bxg0y2jbe6c30" path="res://GameJam Files/Images/Door.png" id="4_635j1"]
 [ext_resource type="PackedScene" uid="uid://cb4bxsfpkfsrf" path="res://GameJam Files/Scenes/Wall.tscn" id="5_hsmrt"]
 [ext_resource type="PackedScene" uid="uid://fqurd5ubwehe" path="res://GameJam Files/Scenes/Platform.tscn" id="6_de457"]
+[ext_resource type="Texture2D" uid="uid://cmjd6km3m2f6s" path="res://GameJam Files/Images/Zombie.png" id="7_cy7jj"]
+[ext_resource type="Texture2D" uid="uid://d0ny4jsiepr4s" path="res://GameJam Files/Images/Skeleton.png" id="8_er2na"]
+[ext_resource type="Texture2D" uid="uid://wj1csg2bf4no" path="res://GameJam Files/Images/Wyvern.png" id="9_er2na"]
 
 [node name="CombatFloor" type="Node2D" unique_id=861949696]
 
@@ -24,6 +27,7 @@ scale = Vector2(0.6, 0.6)
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1396123436]
 position = Vector2(-4, -162)
 limit_left = -1630
+limit_top = -687
 limit_right = 1640
 limit_bottom = 323
 position_smoothing_enabled = true
@@ -57,3 +61,15 @@ position = Vector2(-1488, 0)
 
 [node name="Platform2" parent="." unique_id=692871000 instance=ExtResource("6_de457")]
 position = Vector2(1481, 0)
+
+[node name="tempZombie" type="Sprite2D" parent="." unique_id=499945108]
+position = Vector2(124, 181)
+texture = ExtResource("7_cy7jj")
+
+[node name="tempSkeleton" type="Sprite2D" parent="." unique_id=1826627251]
+position = Vector2(216, 227)
+texture = ExtResource("8_er2na")
+
+[node name="tempWyvern" type="Sprite2D" parent="." unique_id=1785572382]
+position = Vector2(277, 212)
+texture = ExtResource("9_er2na")
