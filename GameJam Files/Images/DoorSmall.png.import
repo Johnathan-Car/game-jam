@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uoi3w57wtv33"
-path="res://.godot/imported/Platform.png-26ae21d3e4ad66e35dd2e0faa8431f60.ctex"
+uid="uid://diy58w7bol0oy"
+path="res://.godot/imported/DoorSmall.png-ee2d2fd0c24a373b5e03102a32631572.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GameJam Files/Images/Platform.png"
-dest_files=["res://.godot/imported/Platform.png-26ae21d3e4ad66e35dd2e0faa8431f60.ctex"]
+source_file="res://GameJam Files/Images/DoorSmall.png"
+dest_files=["res://.godot/imported/DoorSmall.png-ee2d2fd0c24a373b5e03102a32631572.ctex"]
 
 [params]
 

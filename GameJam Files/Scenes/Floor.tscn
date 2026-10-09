@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ceukd3qq7t7rk"]
 
-[ext_resource type="Texture2D" uid="uid://cgo68bmjif86n" path="res://GameJam Files/Images/Platform.png" id="1_udrit"]
+[ext_resource type="Texture2D" uid="uid://cgo68bmjif86n" path="res://GameJam Files/Images/Floor.png" id="1_udrit"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4v6l2"]
 

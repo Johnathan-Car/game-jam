@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c4cacqouagcsn"]
 
 [ext_resource type="Script" uid="uid://bwehv4jjg14x6" path="res://GameJam Files/Scripts/Player.cs" id="1_cfepw"]
-[ext_resource type="Texture2D" uid="uid://dfxq5uk0mw371" path="res://GameJam Files/Images/PixelCharacter.png" id="1_rn7le"]
+[ext_resource type="Texture2D" uid="uid://dfxq5uk0mw371" path="res://GameJam Files/Images/Player.png" id="1_rn7le"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v6l2"]
 size = Vector2(116, 160)

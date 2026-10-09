@@ -3,6 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://ceukd3qq7t7rk" path="res://GameJam Files/Scenes/Floor.tscn" id="1_sn2ch"]
 [ext_resource type="PackedScene" uid="uid://c4cacqouagcsn" path="res://GameJam Files/Scenes/player.tscn" id="2_kkg5w"]
 [ext_resource type="Texture2D" uid="uid://bo3smg1f44rio" path="res://GameJam Files/Images/Background.png" id="3_b3ddm"]
+[ext_resource type="Texture2D" uid="uid://bxg0y2jbe6c30" path="res://GameJam Files/Images/Door.png" id="4_635j1"]
+[ext_resource type="PackedScene" uid="uid://cb4bxsfpkfsrf" path="res://GameJam Files/Scenes/Wall.tscn" id="5_hsmrt"]
+[ext_resource type="PackedScene" uid="uid://fqurd5ubwehe" path="res://GameJam Files/Scenes/Platform.tscn" id="6_de457"]
 
 [node name="CombatFloor" type="Node2D" unique_id=861949696]
 
@@ -10,18 +13,47 @@
 position = Vector2(0, 288)
 scale = Vector2(10, 1)
 
+[node name="Ceiling" parent="." unique_id=1106328220 instance=ExtResource("1_sn2ch")]
+position = Vector2(0, -651)
+scale = Vector2(10, 1)
+
 [node name="Player" parent="." unique_id=1190707486 instance=ExtResource("2_kkg5w")]
-position = Vector2(4, 162)
+position = Vector2(4, 201)
+scale = Vector2(0.6, 0.6)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1396123436]
 position = Vector2(-4, -162)
 limit_left = -1630
 limit_right = 1640
+limit_bottom = 323
 position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=831421479]
+[node name="Background" type="Sprite2D" parent="." unique_id=831421479]
 show_behind_parent = true
 position = Vector2(-2622, -1465.0001)
 scale = Vector2(8.708329, 5.4146585)
 texture = ExtResource("3_b3ddm")
+
+[node name="Timer" type="Timer" parent="." unique_id=968335031]
+autostart = true
+
+[node name="Door" type="Sprite2D" parent="." unique_id=1943382829]
+show_behind_parent = true
+position = Vector2(1, 164)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_635j1")
+
+[node name="Wall" parent="." unique_id=797711473 instance=ExtResource("5_hsmrt")]
+position = Vector2(-1836, -180)
+scale = Vector2(1, 2)
+
+[node name="Wall2" parent="." unique_id=1127983830 instance=ExtResource("5_hsmrt")]
+position = Vector2(1826, -180)
+scale = Vector2(1, 2)
+
+[node name="Platform" parent="." unique_id=1985063489 instance=ExtResource("6_de457")]
+position = Vector2(-1488, 0)
+
+[node name="Platform2" parent="." unique_id=692871000 instance=ExtResource("6_de457")]
+position = Vector2(1481, 0)
