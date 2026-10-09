@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://gvs3a3o04ott"]
 
+[ext_resource type="PackedScene" uid="uid://0ch7jvklyekx" path="res://GameJam Files/Scenes/enemy1.tscn" id="1_sdama"]
 [ext_resource type="PackedScene" uid="uid://ceukd3qq7t7rk" path="res://GameJam Files/Scenes/Floor.tscn" id="1_sn2ch"]
+[ext_resource type="PackedScene" uid="uid://cuwsek2khfyls" path="res://GameJam Files/Scenes/enemy2.tscn" id="2_2k5w7"]
 [ext_resource type="PackedScene" uid="uid://c4cacqouagcsn" path="res://GameJam Files/Scenes/player.tscn" id="2_kkg5w"]
+[ext_resource type="PackedScene" uid="uid://bk085ct1yynpg" path="res://GameJam Files/Scenes/enemy3.tscn" id="3_1osd5"]
 [ext_resource type="Texture2D" uid="uid://bo3smg1f44rio" path="res://GameJam Files/Images/Background.png" id="3_b3ddm"]
 [ext_resource type="Texture2D" uid="uid://bxg0y2jbe6c30" path="res://GameJam Files/Images/Door.png" id="4_635j1"]
 [ext_resource type="PackedScene" uid="uid://cb4bxsfpkfsrf" path="res://GameJam Files/Scenes/Wall.tscn" id="5_hsmrt"]
@@ -11,6 +14,19 @@
 [ext_resource type="Texture2D" uid="uid://wj1csg2bf4no" path="res://GameJam Files/Images/Wyvern.png" id="9_er2na"]
 
 [node name="CombatFloor" type="Node2D" unique_id=861949696]
+
+[node name="Zombie" parent="." unique_id=1722942169 node_paths=PackedStringArray("Target") instance=ExtResource("1_sdama")]
+position = Vector2(-1257.0001, 89.99999)
+scale = Vector2(0.6, 0.6)
+Target = NodePath("../Player")
+
+[node name="Skeleton" parent="." unique_id=536505493 node_paths=PackedStringArray("Target") instance=ExtResource("2_2k5w7")]
+position = Vector2(1252, 183)
+Target = NodePath("../Player")
+
+[node name="Wyvern" parent="." unique_id=1784549719 node_paths=PackedStringArray("Target") instance=ExtResource("3_1osd5")]
+position = Vector2(-1010, -403)
+Target = NodePath("../Player")
 
 [node name="Floor" parent="." unique_id=713272428 instance=ExtResource("1_sn2ch")]
 position = Vector2(0, 288)
@@ -26,6 +42,7 @@ scale = Vector2(0.6, 0.6)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1396123436]
 position = Vector2(-4, -162)
+process_callback = 0
 limit_left = -1630
 limit_top = -687
 limit_right = 1640

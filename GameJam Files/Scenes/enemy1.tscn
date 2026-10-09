@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://0ch7jvklyekx"]
+
+[ext_resource type="Script" uid="uid://ckscuvjaycctj" path="res://GameJam Files/Scripts/Enemy1.cs" id="1_8g05a"]
+[ext_resource type="Texture2D" uid="uid://somp2djmmfrs" path="res://GameJam Files/Images/Enemy1.png" id="1_hy2di"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4v6l2"]
+size = Vector2(96, 97)
+
+[node name="Zombie" type="CharacterBody2D" unique_id=1722942169]
+script = ExtResource("1_8g05a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1813540036]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_4v6l2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1614804144]
+texture = ExtResource("1_hy2di")
