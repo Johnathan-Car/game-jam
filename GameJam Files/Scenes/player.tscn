@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c4cacqouagcsn"]
+
+[ext_resource type="Script" uid="uid://bwehv4jjg14x6" path="res://GameJam Files/Scripts/Player.cs" id="1_cfepw"]
+[ext_resource type="Texture2D" uid="uid://dfxq5uk0mw371" path="res://GameJam Files/Images/PixelCharacter.png" id="1_rn7le"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4v6l2"]
+size = Vector2(116, 160)
+
+[node name="Player" type="CharacterBody2D" unique_id=1190707486]
+script = ExtResource("1_cfepw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=494061321]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_4v6l2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=382531365]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_rn7le")
