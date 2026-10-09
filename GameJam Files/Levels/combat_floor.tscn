@@ -12,21 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://cmjd6km3m2f6s" path="res://GameJam Files/Images/Zombie.png" id="7_cy7jj"]
 [ext_resource type="Texture2D" uid="uid://d0ny4jsiepr4s" path="res://GameJam Files/Images/Skeleton.png" id="8_er2na"]
 [ext_resource type="Texture2D" uid="uid://wj1csg2bf4no" path="res://GameJam Files/Images/Wyvern.png" id="9_er2na"]
+[ext_resource type="PackedScene" uid="uid://dpqi41kswo2vt" path="res://GameJam Files/Scenes/enemySpawner.tscn" id="13_4i75s"]
 
 [node name="CombatFloor" type="Node2D" unique_id=861949696]
-
-[node name="Zombie" parent="." unique_id=1722942169 node_paths=PackedStringArray("Target") instance=ExtResource("1_sdama")]
-position = Vector2(-1257.0001, 89.99999)
-scale = Vector2(0.6, 0.6)
-Target = NodePath("../Player")
-
-[node name="Skeleton" parent="." unique_id=536505493 node_paths=PackedStringArray("Target") instance=ExtResource("2_2k5w7")]
-position = Vector2(1252, 183)
-Target = NodePath("../Player")
-
-[node name="Wyvern" parent="." unique_id=1784549719 node_paths=PackedStringArray("Target") instance=ExtResource("3_1osd5")]
-position = Vector2(-1010, -403)
-Target = NodePath("../Player")
 
 [node name="Floor" parent="." unique_id=713272428 instance=ExtResource("1_sn2ch")]
 position = Vector2(0, 288)
@@ -55,9 +43,6 @@ show_behind_parent = true
 position = Vector2(-2622, -1465.0001)
 scale = Vector2(8.708329, 5.4146585)
 texture = ExtResource("3_b3ddm")
-
-[node name="Timer" type="Timer" parent="." unique_id=968335031]
-autostart = true
 
 [node name="Door" type="Sprite2D" parent="." unique_id=1943382829]
 show_behind_parent = true
@@ -90,3 +75,28 @@ texture = ExtResource("8_er2na")
 [node name="tempWyvern" type="Sprite2D" parent="." unique_id=1785572382]
 position = Vector2(277, 212)
 texture = ExtResource("9_er2na")
+
+[node name="Spawner" parent="." unique_id=1641200171 node_paths=PackedStringArray("EnemyHandler", "Player") instance=ExtResource("13_4i75s")]
+position = Vector2(-1495, 172)
+EnemyScene = ExtResource("1_sdama")
+EnemyHandler = NodePath("../EnemyHandler")
+Player = NodePath("../Player")
+
+[node name="Spawner2" parent="." unique_id=1585236 node_paths=PackedStringArray("EnemyHandler", "Player") instance=ExtResource("13_4i75s")]
+visible = false
+position = Vector2(1460, 165)
+EnemyScene = ExtResource("2_2k5w7")
+EnemyHandler = NodePath("../EnemyHandler")
+Player = NodePath("../Player")
+
+[node name="Spawner3" parent="." unique_id=194643076 node_paths=PackedStringArray("EnemyHandler", "Player") instance=ExtResource("13_4i75s")]
+visible = false
+position = Vector2(-1273, -134)
+EnemyScene = ExtResource("3_1osd5")
+EnemyHandler = NodePath("../EnemyHandler")
+Player = NodePath("../Player")
+
+[node name="Timer" type="Timer" parent="." unique_id=968335031]
+autostart = true
+
+[node name="EnemyHandler" type="Node2D" parent="." unique_id=400728586]
