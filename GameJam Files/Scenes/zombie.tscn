@@ -93,7 +93,7 @@ animation = &"hurt"
 [node name="Hurtbox" type="Area2D" parent="." unique_id=464867080]
 collision_layer = 2
 script = ExtResource("5_qm0aa")
-KnockbackForce = 1200.0
+KnockbackForce = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=42322601]
 shape = SubResource("RectangleShape2D_jtd5m")
