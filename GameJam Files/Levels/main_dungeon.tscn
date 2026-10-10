@@ -2,8 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://msulc4vkvi5n" path="res://GameJam Files/Assets/Tilesetv3.png" id="1_kv1mn"]
 [ext_resource type="Texture2D" uid="uid://cr4i5w8uqm4ij" path="res://GameJam Files/Assets/Prisoner.png" id="2_0k0t1"]
-[ext_resource type="Texture2D" uid="uid://lb6n6xy05tgk" path="res://GameJam Files/Images/SlotMachineSpriteSheet.png" id="3_k7j21"]
-[ext_resource type="Texture2D" uid="uid://bksua4ow1646g" path="res://GameJam Files/Assets/Low_ResSlotMachine.png" id="4_cug3b"]
+[ext_resource type="PackedScene" uid="uid://qcnikf7ilcsb" path="res://GameJam Files/Scenes/SlotMachine.tscn" id="4_kv1mn"]
 [ext_resource type="PackedScene" uid="uid://c4cacqouagcsn" path="res://GameJam Files/Scenes/player.tscn" id="5_0k0t1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ocnbp"]
@@ -1453,127 +1452,6 @@ texture = ExtResource("1_kv1mn")
 [sub_resource type="TileSet" id="TileSet_3hd7q"]
 sources/0 = SubResource("TileSetAtlasSource_48e2t")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i4cw7"]
-atlas = ExtResource("3_k7j21")
-region = Rect2(0, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ovt3m"]
-atlas = ExtResource("3_k7j21")
-region = Rect2(128, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wttqs"]
-atlas = ExtResource("3_k7j21")
-region = Rect2(256, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d655s"]
-atlas = ExtResource("3_k7j21")
-region = Rect2(0, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r2wox"]
-atlas = ExtResource("3_k7j21")
-region = Rect2(128, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0ymme"]
-atlas = ExtResource("3_k7j21")
-region = Rect2(256, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tixd2"]
-atlas = ExtResource("3_k7j21")
-region = Rect2(0, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pqxpx"]
-atlas = ExtResource("3_k7j21")
-region = Rect2(128, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yveey"]
-atlas = ExtResource("3_k7j21")
-region = Rect2(256, 256, 128, 128)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_3hd7q"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i4cw7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ovt3m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wttqs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d655s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r2wox")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0ymme")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tixd2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pqxpx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yveey")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gwf81"]
-atlas = ExtResource("4_cug3b")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bgwc5"]
-atlas = ExtResource("4_cug3b")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7owj2"]
-atlas = ExtResource("4_cug3b")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_12evv"]
-atlas = ExtResource("4_cug3b")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0kbv5"]
-atlas = ExtResource("4_cug3b")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gfedq"]
-atlas = ExtResource("4_cug3b")
-region = Rect2(32, 64, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_qyj4j"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gwf81")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bgwc5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7owj2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_12evv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0kbv5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gfedq")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="MainDungeon" type="Node2D" unique_id=767887324]
 
 [node name="PrisonFloor" type="TileMapLayer" parent="." unique_id=1821284512]
@@ -1588,19 +1466,13 @@ sprite_frames = SubResource("SpriteFrames_ck23a")
 tile_map_data = PackedByteArray("AAABAAIAAAAEAC8AAAABAAMAAAAEADAAAAACAAIAAAAFAC8AAAACAAMAAAAFADAAAAADAAIAAAAGAC8AAAADAAMAAAAGADAAAAAPAAUAAAAJAAcAAAAOAAUAAAAJAAcAAAANAAUAAAAJAAcAAAAMAAUAAAAJAAcAAAALAAUAAAAJAAcAAAAKAAUAAAAJAAcAAAAJAAUAAAAJAAcAAAAIAAUAAAAJAAcAAAAHAAUAAAAJAAcAAAAGAAUAAAAJAAcAAAAFAAUAAAAJAAcAAAAEAAUAAAAJAAcAAAADAAUAAAAJAAcAAAACAAUAAAAJAAcAAAABAAUAAAAJAAcAAAAHAAMAAAAEACQAAAAIAAMAAAAFACQAAAALAAEAAAAGAAYAAAALAAIAAAAGAAcAAAALAAMAAAAGAAgAAAAKAAEAAAAFAAYAAAAKAAIAAAAFAAcAAAAKAAMAAAAFAAgAAAALAAAAAAAIABMAAAD8/wEAAAAFAAYAAAD8/wIAAAAFAAcAAAD8/wMAAAAFAAgAAAD9/wEAAAAGAAYAAAD9/wIAAAAGAAcAAAD9/wMAAAAGAAgAAAD1/wEAAAAFAAYAAAD1/wIAAAAFAAcAAAD1/wMAAAAFAAgAAAD2/wEAAAAGAAYAAAD2/wIAAAAGAAcAAAD2/wMAAAAGAAgAAADz/wMAAAAAACYAAAD0/wMAAAABACYAAAAFAAEAAAAMAAMAAAAFAAIAAAAMAAQAAAAFAAMAAAAMAAUAAAAGAAEAAAANAAMAAAAGAAIAAAANAAQAAAAGAAMAAAANAAUAAAA=")
 tile_set = SubResource("TileSet_3hd7q")
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=778590270]
-visible = false
-position = Vector2(268, 47)
-scale = Vector2(0.2734375, 0.265625)
-sprite_frames = SubResource("SpriteFrames_3hd7q")
+[node name="SlotMachine" parent="." unique_id=1231506487 instance=ExtResource("4_kv1mn")]
+position = Vector2(271, 48)
 
-[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="." unique_id=282628347]
-position = Vector2(274, 51.000004)
-scale = Vector2(0.82421887, 0.88281244)
-sprite_frames = SubResource("SpriteFrames_qyj4j")
-
-[node name="Player" parent="." unique_id=1190707486 groups=["Player"] instance=ExtResource("5_0k0t1")]
+[node name="Player" parent="." unique_id=1190707486 instance=ExtResource("5_0k0t1")]
 position = Vector2(-115, 50)
+collision_layer = 3
+collision_mask = 3
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=263235976]
 zoom = Vector2(5.075, 5.075)

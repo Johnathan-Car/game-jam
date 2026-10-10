@@ -1,7 +1,13 @@
 [gd_scene format=3 uid="uid://qcnikf7ilcsb"]
 
 [ext_resource type="Texture2D" uid="uid://bksua4ow1646g" path="res://GameJam Files/Assets/Low_ResSlotMachine.png" id="1_agdmm"]
-[ext_resource type="Script" uid="uid://dlsmwkfgfomku" path="res://SlotMachine.cs" id="1_nmlme"]
+[ext_resource type="Script" uid="uid://dlsmwkfgfomku" path="res://GameJam Files/Scripts/SlotMachine.cs" id="1_mmc0l"]
+[ext_resource type="Script" uid="uid://cwg33h1fqp2i6" path="res://GameJam Files/Scripts/ItemData.cs" id="2_mmc0l"]
+[ext_resource type="Resource" uid="uid://gbg3xdhdbyb5" path="res://GameJam Files/Assets/Items/Belt.tres" id="3_4725o"]
+[ext_resource type="Resource" uid="uid://bb8o4bulcicwk" path="res://GameJam Files/Assets/Items/Boots.tres" id="4_gvr1f"]
+[ext_resource type="Resource" uid="uid://cglffxhhixvbx" path="res://GameJam Files/Assets/Items/Bracelet.tres" id="5_py8ii"]
+[ext_resource type="Resource" uid="uid://6sm6hk6jayd" path="res://GameJam Files/Assets/Items/Necklace.tres" id="6_jk15p"]
+[ext_resource type="Resource" uid="uid://pm7cbkhsfyqo" path="res://GameJam Files/Assets/Items/Ring.tres" id="7_t6tkd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmlme"]
 atlas = ExtResource("1_agdmm")
@@ -47,36 +53,42 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kpwbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmlme")
 }],
-"loop": 1,
-"name": &"default",
+"loop": 0,
+"name": &"spin",
 "speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ck23a"]
 radius = 39.812057
 
-[node name="SlotMachine" type="Node2D" unique_id=1231506487 node_paths=PackedStringArray("_promptLabel", "_animatedSprite")]
-script = ExtResource("1_nmlme")
-_promptLabel = NodePath("Control/Label")
-_animatedSprite = NodePath("AnimatedSprite2D")
+[node name="SlotMachine" type="Node2D" unique_id=1231506487 node_paths=PackedStringArray("_promptLabel", "_sprite")]
+script = ExtResource("1_mmc0l")
+ItemPool = Array[ExtResource("2_mmc0l")]([ExtResource("3_4725o"), ExtResource("4_gvr1f"), ExtResource("5_py8ii"), ExtResource("6_jk15p"), ExtResource("7_t6tkd")])
+_promptLabel = NodePath("Label")
+_sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1735431518]
 sprite_frames = SubResource("SpriteFrames_3hd7q")
+animation = &"spin"
+
+[node name="Label" type="Label" parent="." unique_id=1086804912]
+visible = false
+offset_left = -51.0
+offset_top = -25.0
+offset_right = -9.0
+offset_bottom = -2.0
+text = "Spin"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=574827250]
+collision_layer = 0
+collision_mask = 3
 
 [node name="InteractionZone" type="CollisionShape2D" parent="Area2D" unique_id=203136760]
 position = Vector2(-6, 0)
 shape = SubResource("CircleShape2D_ck23a")
 
-[node name="Control" type="Control" parent="." unique_id=1510023203]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Control" unique_id=1086804912]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

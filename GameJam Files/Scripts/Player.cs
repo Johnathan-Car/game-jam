@@ -6,6 +6,7 @@ public partial class Player : CharacterBody2D
 	[Export] 
 	private float Speed = 120.0f;
 	public const float JumpVelocity = -250.0f;
+	public int LuckStat = 0;
 
 	// For AnimatedSprite2D Character
 	private AnimatedSprite2D _sprite;
