@@ -16,6 +16,9 @@ public partial class Enemy1 : CharacterBody2D
 	// Stats
 	private int health = 3;
 
+	// Enemy Knockback
+	private Vector2 knockbackVelocity = Vector2.Zero;
+
 	public override void _Ready()
 	{
 		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
@@ -30,6 +33,11 @@ public partial class Enemy1 : CharacterBody2D
 	public void Hurt()
 	{
 		//_sprite.Play("hurt");
+	}
+
+	public void ApplyKnockback(Vector2 direction, float force)
+	{
+		knockbackVelocity = direction * force;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -54,11 +62,10 @@ public partial class Enemy1 : CharacterBody2D
 			velocity += GetGravity() * (float)delta;
 		}
 
-		// Handle Jump. This won't be used for now
-		//if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-		//{
-		//	velocity.Y = JumpVelocity;
-		//}
+		// Now apply the knockback and gradually reduce it
+
+		velocity += knockbackVelocity;
+		knockbackVelocity = knockbackVelocity.MoveToward(Vector2.Zero, 1200.0f * (float)delta);
 
 		Velocity = velocity;
 		MoveAndSlide();
