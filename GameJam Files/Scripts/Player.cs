@@ -13,6 +13,11 @@ public partial class Player : CharacterBody2D
 	// For determining which way the player is facing
 	private bool facingLeft = false;
 
+	// For Score Label (Zombie Flesh)
+	[Export]
+	public Label ZombieFleshCount;
+	public int ZombieFleshValue = 0;
+
 	// For Weapon
 	private AnimatedSprite2D sword;
 
@@ -49,6 +54,24 @@ public partial class Player : CharacterBody2D
 		{
 			sword.Visible = false;
 		}
+	}
+
+	public void OnItemCollected()
+	{
+		// Increase the amount of zombie flesh collected
+		ZombieFleshValue += 1;
+
+		// Update the UI label
+		if(ZombieFleshCount != null)
+		{
+			ZombieFleshCount.Text = ZombieFleshValue.ToString();
+		}
+		else
+		{
+			GD.PrintErr("The ZombieFleshCount label hasn't been assigned");
+		}
+
+		GD.Print("Zombie Flesh: " + ZombieFleshValue);
 	}
 
 	public override void _PhysicsProcess(double delta)

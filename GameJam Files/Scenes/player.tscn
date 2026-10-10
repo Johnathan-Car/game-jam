@@ -229,7 +229,7 @@ script = ExtResource("1_cfepw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1732284157]
 sprite_frames = SubResource("SpriteFrames_4v6l2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1304944100]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1304944100 groups=["Player"]]
 position = Vector2(1.7881393e-07, 1.5000004)
 scale = Vector2(1.0472126, 0.9334967)
 shape = SubResource("RectangleShape2D_3hd7q")
