@@ -1,23 +1,48 @@
 [gd_scene format=3 uid="uid://c4cacqouagcsn"]
 
 [ext_resource type="Script" uid="uid://bwehv4jjg14x6" path="res://GameJam Files/Scripts/Player.cs" id="1_cfepw"]
-[ext_resource type="Texture2D" uid="uid://dfxq5uk0mw371" path="res://GameJam Files/Images/Player.png" id="1_rn7le"]
+[ext_resource type="Texture2D" uid="uid://cfct1pev275sl" path="res://GameJam Files/Assets/Character_run.png" id="2_3v3c8"]
 [ext_resource type="Texture2D" uid="uid://dersfxtn4e0g7" path="res://GameJam Files/Images/Sword.png" id="3_3v3c8"]
 [ext_resource type="Texture2D" uid="uid://bsjngcppubip0" path="res://GameJam Files/Images/EnemyHurt.png" id="3_unk5r"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4v6l2"]
-size = Vector2(116, 160)
+[sub_resource type="AtlasTexture" id="AtlasTexture_hymer"]
+atlas = ExtResource("2_3v3c8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f53jj"]
+atlas = ExtResource("2_3v3c8")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qsk1"]
+atlas = ExtResource("2_3v3c8")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_885h0"]
+atlas = ExtResource("2_3v3c8")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4v6l2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_rn7le")
+"texture": SubResource("AtlasTexture_hymer")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f53jj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qsk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_885h0")
 }],
 "loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hd7q"]
+size = Vector2(9.549159, 26.781025)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jtd5m"]
 animations = [{
@@ -201,19 +226,13 @@ _data = {
 [node name="Player" type="CharacterBody2D" unique_id=1190707486]
 script = ExtResource("1_cfepw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=494061321]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_4v6l2")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=382531365]
-visible = false
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_rn7le")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1732284157]
-position = Vector2(-1.0000001, 2.9802322e-08)
-scale = Vector2(0.19937833, 0.19937833)
 sprite_frames = SubResource("SpriteFrames_4v6l2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1304944100]
+position = Vector2(1.7881393e-07, 1.5000004)
+scale = Vector2(1.0472126, 0.9334967)
+shape = SubResource("RectangleShape2D_3hd7q")
 
 [node name="SwordPivot" type="Node2D" parent="." unique_id=1044019822]
 
