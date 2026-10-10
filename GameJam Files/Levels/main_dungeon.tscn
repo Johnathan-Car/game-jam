@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://msulc4vkvi5n" path="res://GameJam Files/Assets/Tilesetv3.png" id="1_kv1mn"]
 [ext_resource type="Texture2D" uid="uid://cr4i5w8uqm4ij" path="res://GameJam Files/Assets/Prisoner.png" id="2_0k0t1"]
-[ext_resource type="PackedScene" uid="uid://qcnikf7ilcsb" path="res://GameJam Files/Scenes/SlotMachine.tscn" id="4_kv1mn"]
+[ext_resource type="PackedScene" uid="uid://gpcy38pqarp6" path="res://GameJam Files/Scenes/SlotMachine.tscn" id="4_kv1mn"]
 [ext_resource type="PackedScene" uid="uid://c4cacqouagcsn" path="res://GameJam Files/Scenes/player.tscn" id="5_0k0t1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ocnbp"]
