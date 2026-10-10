@@ -7,6 +7,10 @@ public partial class Enemy1 : CharacterBody2D
 	[Export]
 	public Node2D Target;
 
+	// On Death drop items
+	[Export]
+	public PackedScene DroppedItemScene;
+
 	public const float Speed = 40.0f;
 	public const float JumpVelocity = -100.0f;
 
@@ -37,6 +41,35 @@ public partial class Enemy1 : CharacterBody2D
 
 		hurtTimer.Timeout += OnHurtTimerTimeout;
 		//_sprite.Play("hurt");
+
+	}
+
+	public void SpawnDroppedItem()
+	{
+		// Testing if item dropped failed
+		if(DroppedItemScene == null)
+		{
+			GD.PrintErr("DroppedItemScene has not been assigned");
+			return;
+		}
+
+		// Creating a new instance of the dropped item.
+		RigidBody2D item = DroppedItemScene.Instantiate<RigidBody2D>();
+
+		// Add it to the current scene
+		GetTree().CurrentScene.AddChild(item);
+
+		// Now place the item where the character is at
+		item.GlobalPosition = GlobalPosition;
+
+		// Now generate a random launch for both the sideways firection and upward direction
+		float horizontalImpulse = (float)GD.RandRange(-100.0f, 100.0);
+		float verticalImpulse = (float)GD.RandRange(-180.0f, -120.0);
+
+		Vector2 launchImpulse = new Vector2(horizontalImpulse, verticalImpulse);
+
+		// Lastly you have to give the item its initial push
+		item.ApplyCentralImpulse(launchImpulse);
 
 	}
 

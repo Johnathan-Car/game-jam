@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://ctdhda78la5bb"]
+
+[ext_resource type="Script" uid="uid://l3ldn63jmw0v" path="res://GameJam Files/Scripts/ZombieFlesh.cs" id="1_nh2dp"]
+[ext_resource type="Texture2D" uid="uid://ppandv3vyw1d" path="res://GameJam Files/Images/GlobletteEdited.png" id="2_bah62"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ts0tu"]
+friction = 0.8
+bounce = 0.1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pbobu"]
+radius = 6.0
+
+[node name="DroppedItemScene" type="RigidBody2D" unique_id=1335013330]
+physics_material_override = SubResource("PhysicsMaterial_ts0tu")
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("1_nh2dp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=418671300]
+texture = ExtResource("2_bah62")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=674836613]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_pbobu")
