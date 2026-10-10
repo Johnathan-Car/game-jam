@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ceukd3qq7t7rk"]
+
+[ext_resource type="Texture2D" uid="uid://cgo68bmjif86n" path="res://GameJam Files/Images/Floor.png" id="1_udrit"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4v6l2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hxji1"]
+size = Vector2(325, 72)
+
+[node name="Floor" type="StaticBody2D" unique_id=713272428]
+physics_material_override = SubResource("PhysicsMaterial_4v6l2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=422456506]
+texture = ExtResource("1_udrit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1660971760]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_hxji1")

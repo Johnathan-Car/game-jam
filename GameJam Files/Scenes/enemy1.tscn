@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://0ch7jvklyekx"]
+
+[ext_resource type="Script" uid="uid://ckscuvjaycctj" path="res://GameJam Files/Scripts/Enemy1.cs" id="1_8g05a"]
+[ext_resource type="Texture2D" uid="uid://somp2djmmfrs" path="res://GameJam Files/Images/Enemy1.png" id="1_hy2di"]
+[ext_resource type="Texture2D" uid="uid://bsjngcppubip0" path="res://GameJam Files/Images/EnemyHurt.png" id="3_skugr"]
+[ext_resource type="Script" uid="uid://cy38tnelx7jui" path="res://GameJam Files/Scripts/Enemy1Hurtbox.cs" id="4_e7bnm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4v6l2"]
+size = Vector2(96, 97)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4v6l2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hy2di")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hy2di")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_skugr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_hy2di")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_skugr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_hy2di")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_skugr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_hy2di")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_skugr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_hy2di")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_hy2di")
+}],
+"loop": 1,
+"name": &"hurt",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jtd5m"]
+size = Vector2(100, 102)
+
+[node name="Zombie" type="CharacterBody2D" unique_id=1722942169]
+script = ExtResource("1_8g05a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1813540036]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_4v6l2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1614804144]
+visible = false
+texture = ExtResource("1_hy2di")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=268648142]
+sprite_frames = SubResource("SpriteFrames_4v6l2")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=464867080]
+collision_layer = 2
+script = ExtResource("4_e7bnm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=42322601]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_jtd5m")
+debug_color = Color(0.41960785, 0.6, 0.24705882, 0.24705882)
+
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="OnAreaEntered"]

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cb4bxsfpkfsrf"]
+
+[ext_resource type="Texture2D" uid="uid://b3hgqomhcs7i2" path="res://GameJam Files/Images/DungeonWall.jpg" id="1_qd0h4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_de457"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4v6l2"]
+size = Vector2(512, 512)
+
+[node name="Wall" type="StaticBody2D" unique_id=797711473]
+physics_material_override = SubResource("PhysicsMaterial_de457")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1166102011]
+texture = ExtResource("1_qd0h4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1456294651]
+shape = SubResource("RectangleShape2D_4v6l2")

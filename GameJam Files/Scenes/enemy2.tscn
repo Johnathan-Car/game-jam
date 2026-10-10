@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cuwsek2khfyls"]
+
+[ext_resource type="Script" uid="uid://dyvmn8ahs7ao0" path="res://GameJam Files/Scripts/Enemy2.cs" id="1_d2bp8"]
+[ext_resource type="Texture2D" uid="uid://somp2djmmfrs" path="res://GameJam Files/Images/Enemy1.png" id="1_f52nw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sblsg"]
+size = Vector2(96, 97)
+
+[node name="Skeleton" type="CharacterBody2D" unique_id=536505493]
+script = ExtResource("1_d2bp8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1836501729]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_sblsg")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=936604418]
+modulate = Color(0.16470589, 0.9019608, 0, 1)
+texture = ExtResource("1_f52nw")
