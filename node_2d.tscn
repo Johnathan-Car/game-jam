@@ -4,6 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://c4cacqouagcsn" path="res://GameJam Files/Scenes/player.tscn" id="2_0e48y"]
 [ext_resource type="PackedScene" uid="uid://dpqi41kswo2vt" path="res://GameJam Files/Scenes/enemySpawner.tscn" id="3_epypp"]
 [ext_resource type="PackedScene" uid="uid://0ch7jvklyekx" path="res://GameJam Files/Scenes/zombie.tscn" id="4_0hol4"]
+[ext_resource type="Texture2D" uid="uid://do6sg806dvkc0" path="res://GameJam Files/Images/CircleSmall.png" id="5_q6r6c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_q6r6c"]
+line_spacing = 1.0
+font_size = 72
+shadow_color = Color(0.41568628, 0.36078432, 0.1882353, 0.53333336)
+shadow_offset = Vector2(0.155, 1)
 
 [node name="CombatFloor1" type="Node2D" unique_id=624457734]
 
@@ -32,3 +39,74 @@ position_smoothing_speed = 8.0
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1853025951]
 position = Vector2(264, -8)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2024851229]
+
+[node name="Inventory" type="Panel" parent="CanvasLayer" unique_id=1493818717]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 10.0
+scale = Vector2(5, 5)
+
+[node name="ZombieFlesh" type="TextureRect" parent="CanvasLayer/Inventory" unique_id=187181621]
+layout_mode = 0
+offset_right = 7.0
+offset_bottom = 7.0
+texture = ExtResource("5_q6r6c")
+expand_mode = 1
+
+[node name="ZombieFleshCount" type="Label" parent="CanvasLayer/Inventory" unique_id=436505093]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -91.0
+offset_right = 33.0
+offset_bottom = 108.0
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.1, 0.1)
+text = "0
+"
+label_settings = SubResource("LabelSettings_q6r6c")
+horizontal_alignment = 1
+
+[node name="SkeletonBones" type="TextureRect" parent="CanvasLayer/Inventory" unique_id=1604039337]
+layout_mode = 0
+offset_top = 9.0
+offset_right = 7.0
+offset_bottom = 16.0
+texture = ExtResource("5_q6r6c")
+expand_mode = 1
+
+[node name="SkeletonBonesCount" type="Label" parent="CanvasLayer/Inventory" unique_id=220771600]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -82.0
+offset_right = 33.0
+offset_bottom = 117.0
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.1, 0.1)
+text = "0
+"
+label_settings = SubResource("LabelSettings_q6r6c")
+horizontal_alignment = 1
+
+[node name="WyvernScales" type="TextureRect" parent="CanvasLayer/Inventory" unique_id=995946986]
+layout_mode = 0
+offset_top = 18.0
+offset_right = 7.0
+offset_bottom = 25.0
+texture = ExtResource("5_q6r6c")
+expand_mode = 1
+
+[node name="WyvernScalesCount" type="Label" parent="CanvasLayer/Inventory" unique_id=294143817]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -73.0
+offset_right = 33.0
+offset_bottom = 126.0
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.1, 0.1)
+text = "0
+"
+label_settings = SubResource("LabelSettings_q6r6c")
+horizontal_alignment = 1

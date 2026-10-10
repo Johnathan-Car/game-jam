@@ -42,6 +42,8 @@ public partial class Enemy1Hurtbox : Area2D
 			if(enemy is Enemy1 enemyScript)
 			{
 				enemyScript.ApplyKnockback(direction, KnockbackForce);
+				// For Enemy hurt animation
+				enemyScript.Hurt();
 			}
 
 			if(enemy1Health <= 0)

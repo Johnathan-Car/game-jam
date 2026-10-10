@@ -16,6 +16,9 @@ public partial class Enemy1 : CharacterBody2D
 	// Stats
 	private int health = 3;
 
+	// Hurt Animation Timer
+	private Timer hurtTimer;
+
 	// Enemy Knockback
 	private Vector2 knockbackVelocity = Vector2.Zero;
 
@@ -25,6 +28,14 @@ public partial class Enemy1 : CharacterBody2D
 
 		// Now play the default animation
 		_sprite.Play("default");
+
+		// For Hurt Timer
+		hurtTimer = new Timer(); // Calls the method after the second has elapsed
+		hurtTimer.WaitTime = 1.0; // Wait 1 second
+		hurtTimer.OneShot = true; // Runs only once instead of repeating
+		AddChild(hurtTimer);
+
+		hurtTimer.Timeout += OnHurtTimerTimeout;
 		//_sprite.Play("hurt");
 
 	}
@@ -32,7 +43,15 @@ public partial class Enemy1 : CharacterBody2D
 	// Hurt Animation
 	public void Hurt()
 	{
-		//_sprite.Play("hurt");
+		_sprite.Play("hurt");
+
+		hurtTimer.Stop();
+		hurtTimer.Start();
+	}
+
+	private void OnHurtTimerTimeout()
+	{
+		_sprite.Play("default");
 	}
 
 	public void ApplyKnockback(Vector2 direction, float force)
