@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://gvs3a3o04ott"]
 
-[ext_resource type="PackedScene" uid="uid://0ch7jvklyekx" path="res://GameJam Files/Scenes/enemy1.tscn" id="1_sdama"]
+[ext_resource type="PackedScene" uid="uid://0ch7jvklyekx" path="res://GameJam Files/Scenes/zombie.tscn" id="1_sdama"]
 [ext_resource type="PackedScene" uid="uid://ceukd3qq7t7rk" path="res://GameJam Files/Scenes/Floor.tscn" id="1_sn2ch"]
 [ext_resource type="PackedScene" uid="uid://cuwsek2khfyls" path="res://GameJam Files/Scenes/enemy2.tscn" id="2_2k5w7"]
 [ext_resource type="PackedScene" uid="uid://c4cacqouagcsn" path="res://GameJam Files/Scenes/player.tscn" id="2_kkg5w"]
@@ -103,3 +103,4 @@ SpawnInterval = 200.0
 autostart = true
 
 [node name="EnemyHandler" type="Node2D" parent="." unique_id=400728586]
+scale = Vector2(1.0011817, 0.98977876)

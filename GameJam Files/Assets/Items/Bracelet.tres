@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cglffxhhixvbx"]
+
+[ext_resource type="Script" uid="uid://cwg33h1fqp2i6" path="res://GameJam Files/Scripts/ItemData.cs" id="1_ph4lh"]
+
+[resource]
+script = ExtResource("1_ph4lh")
+BaseName = "Bracelet_template"
+BaseDamage = 2
+metadata/_custom_type_script = "uid://cwg33h1fqp2i6"

@@ -41,8 +41,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hd7q"]
-size = Vector2(9.549159, 26.781025)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfepw"]
+size = Vector2(56.603073, 156.6206)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jtd5m"]
 animations = [{
@@ -63,8 +63,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfepw"]
-size = Vector2(56.603073, 156.6206)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hd7q"]
+size = Vector2(9.549159, 26.781025)
 
 [sub_resource type="Animation" id="Animation_3v3c8"]
 length = 0.001
@@ -223,16 +223,21 @@ _data = {
 &"attack": SubResource("Animation_hymer")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=1190707486]
+[node name="Player" type="CharacterBody2D" unique_id=1190707486 groups=["Player"]]
 script = ExtResource("1_cfepw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1732284157]
 sprite_frames = SubResource("SpriteFrames_4v6l2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1304944100]
-position = Vector2(1.7881393e-07, 1.5000004)
-scale = Vector2(1.0472126, 0.9334967)
-shape = SubResource("RectangleShape2D_3hd7q")
+[node name="Hitbox" type="Area2D" parent="." unique_id=1299802312 groups=["PLAYERATTACK"]]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=523378212]
+position = Vector2(-101.000015, -125.000015)
+rotation = -0.8090077
+scale = Vector2(0.9999999, 0.9999999)
+shape = SubResource("RectangleShape2D_cfepw")
 
 [node name="SwordPivot" type="Node2D" parent="." unique_id=1044019822]
 
@@ -244,14 +249,10 @@ sprite_frames = SubResource("SpriteFrames_jtd5m")
 animation = &"attack"
 frame_progress = 0.34712958
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1299802312 groups=["PLAYERATTACK"]]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=523378212]
-position = Vector2(-101.000015, -125.000015)
-rotation = -0.8090077
-scale = Vector2(0.99999994, 0.99999994)
-shape = SubResource("RectangleShape2D_cfepw")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1304944100 groups=["Player"]]
+position = Vector2(1.7881393e-07, 1.5000004)
+scale = Vector2(1.0472126, 0.9334967)
+shape = SubResource("RectangleShape2D_3hd7q")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=76706620]
 libraries/ = SubResource("AnimationLibrary_f53jj")
