@@ -64,7 +64,7 @@ public partial class Enemy1Hurtbox : Area2D
 			isDead = true;
 		
 			// Spawn dropped item
-			enemyScript.SpawnDroppedItem();
+			enemyScript.CallDeferred(nameof(Enemy1.SpawnDroppedItem));
 
 			// Remove the enemy
 			enemy.QueueFree();

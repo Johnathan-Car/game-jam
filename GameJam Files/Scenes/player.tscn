@@ -44,6 +44,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cfepw"]
 size = Vector2(56.603073, 156.6206)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hd7q"]
+size = Vector2(9.549159, 26.781025)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_jtd5m"]
 animations = [{
 "frames": [{
@@ -62,9 +65,6 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hd7q"]
-size = Vector2(9.549159, 26.781025)
 
 [sub_resource type="Animation" id="Animation_3v3c8"]
 length = 0.001
@@ -254,7 +254,7 @@ sprite_frames = SubResource("SpriteFrames_jtd5m")
 animation = &"attack"
 frame_progress = 0.34712958
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1304944100 groups=["Player"]]
+[node name="Collision Sword" type="CollisionShape2D" parent="." unique_id=1225210588 groups=["Player"]]
 position = Vector2(1.7881393e-07, 1.5000004)
 scale = Vector2(1.0472126, 0.9334967)
 shape = SubResource("RectangleShape2D_3hd7q")
