@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://btrnv64v0y7r5"]
+[gd_scene format=3 uid="uid://qcnikf7ilcsb"]
 
 [ext_resource type="Texture2D" uid="uid://bksua4ow1646g" path="res://GameJam Files/Assets/Low_ResSlotMachine.png" id="1_agdmm"]
+[ext_resource type="Script" uid="uid://dlsmwkfgfomku" path="res://SlotMachine.cs" id="1_nmlme"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmlme"]
 atlas = ExtResource("1_agdmm")
@@ -55,7 +56,10 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ck23a"]
 radius = 39.812057
 
-[node name="SlotMachine" type="Node2D" unique_id=1231506487]
+[node name="SlotMachine" type="Node2D" unique_id=1231506487 node_paths=PackedStringArray("_promptLabel", "_animatedSprite")]
+script = ExtResource("1_nmlme")
+_promptLabel = NodePath("Control/Label")
+_animatedSprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1735431518]
 sprite_frames = SubResource("SpriteFrames_3hd7q")
@@ -71,3 +75,8 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control" unique_id=1086804912]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

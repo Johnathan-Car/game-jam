@@ -3,8 +3,9 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 350.0f;
-	public const float JumpVelocity = -750.0f;
+	[Export] 
+	private float Speed = 120.0f;
+	public const float JumpVelocity = -250.0f;
 
 	// For AnimatedSprite2D Character
 	private AnimatedSprite2D _sprite;

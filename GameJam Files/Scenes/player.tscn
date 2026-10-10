@@ -250,7 +250,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=523378212]
 position = Vector2(-101.000015, -125.000015)
 rotation = -0.8090077
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("RectangleShape2D_cfepw")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=76706620]

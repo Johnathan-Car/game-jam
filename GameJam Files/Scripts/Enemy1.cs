@@ -7,8 +7,8 @@ public partial class Enemy1 : CharacterBody2D
 	[Export]
 	public Node2D Target;
 
-	public const float Speed = 300.0f;
-	public const float JumpVelocity = -400.0f;
+	public const float Speed = 40.0f;
+	public const float JumpVelocity = -100.0f;
 
 	// For AnimatedSprite2D
 	private AnimatedSprite2D _sprite;

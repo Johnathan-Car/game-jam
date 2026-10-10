@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://0ch7jvklyekx"]
+
+[ext_resource type="Script" uid="uid://ckscuvjaycctj" path="res://GameJam Files/Scripts/Enemy1.cs" id="1_ng6t3"]
+[ext_resource type="Texture2D" uid="uid://beqpsvfispoer" path="res://GameJam Files/Assets/Zombie_Walk_Cycle.png" id="2_kxwit"]
+[ext_resource type="Texture2D" uid="uid://somp2djmmfrs" path="res://GameJam Files/Images/Enemy1.png" id="3_uuuef"]
+[ext_resource type="Texture2D" uid="uid://bsjngcppubip0" path="res://GameJam Files/Images/EnemyHurt.png" id="4_n5fvo"]
+[ext_resource type="Script" uid="uid://cy38tnelx7jui" path="res://GameJam Files/Scripts/Enemy1Hurtbox.cs" id="5_qm0aa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4v6l2"]
+size = Vector2(16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu8p1"]
+atlas = ExtResource("2_kxwit")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yk50g"]
+atlas = ExtResource("2_kxwit")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5dw8"]
+atlas = ExtResource("2_kxwit")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4v6l2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu8p1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yk50g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5dw8")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_uuuef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n5fvo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_uuuef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n5fvo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_uuuef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n5fvo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_uuuef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n5fvo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_uuuef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_uuuef")
+}],
+"loop": 1,
+"name": &"hurt",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jtd5m"]
+size = Vector2(16, 32)
+
+[node name="Zombie" type="CharacterBody2D" unique_id=1722942169]
+script = ExtResource("1_ng6t3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1813540036]
+shape = SubResource("RectangleShape2D_4v6l2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=268648142]
+sprite_frames = SubResource("SpriteFrames_4v6l2")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=464867080]
+collision_layer = 2
+script = ExtResource("5_qm0aa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=42322601]
+shape = SubResource("RectangleShape2D_jtd5m")
+debug_color = Color(0.41960785, 0.6, 0.24705882, 0.24705882)
+
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="OnAreaEntered"]
