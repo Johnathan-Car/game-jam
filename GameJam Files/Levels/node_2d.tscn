@@ -29,8 +29,8 @@ tile_set = ExtResource("3_ib808")
 
 [node name="Player" parent="." unique_id=1190707486 node_paths=PackedStringArray("ZombieFleshCount") instance=ExtResource("4_74at1")]
 position = Vector2(256, 32)
-Speed = null
 ZombieFleshCount = NodePath("../CanvasLayer/Inventory/ZombieFleshCount")
+slashOffset = null
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2116194214]
 zoom = Vector2(6.71, 6.71)

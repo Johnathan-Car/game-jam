@@ -3,67 +3,49 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	[Export] 
-	private float Speed = 120.0f;
+	[Export] private float Speed = 120.0f;
+	[Export] private AnimatedSprite2D _sprite;
+	[Export] private AnimatedSprite2D slashSprite;
+	[Export] private Area2D attackHitbox;
+	[Export] public Label ZombieFleshCount;
+	[Export] private float slashOffset = 16.0f;
+
+	// Combo Management
+	private int comboStep = 0; // 0 = Idle/Rest, 1 = First Attack, 2 = Second Attack
+	private bool isAttacking = false;
+	private bool comboBuffered = false; // Tracks if attack input was pressed during attack 1
+
 	public const float JumpVelocity = -250.0f;
 	public int LuckStat = 0;
 
-	// For AnimatedSprite2D Character
-	private AnimatedSprite2D _sprite;
-
-	// For determining which way the player is facing
 	private bool facingLeft = false;
-
-	// For Score Label (Zombie Flesh)
-	[Export]
-	public Label ZombieFleshCount;
 	public int ZombieFleshValue = 0;
-
-	// For Weapon
-	private AnimatedSprite2D sword;
-
-	// For Weapon Pivot
-	private Node2D swordPivot;
-
-	// For Registering one attack per sword swing
-	//private bool hasHitEnemy = false;			Unused
-
-	// For Attack Animations
-	AnimationPlayer _animationPlayer;
 
 	public override void _Ready()
 	{
-		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		sword = GetNode<AnimatedSprite2D>("SwordPivot/Sword");
-		swordPivot = GetNode<Node2D>("SwordPivot");
-		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-
-		// Now play the default animation
 		_sprite.Play("default");
-		//sword.Play("default");
-		sword.Visible = false;
 
-		// Connecting finished animation
-		_animationPlayer.AnimationFinished += OnAnimationFinished;
-
-	}
-
-	// At the end of the animation hide the sword
-	private void OnAnimationFinished(StringName animationName)
-	{
-		if (animationName == "attack")
+		if (slashSprite != null)
 		{
-			sword.Visible = false;
+			slashSprite.Visible = false;
+			slashSprite.SpeedScale = 1.8f;
+			slashSprite.AnimationFinished += OnSlashAnimationFinished;
 		}
+
+		if (attackHitbox != null)
+		{
+			attackHitbox.Monitoring = false;
+		}
+
+		UpdateSlashPosition();
 	}
 
+	// Item Collection Callback
 	public void OnItemCollected()
 	{
-		// Increase the amount of zombie flesh collected
 		ZombieFleshValue += 1;
 
-		// Update the UI label
-		if(ZombieFleshCount != null)
+		if (ZombieFleshCount != null)
 		{
 			ZombieFleshCount.Text = ZombieFleshValue.ToString();
 		}
@@ -75,42 +57,124 @@ public partial class Player : CharacterBody2D
 		GD.Print("Zombie Flesh: " + ZombieFleshValue);
 	}
 
+	private void OnSlashAnimationFinished()
+	{
+		// Check if we just finished the first slash and the player buffered the second hit
+		if (comboStep == 1 && comboBuffered)
+		{
+			ExecuteAttack2();
+		}
+		else
+		{
+			// Reset back to rest state
+			ResetComboState();
+		}
+	}
+
+	private void ExecuteAttack1()
+	{
+		comboStep = 1;
+		isAttacking = true;
+		comboBuffered = false;
+
+		_sprite.Play("attack1"); // Body swing 1
+
+		if (slashSprite != null)
+		{
+			slashSprite.Visible = true;
+			slashSprite.Frame = 0;
+			slashSprite.Play("slash1"); // First smear animation
+		}
+
+		if (attackHitbox != null)
+		{
+			attackHitbox.Monitoring = true;
+		}
+	}
+
+	private void ExecuteAttack2()
+	{
+		comboStep = 2;
+		isAttacking = true;
+		comboBuffered = false;
+
+		_sprite.Play("attack2"); // Body swing 2
+
+		if (slashSprite != null)
+		{
+			slashSprite.Visible = true;
+			slashSprite.Frame = 0;
+			slashSprite.Play("slash2"); // Second smear animation
+		}
+
+		if (attackHitbox != null)
+		{
+			attackHitbox.Monitoring = true;
+		}
+	}
+
+	private void ResetComboState()
+	{
+		comboStep = 0;
+		isAttacking = false;
+		comboBuffered = false;
+
+		if (slashSprite != null)
+		{
+			slashSprite.Visible = false;
+		}
+
+		if (attackHitbox != null)
+		{
+			attackHitbox.Monitoring = false;
+		}
+	}
+
+	private void UpdateSlashPosition()
+	{
+		float directionMultiplier = facingLeft ? -1.0f : 1.0f;
+		Vector2 offsetVector = new Vector2(slashOffset * directionMultiplier, 0);
+
+		if (slashSprite != null)
+		{
+			slashSprite.Position = offsetVector;
+			slashSprite.FlipH = facingLeft;
+		}
+
+		if (attackHitbox != null)
+		{
+			attackHitbox.Position = offsetVector;
+		}
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
 
-		// Add the gravity.
 		if (!IsOnFloor())
 		{
 			velocity += GetGravity() * (float)delta;
 		}
 
-		// Handle Jump.
 		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
 		{
 			velocity.Y = JumpVelocity;
 		}
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		
-		//Sprite2D sprite = GetNode<Sprite2D>("Sprite2D"); // Getting Sprite2D
-		//sprite.FlipH = direction.X < 0; // Flipping Sprite based on movement direction
 
-		_sprite.FlipH = direction.X < 0; // Flipping Sprite based on movement direction
-
-		if(direction.X < 0)
+		if (direction.X < 0 && !facingLeft)
 		{
 			facingLeft = true;
+			UpdateSlashPosition();
 		}
-		else if (direction.X > 0)
+		else if (direction.X > 0 && facingLeft)
 		{
 			facingLeft = false;
+			UpdateSlashPosition();
 		}
+
 		_sprite.FlipH = facingLeft;
-
-
 
 		if (direction != Vector2.Zero)
 		{
@@ -121,20 +185,31 @@ public partial class Player : CharacterBody2D
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 		}
 
-		// For Sword Attack Animation
-		if(Input.IsActionJustPressed("meleeAttack"))
+		// Input Handling for 1-2 Combo
+		if (Input.IsActionJustPressed("meleeAttack"))
 		{
-			sword.Visible = true;
-			GD.Print("Left Mouse Button Clicked");
-			//GD.Print(_animationPlayer.GetAnimationList());
-
-			// Mirror the sword along with its animation path
-			swordPivot.Scale = new Vector2(facingLeft ? -1 : 1, 1);
-
-			_animationPlayer.Play("attack");
-			GD.Print("Current animation: " + _animationPlayer.CurrentAnimation);
+			if (comboStep == 0)
+			{
+				ExecuteAttack1();
+			}
+			else if (comboStep == 1 && isAttacking)
+			{
+				comboBuffered = true;
+			}
 		}
 
+		// Body animations when not attacking
+		if (!isAttacking)
+		{
+			if (direction != Vector2.Zero)
+			{
+				_sprite.Play("run");
+			}
+			else
+			{
+				_sprite.Play("default");
+			}
+		}
 
 		Velocity = velocity;
 		MoveAndSlide();
