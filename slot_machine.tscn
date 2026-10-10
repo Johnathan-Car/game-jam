@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://btrnv64v0y7r5"]
+
+[ext_resource type="Texture2D" uid="uid://bksua4ow1646g" path="res://GameJam Files/Assets/Low_ResSlotMachine.png" id="1_agdmm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmlme"]
+atlas = ExtResource("1_agdmm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6cki"]
+atlas = ExtResource("1_agdmm")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knkoj"]
+atlas = ExtResource("1_agdmm")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_842tv"]
+atlas = ExtResource("1_agdmm")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7abct"]
+atlas = ExtResource("1_agdmm")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpwbf"]
+atlas = ExtResource("1_agdmm")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3hd7q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmlme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6cki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knkoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_842tv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7abct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpwbf")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ck23a"]
+radius = 39.812057
+
+[node name="SlotMachine" type="Node2D" unique_id=1231506487]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1735431518]
+sprite_frames = SubResource("SpriteFrames_3hd7q")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=574827250]
+
+[node name="InteractionZone" type="CollisionShape2D" parent="Area2D" unique_id=203136760]
+position = Vector2(-6, 0)
+shape = SubResource("CircleShape2D_ck23a")
+
+[node name="Control" type="Control" parent="." unique_id=1510023203]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
