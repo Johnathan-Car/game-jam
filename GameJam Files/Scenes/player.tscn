@@ -60,7 +60,7 @@ region = Rect2(0, 0, 32, 32)
 [sub_resource type="SpriteFrames" id="SpriteFrames_4v6l2"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_r25xj")
 }, {
 "duration": 1.0,
@@ -74,7 +74,7 @@ animations = [{
 "speed": 8.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_ljh6i")
 }, {
 "duration": 1.0,
@@ -85,7 +85,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack2",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -142,7 +142,7 @@ region = Rect2(0, 64, 32, 32)
 [sub_resource type="SpriteFrames" id="SpriteFrames_3hd7q"]
 animations = [{
 "frames": [{
-"duration": 2.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_o615f")
 }, {
 "duration": 1.0,
@@ -150,6 +150,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1aray")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o615f")
 }],
 "loop": 0,
 "name": &"slash1",
@@ -164,6 +167,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fgmjx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o615f")
 }],
 "loop": 0,
 "name": &"slash2",
@@ -187,16 +193,16 @@ shape = SubResource("RectangleShape2D_3hd7q")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="." unique_id=1732284157]
 sprite_frames = SubResource("SpriteFrames_4v6l2")
-animation = &"attack1"
+animation = &"attack2"
 
 [node name="WeaponSlash" type="AnimatedSprite2D" parent="." unique_id=1446082445]
 visible = false
 position = Vector2(11, -2)
 sprite_frames = SubResource("SpriteFrames_3hd7q")
-animation = &"slash2"
-speed_scale = 2.0
+animation = &"slash1"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1299802312 groups=["PLAYERATTACK"]]
+visible = false
 collision_layer = 3
 collision_mask = 3
 
