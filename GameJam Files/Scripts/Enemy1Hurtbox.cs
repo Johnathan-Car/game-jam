@@ -10,7 +10,7 @@ public partial class Enemy1Hurtbox : Area2D
 
 	// For Knockback
 	[Export]
-	public float KnockbackForce = 800.0f;
+	public float KnockbackForce = 200.0f;
 
 	[Export]
 	public Node2D Player;
