@@ -44,10 +44,10 @@ public partial class Player : CharacterBody2D
 	// At the end of the animation hide the sword
 	private void OnAnimationFinished(StringName animationName)
 	{
-    	if (animationName == "attack")
-    	{
-        	sword.Visible = false;
-    	}
+		if (animationName == "attack")
+		{
+			sword.Visible = false;
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
