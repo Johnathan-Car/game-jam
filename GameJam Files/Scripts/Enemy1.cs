@@ -10,6 +10,27 @@ public partial class Enemy1 : CharacterBody2D
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
 
+	// For AnimatedSprite2D
+	private AnimatedSprite2D _sprite;
+
+	// Stats
+	private int health = 3;
+
+	public override void _Ready()
+	{
+		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
+		// Now play the default animation
+		_sprite.Play("default");
+		//_sprite.Play("hurt");
+
+	}
+
+	// Hurt Animation
+	public void Hurt()
+	{
+		//_sprite.Play("hurt");
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{

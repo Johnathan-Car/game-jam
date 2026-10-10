@@ -81,6 +81,7 @@ position = Vector2(-1495, 172)
 EnemyScene = ExtResource("1_sdama")
 EnemyHandler = NodePath("../EnemyHandler")
 Player = NodePath("../Player")
+SpawnInterval = 5.0
 
 [node name="Spawner2" parent="." unique_id=1585236 node_paths=PackedStringArray("EnemyHandler", "Player") instance=ExtResource("13_4i75s")]
 visible = false
@@ -88,6 +89,7 @@ position = Vector2(1460, 165)
 EnemyScene = ExtResource("2_2k5w7")
 EnemyHandler = NodePath("../EnemyHandler")
 Player = NodePath("../Player")
+SpawnInterval = 200.0
 
 [node name="Spawner3" parent="." unique_id=194643076 node_paths=PackedStringArray("EnemyHandler", "Player") instance=ExtResource("13_4i75s")]
 visible = false
@@ -95,6 +97,7 @@ position = Vector2(-1273, -134)
 EnemyScene = ExtResource("3_1osd5")
 EnemyHandler = NodePath("../EnemyHandler")
 Player = NodePath("../Player")
+SpawnInterval = 200.0
 
 [node name="Timer" type="Timer" parent="." unique_id=968335031]
 autostart = true
