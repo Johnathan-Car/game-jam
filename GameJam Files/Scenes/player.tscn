@@ -2,8 +2,44 @@
 
 [ext_resource type="Script" uid="uid://bwehv4jjg14x6" path="res://GameJam Files/Scripts/Player.cs" id="1_cfepw"]
 [ext_resource type="Texture2D" uid="uid://cfct1pev275sl" path="res://GameJam Files/Assets/Character_run.png" id="2_3v3c8"]
-[ext_resource type="Texture2D" uid="uid://dersfxtn4e0g7" path="res://GameJam Files/Images/Sword.png" id="3_3v3c8"]
-[ext_resource type="Texture2D" uid="uid://bsjngcppubip0" path="res://GameJam Files/Images/EnemyHurt.png" id="3_unk5r"]
+[ext_resource type="Texture2D" uid="uid://b8ws1ies4r5qa" path="res://GameJam Files/Assets/PlayerAnims/AttackSpriteSheet.png" id="2_hymer"]
+[ext_resource type="Texture2D" uid="uid://fmdyk874bihr" path="res://GameJam Files/Assets/PlayerAnims/Character_idle.png" id="3_f53jj"]
+[ext_resource type="Texture2D" uid="uid://ex1763bwvvnd" path="res://GameJam Files/Assets/PlayerAnims/Slash.png" id="5_8qsk1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hd7q"]
+size = Vector2(9.549159, 26.781025)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r25xj"]
+atlas = ExtResource("2_hymer")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_new7j"]
+atlas = ExtResource("2_hymer")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6exfe"]
+atlas = ExtResource("2_hymer")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljh6i"]
+atlas = ExtResource("2_hymer")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0teq"]
+atlas = ExtResource("2_hymer")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tp814"]
+atlas = ExtResource("3_f53jj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3bkv"]
+atlas = ExtResource("3_f53jj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1hrg"]
+atlas = ExtResource("3_f53jj")
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hymer"]
 atlas = ExtResource("2_3v3c8")
@@ -24,6 +60,48 @@ region = Rect2(0, 0, 32, 32)
 [sub_resource type="SpriteFrames" id="SpriteFrames_4v6l2"]
 animations = [{
 "frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_r25xj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_new7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6exfe")
+}],
+"loop": 0,
+"name": &"attack1",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_ljh6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0teq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r25xj")
+}],
+"loop": 0,
+"name": &"attack2",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tp814")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3bkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1hrg")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hymer")
 }, {
@@ -37,223 +115,95 @@ animations = [{
 "texture": SubResource("AtlasTexture_885h0")
 }],
 "loop": 1,
-"name": &"default",
+"name": &"run",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfepw"]
-size = Vector2(56.603073, 156.6206)
+[sub_resource type="AtlasTexture" id="AtlasTexture_o615f"]
+atlas = ExtResource("5_8qsk1")
+region = Rect2(32, 64, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_jtd5m"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ox6ng"]
+atlas = ExtResource("5_8qsk1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1aray"]
+atlas = ExtResource("5_8qsk1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpods"]
+atlas = ExtResource("5_8qsk1")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgmjx"]
+atlas = ExtResource("5_8qsk1")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3hd7q"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_3v3c8")
+"texture": SubResource("AtlasTexture_o615f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ox6ng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1aray")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o615f")
 }],
-"loop": 1,
-"name": &"attack",
-"speed": 5.0
+"loop": 0,
+"name": &"slash1",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_unk5r")
+"texture": SubResource("AtlasTexture_o615f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpods")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgmjx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o615f")
 }],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
+"loop": 0,
+"name": &"slash2",
+"speed": 8.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hd7q"]
-size = Vector2(9.549159, 26.781025)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfepw"]
+size = Vector2(20.640333, 52.80418)
 
-[sub_resource type="Animation" id="Animation_3v3c8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-101.000015, -125.000015)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-0.8090077]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Hitbox:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hitbox:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("SwordPivot/Sword:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-118.10311, -136.07686)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("SwordPivot/Sword:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-1.6421818]
-}
-
-[sub_resource type="Animation" id="Animation_hymer"]
-resource_name = "attack"
-length = 0.75
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2D:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-138, -95), Vector2(36, -168), Vector2(152, -26.000004), Vector2(134, 60.000004)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2D:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [-1.0637618, 0.28605968, 1.5803349, 2.0598803]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Hitbox:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hitbox:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("SwordPivot/Sword:position")
-tracks/4/interp = 2
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-159, -106), Vector2(39.999992, -188), Vector2(177, -30.000015), Vector2(159, 67.00001)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("SwordPivot/Sword:rotation")
-tracks/5/interp = 2
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [-1.8487387, -0.5311935, 0.738178, 1.2262781]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_f53jj"]
-_data = {
-&"RESET": SubResource("Animation_3v3c8"),
-&"attack": SubResource("Animation_hymer")
-}
-
-[node name="Player" type="CharacterBody2D" unique_id=1190707486 groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1190707486 node_paths=PackedStringArray("_sprite", "slashSprite", "attackHitbox") groups=["Player"]]
 script = ExtResource("1_cfepw")
+Speed = 100.0
+_sprite = NodePath("PlayerSprite")
+slashSprite = NodePath("WeaponSlash")
+attackHitbox = NodePath("Hitbox")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1732284157]
+[node name="CollisionPlayer" type="CollisionShape2D" parent="." unique_id=1225210588 groups=["Player"]]
+position = Vector2(1.7881393e-07, 1.5000004)
+scale = Vector2(1.0472126, 0.9334967)
+shape = SubResource("RectangleShape2D_3hd7q")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="." unique_id=1732284157]
 sprite_frames = SubResource("SpriteFrames_4v6l2")
+animation = &"attack2"
+
+[node name="WeaponSlash" type="AnimatedSprite2D" parent="." unique_id=1446082445]
+position = Vector2(11, -2)
+sprite_frames = SubResource("SpriteFrames_3hd7q")
+animation = &"slash1"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1299802312 groups=["PLAYERATTACK"]]
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=523378212]
-position = Vector2(-101.000015, -125.000015)
-rotation = -0.8090077
-scale = Vector2(0.9999999, 0.9999999)
+scale = Vector2(1.5089306, 0.36632615)
 shape = SubResource("RectangleShape2D_cfepw")
-
-[node name="SwordPivot" type="Node2D" parent="." unique_id=1044019822]
-
-[node name="Sword" type="AnimatedSprite2D" parent="SwordPivot" unique_id=1322384357]
-position = Vector2(-118.10311, -136.07686)
-rotation = -1.6421818
-scale = Vector2(1.3748804, 1.3464938)
-sprite_frames = SubResource("SpriteFrames_jtd5m")
-animation = &"attack"
-frame_progress = 0.34712958
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1304944100 groups=["Player"]]
-position = Vector2(1.7881393e-07, 1.5000004)
-scale = Vector2(1.0472126, 0.9334967)
-shape = SubResource("RectangleShape2D_3hd7q")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=76706620]
-libraries/ = SubResource("AnimationLibrary_f53jj")
-speed_scale = 2.0

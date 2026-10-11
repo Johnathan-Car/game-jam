@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://hndwuksh5uv8"]
+
+[ext_resource type="Script" uid="uid://820j0eys46a4" path="res://GameJam Files/Scripts/Staircase.cs" id="1_s0pqj"]
+[ext_resource type="Texture2D" uid="uid://dhk6tr207uara" path="res://GameJam Files/Texture_Art/StairCase.png" id="2_mb8yk"]
+[ext_resource type="Texture2D" uid="uid://dvekgnrb4aypk" path="res://GameJam Files/Assets/Input Buttons/tilemap_packed.png" id="3_o2ikj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cqsg"]
+atlas = ExtResource("2_mb8yk")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vg5iv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cqsg")
+}],
+"loop": 0,
+"name": &"spin",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ey4h7"]
+radius = 24.0
+
+[node name="Staircase" type="Node2D" unique_id=998110794 node_paths=PackedStringArray("_promptSprite", "_highlightTarget")]
+script = ExtResource("1_s0pqj")
+_promptSprite = NodePath("PromptSprite")
+_highlightTarget = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=317369447]
+sprite_frames = SubResource("SpriteFrames_vg5iv")
+animation = &"spin"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=423287807]
+collision_layer = 0
+collision_mask = 3
+
+[node name="InteractionZone" type="CollisionShape2D" parent="Area2D" unique_id=202003820]
+shape = SubResource("CircleShape2D_ey4h7")
+
+[node name="PromptSprite" type="Sprite2D" parent="." unique_id=1145707403]
+position = Vector2(24, -8.000001)
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("3_o2ikj")
+region_enabled = true
+region_rect = Rect2(304, 160, 16, 16)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cutljq0pb78om"
-path="res://.godot/imported/Circle.png-2ba9e2c1d55fdb83409a13954ae28248.ctex"
+uid="uid://dhk6tr207uara"
+path="res://.godot/imported/StairCase.png-109bacc181f385288d0e753502970c66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GameJam Files/Images/Circle.png"
-dest_files=["res://.godot/imported/Circle.png-2ba9e2c1d55fdb83409a13954ae28248.ctex"]
+source_file="res://GameJam Files/Texture_Art/StairCase.png"
+dest_files=["res://.godot/imported/StairCase.png-109bacc181f385288d0e753502970c66.ctex"]
 
 [params]
 
