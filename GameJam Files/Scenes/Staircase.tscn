@@ -8,6 +8,22 @@
 atlas = ExtResource("2_mb8yk")
 region = Rect2(0, 32, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0pqj"]
+atlas = ExtResource("2_mb8yk")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mb8yk"]
+atlas = ExtResource("2_mb8yk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2ikj"]
+atlas = ExtResource("2_mb8yk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_518lu"]
+atlas = ExtResource("2_mb8yk")
+region = Rect2(0, 64, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_vg5iv"]
 animations = [{
 "frames": [{
@@ -15,7 +31,39 @@ animations = [{
 "texture": SubResource("AtlasTexture_2cqsg")
 }],
 "loop": 0,
-"name": &"spin",
+"name": &"door_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0pqj")
+}],
+"loop": 1,
+"name": &"door_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mb8yk")
+}],
+"loop": 1,
+"name": &"door_3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2ikj")
+}],
+"loop": 1,
+"name": &"door_4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_518lu")
+}],
+"loop": 1,
+"name": &"door_5",
 "speed": 5.0
 }]
 
@@ -24,12 +72,13 @@ radius = 24.0
 
 [node name="Staircase" type="Node2D" unique_id=998110794 node_paths=PackedStringArray("_promptSprite", "_highlightTarget")]
 script = ExtResource("1_s0pqj")
+TargetScenePath = null
 _promptSprite = NodePath("PromptSprite")
 _highlightTarget = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=317369447]
 sprite_frames = SubResource("SpriteFrames_vg5iv")
-animation = &"spin"
+animation = &"door_5"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=423287807]
 collision_layer = 0
