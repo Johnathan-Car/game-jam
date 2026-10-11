@@ -1,37 +1,38 @@
 [gd_scene format=3 uid="uid://p1up4fb053ou"]
 
 [ext_resource type="Script" uid="uid://ckscuvjaycctj" path="res://GameJam Files/Scripts/Enemy1.cs" id="1_ykts5"]
-[ext_resource type="PackedScene" uid="uid://ctdhda78la5bb" path="res://GameJam Files/Scenes/DroppedItemScene.tscn" id="2_72oqe"]
-[ext_resource type="Texture2D" uid="uid://beqpsvfispoer" path="res://GameJam Files/Assets/Zombie_Walk_Cycle.png" id="3_43ias"]
+[ext_resource type="PackedScene" uid="uid://08reujpegji2" path="res://GameJam Files/Scenes/DroppedItem_skeleton.tscn" id="2_ykts5"]
+[ext_resource type="Texture2D" uid="uid://d0hgrsvp4ot7v" path="res://GameJam Files/Images/sketon_walk.png" id="3_ykts5"]
 [ext_resource type="Texture2D" uid="uid://bsjngcppubip0" path="res://GameJam Files/Images/EnemyHurt.png" id="4_mayqo"]
 [ext_resource type="Script" uid="uid://cy38tnelx7jui" path="res://GameJam Files/Scripts/Enemy1Hurtbox.cs" id="5_kwx28"]
+[ext_resource type="Script" uid="uid://3jfa1mh2gak2" path="res://GameJam Files/Scripts/Enemy1ContactArea.cs" id="6_72oqe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v6l2"]
 size = Vector2(16, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pu8p1"]
-atlas = ExtResource("3_43ias")
+[sub_resource type="AtlasTexture" id="AtlasTexture_72oqe"]
+atlas = ExtResource("3_ykts5")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yk50g"]
-atlas = ExtResource("3_43ias")
+[sub_resource type="AtlasTexture" id="AtlasTexture_43ias"]
+atlas = ExtResource("3_ykts5")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k5dw8"]
-atlas = ExtResource("3_43ias")
+[sub_resource type="AtlasTexture" id="AtlasTexture_mayqo"]
+atlas = ExtResource("3_ykts5")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4v6l2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pu8p1")
+"texture": SubResource("AtlasTexture_72oqe")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yk50g")
+"texture": SubResource("AtlasTexture_43ias")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_k5dw8")
+"texture": SubResource("AtlasTexture_mayqo")
 }],
 "loop": 1,
 "name": &"default",
@@ -39,37 +40,22 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pu8p1")
+"texture": SubResource("AtlasTexture_72oqe")
 }, {
 "duration": 1.0,
 "texture": ExtResource("4_mayqo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pu8p1")
+"texture": SubResource("AtlasTexture_72oqe")
 }, {
 "duration": 1.0,
 "texture": ExtResource("4_mayqo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pu8p1")
+"texture": SubResource("AtlasTexture_72oqe")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_mayqo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pu8p1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_mayqo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pu8p1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_mayqo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pu8p1")
+"texture": SubResource("AtlasTexture_72oqe")
 }],
 "loop": 1,
 "name": &"hurt",
@@ -79,9 +65,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jtd5m"]
 size = Vector2(16, 32)
 
-[node name="Zombie" type="CharacterBody2D" unique_id=1722942169]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43ias"]
+size = Vector2(18, 34)
+
+[node name="Skeleton" type="CharacterBody2D" unique_id=1722942169]
 script = ExtResource("1_ykts5")
-DroppedItemScene = ExtResource("2_72oqe")
+DroppedItemScene = ExtResource("2_ykts5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1813540036]
 shape = SubResource("RectangleShape2D_4v6l2")
@@ -93,11 +82,20 @@ animation = &"hurt"
 [node name="Hurtbox" type="Area2D" parent="." unique_id=464867080]
 scale = Vector2(1.1999993, 1.1200007)
 collision_layer = 2
+collision_mask = 2
 script = ExtResource("5_kwx28")
 KnockbackForce = 250.0
+Damage = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=42322601]
 shape = SubResource("RectangleShape2D_jtd5m")
 debug_color = Color(0.41960785, 0.6, 0.24705882, 0.24705882)
+
+[node name="ContactArea" type="Area2D" parent="." unique_id=1299557072]
+script = ExtResource("6_72oqe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea" unique_id=1894596555]
+shape = SubResource("RectangleShape2D_43ias")
+debug_color = Color(0.84092104, 0.24907959, 0.72773916, 0.41960785)
 
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="OnAreaEntered"]

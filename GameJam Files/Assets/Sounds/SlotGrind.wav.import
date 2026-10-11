@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bbauw4f1u6coy"
+path="res://.godot/imported/SlotGrind.wav-9cc364a9ef2c2f5aa656a8dc7bbbbcf0.sample"
+
+[deps]
+
+source_file="res://GameJam Files/Assets/Sounds/SlotGrind.wav"
+dest_files=["res://.godot/imported/SlotGrind.wav-9cc364a9ef2c2f5aa656a8dc7bbbbcf0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

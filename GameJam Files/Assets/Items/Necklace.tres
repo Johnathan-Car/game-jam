@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://6sm6hk6jayd"]
 
+[ext_resource type="Texture2D" uid="uid://bu67nsq6gkuha" path="res://GameJam Files/Assets/Items/Necklace4.png" id="1_6613m"]
 [ext_resource type="Script" uid="uid://cwg33h1fqp2i6" path="res://GameJam Files/Scripts/ItemData.cs" id="1_eaasn"]
 
 [resource]
 script = ExtResource("1_eaasn")
-BaseName = "Necklace_template"
+BaseName = "Necklace"
 SlotType = 0
+Icon = ExtResource("1_6613m")
 BaseDamage = 0
 BaseLuck = 4
 metadata/_custom_type_script = "uid://cwg33h1fqp2i6"

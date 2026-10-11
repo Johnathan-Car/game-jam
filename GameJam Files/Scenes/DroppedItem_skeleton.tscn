@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://08reujpegji2"]
+
+[ext_resource type="Script" uid="uid://l3ldn63jmw0v" path="res://GameJam Files/Scripts/ZombieFlesh.cs" id="1_7mhh4"]
+[ext_resource type="Texture2D" uid="uid://cuvveakbgsxhj" path="res://GameJam Files/Texture_Art/Bone.png" id="2_7mhh4"]
+[ext_resource type="Script" uid="uid://cvmo8pxebi8am" path="res://GameJam Files/Scripts/PickupArea.cs" id="3_6lmaa"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ts0tu"]
+friction = 0.8
+bounce = 0.1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pbobu"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4v6l2"]
+radius = 7.0
+
+[node name="DroppedItemScene_skeleton" type="RigidBody2D" unique_id=1335013330]
+physics_material_override = SubResource("PhysicsMaterial_ts0tu")
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("1_7mhh4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=418671300]
+texture = ExtResource("2_7mhh4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=674836613]
+light_mask = 0
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_pbobu")
+
+[node name="PickupArea" type="Area2D" parent="." unique_id=181505437]
+script = ExtResource("3_6lmaa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=2062388749]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_4v6l2")
+debug_color = Color(0.70148116, 0.46928138, 0.40801084, 0.41960785)

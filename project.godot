@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Game Jam"
-run/main_scene="uid://cdxbseps6pls7"
+run/main_scene="uid://bxut4auvxmyhg"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,7 +23,6 @@ SceneLoader="*uid://cxs2bc3y1772c"
 [display]
 
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [dotnet]
 

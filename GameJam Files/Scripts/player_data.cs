@@ -7,14 +7,16 @@ public partial class player_data : Node
 	public static player_data Instance { get; private set; }
 
 	// Resources & Currencies
-	public int ZombieFleshValue { get; set; } = 100;
+	public int ZombieFleshValue { get; set; } = 0;
 
 	// Permanent Slot Machine Stat Ups
-	public int DamageBonus { get; set; } = 0;
+	public int DamageBonus { get; set; } = 4;
 	public float SpeedBonus { get; set; } = 0.0f;
 	public int MaxHealthBonus { get; set; } = 0;
 	public int LuckStat { get; set; } = 0;
-
+	public bool HasWokenUp { get; set; } = false;
+	
+	
 	public override void _EnterTree()
 	{
 		if (Instance != null && Instance != this)
@@ -23,6 +25,16 @@ public partial class player_data : Node
 			return;
 		}
 		Instance = this;
+	}
+	
+	public void AddItemStats(int damage, int luck, int health, float speed)
+	{
+		DamageBonus += damage;
+		LuckStat += luck;
+		MaxHealthBonus += health;
+		SpeedBonus += speed;
+
+		GD.Print($"[PlayerData] Stats Updated -> Dmg: +{DamageBonus}, Luck: {LuckStat}, HP: +{MaxHealthBonus}, Speed: +{SpeedBonus}");
 	}
 
 	// Slot Machine Reward Handlers

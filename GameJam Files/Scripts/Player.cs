@@ -20,33 +20,26 @@ public partial class Player : CharacterBody2D
 	public int HP = 10;
 
 	// Combo Management
-	private int comboStep = 0; // 0 = Idle/Rest, 1 = First Attack, 2 = Second Attack
+	private int comboStep = 0; 
 	private bool isAttacking = false;
 	private bool comboBuffered = false; // Tracks if attack input was pressed during attack 1
 	
 	private Vector2 knockbackVelocity = Vector2.Zero;
-	public const float JumpVelocity = -250.0f;
+	public const float JumpVelocity = -300.0f;
 	private bool facingLeft = false;
+	private bool dead = false;
+	private bool slumped = false;
 	
 	private int ZombieFleshValue = 0;
+	
 
 	public override void _Ready()
 	{
 		base._Ready();
-		if(IsInstanceValid(myHealth))
-		{
-			//myHealth.MaxValue = MaxHP;
-			myHealth.SetMaxHealth(MaxHP);
-			myHealth.SetHealth(HP);		
-		}
-		
 		_sprite.Play("default");
 		
 		if (player_data.Instance != null)
-		{
-			Speed = baseSpeed + player_data.Instance.SpeedBonus;
-			ZombieFleshValue = player_data.Instance.ZombieFleshValue;
-			
+		{		
 			if (ZombieFleshCount != null)
 			{
 				ZombieFleshCount.Text = ZombieFleshValue.ToString();
@@ -72,7 +65,26 @@ public partial class Player : CharacterBody2D
 
 		UpdateSlashPosition();
 	}
+	
+	public void LoadStatsFromPlayerData()
+	{
+		// Check if player_data singleton exists and is initialized
+		if (player_data.Instance == null)
+		{
+			GD.Print("[Player] player_data.Instance is null. Falling back to base inspector stats.");
+			
+			return;
+		}
 
+		var data = player_data.Instance;
+		
+		MaxHP += data.MaxHealthBonus;
+		myHealth.SetMaxHealth(MaxHP);
+		myHealth.SetHealth(HP);		
+		
+		Speed = Speed + data.SpeedBonus;
+		LuckStat = data.LuckStat;
+	}
 	public void ApplyKnockback(Vector2 direction, float force)
 	{
 		knockbackVelocity = direction * force;
@@ -80,8 +92,7 @@ public partial class Player : CharacterBody2D
 
 	public void TakeDamage(int damage)
 	{
-		// If currently invincible, ignore damage entirely!
-		if (isInvincible) return;
+		if (isInvincible || dead) return;
 
 		HP = Mathf.Clamp(HP - damage, 0, MaxHP);
 
@@ -93,10 +104,16 @@ public partial class Player : CharacterBody2D
 			myHealth.SetHealth(HP);
 		}
 		
-		if (HP <= 0)
+		if (HP <= 0 && !dead)
 		{
+			dead = true;
+			SetDeferred("collision_layer", 0);
+			SetDeferred("collision_mask", 0);
+			
+			Speed = 0;
 			GD.Print("Player has died!");
-			// Death behavior here.
+			_sprite.Play("death");
+			SceneLoader.Instance.ChangeScene("res://GameJam Files/Levels/main_menu.tscn");
 			return;
 		}
 
@@ -169,6 +186,14 @@ public partial class Player : CharacterBody2D
 		{
 			ResetComboState();
 		}
+	}
+	
+	public void PlaySlumpedAnimation()
+	{
+		slumped=true;
+		GD.Print("SlumpedAnimation Playing");
+
+		_sprite.Play("slumped");
 	}
 
 	private void ExecuteAttack1()
@@ -275,19 +300,19 @@ public partial class Player : CharacterBody2D
 			velocity += GetGravity() * (float)delta;
 		}
 
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor() && !dead)
 		{
 			velocity.Y = JumpVelocity;
 		}
 
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 
-		if (direction.X < 0 && !facingLeft)
+		if (direction.X < 0 && !facingLeft && !dead)
 		{
 			facingLeft = true;
 			UpdateSlashPosition();
 		}
-		else if (direction.X > 0 && facingLeft)
+		else if (direction.X > 0 && facingLeft && !dead)
 		{
 			facingLeft = false;
 			UpdateSlashPosition();
@@ -297,11 +322,12 @@ public partial class Player : CharacterBody2D
 
 		if (knockbackVelocity.Length() > 10.0f)
 		{
-			// Let the knockback move the player... otherwise
+			// Temp Will Change
 		}
 
 		else if (direction != Vector2.Zero)
 		{
+			slumped = false;
 			velocity.X = direction.X * Speed;
 		}
 		else
@@ -310,7 +336,7 @@ public partial class Player : CharacterBody2D
 		}
 
 		// Input Handling for 1-2 Combo
-		if (Input.IsActionJustPressed("meleeAttack"))
+		if (Input.IsActionJustPressed("meleeAttack") && !dead)
 		{
 			if (comboStep == 0)
 			{
@@ -330,13 +356,15 @@ public partial class Player : CharacterBody2D
 				attackHitbox.Monitoring = false;
 			}
 
-			if (direction != Vector2.Zero)
+			if (direction != Vector2.Zero && !dead && !slumped)
 			{
 				_sprite.Play("run");
 			}
 			else
 			{
-				_sprite.Play("default");
+				if(!dead && !slumped){
+					_sprite.Play("default");
+				}
 			}
 		}
 

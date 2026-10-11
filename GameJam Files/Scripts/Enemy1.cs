@@ -3,87 +3,70 @@ using System;
 
 public partial class Enemy1 : CharacterBody2D
 {
-	// Tracking Player
-	[Export]
-	public Node2D Target;
-
-	// On Death drop items
-	[Export]
-	public PackedScene DroppedItemScene;
+	[Export] public Node2D Target;
+	[Export] public PackedScene DroppedItemScene;
 
 	public const float Speed = 40.0f;
-	public const float JumpVelocity = -100.0f;
-
-	// For AnimatedSprite2D
 	private AnimatedSprite2D _sprite;
 
-	// Stats
-	private int health = 10;
-
-	// Hurt Animation Timer
+	// Centralized Stats & Invincibility
+	[Export] private int maxHealth = 20;
+	private int currentHealth;
+	private bool isInvincible = false;
 	private Timer hurtTimer;
-
-	// Enemy Knockback
+	private Timer invincibilityTimer;
 	private Vector2 knockbackVelocity = Vector2.Zero;
 
 	public override void _Ready()
 	{
 		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-
-		// Now play the default animation
 		_sprite.Play("default");
 		
-		
+		currentHealth = maxHealth; // Initialize health
+
 		if (Target == null)
 		{
 			Target = GetTree().GetFirstNodeInGroup("Player") as Node2D;
 		}
 
-		// For Hurt Timer
-		hurtTimer = new Timer(); // Calls the method after the second has elapsed
-		hurtTimer.WaitTime = 1.0; // Wait 1 second
-		hurtTimer.OneShot = true; // Runs only once instead of repeating
+		// Hurt Animation Timer
+		hurtTimer = new Timer();
+		hurtTimer.WaitTime = 0.2f; // Flash duration
+		hurtTimer.OneShot = true;
 		AddChild(hurtTimer);
-
 		hurtTimer.Timeout += OnHurtTimerTimeout;
-		//_sprite.Play("hurt");
 
+		// Invincibility i-frame Timer
+		invincibilityTimer = new Timer();
+		invincibilityTimer.WaitTime = 0.4f; // Adjust i-frame window here
+		invincibilityTimer.OneShot = true;
+		AddChild(invincibilityTimer);
+		invincibilityTimer.Timeout += () => isInvincible = false;
 	}
 
-	public void SpawnDroppedItem()
+	public void TakeDamage(int amount, Vector2 knockbackDir, float knockbackForce)
 	{
-		// Testing if item dropped failed
-		if(DroppedItemScene == null)
+		if (isInvincible) return; // Prevent taking damage during i-frames
+
+		isInvincible = true;
+		invincibilityTimer.Start();
+
+		currentHealth -= amount; // Fixed subtraction
+		GD.Print($"Enemy health: {currentHealth}/{maxHealth}");
+
+		ApplyKnockback(knockbackDir, knockbackForce);
+		Hurt();
+
+		if (currentHealth <= 0)
 		{
-			GD.PrintErr("DroppedItemScene has not been assigned");
-			return;
+			CallDeferred(nameof(SpawnDroppedItem));
+			QueueFree();
 		}
-
-		// Creating a new instance of the dropped item.
-		RigidBody2D item = DroppedItemScene.Instantiate<RigidBody2D>();
-
-		// Add it to the current scene
-		GetTree().CurrentScene.AddChild(item);
-
-		// Now place the item where the character is at
-		item.GlobalPosition = GlobalPosition;
-
-		// Now generate a random launch for both the sideways firection and upward direction
-		float horizontalImpulse = (float)GD.RandRange(-100.0f, 100.0);
-		float verticalImpulse = (float)GD.RandRange(-180.0f, -120.0);
-
-		Vector2 launchImpulse = new Vector2(horizontalImpulse, verticalImpulse);
-
-		// Lastly you have to give the item its initial push
-		item.ApplyCentralImpulse(launchImpulse);
-
 	}
 
-	// Hurt Animation
 	public void Hurt()
 	{
 		_sprite.Play("hurt");
-
 		hurtTimer.Stop();
 		hurtTimer.Start();
 	}
@@ -100,42 +83,33 @@ public partial class Enemy1 : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		// ... (keep your existing movement and targeting physics process code here) ...
 		Vector2 velocity = Velocity;
-
-		// Targeting Player Logic
-		if(Target == null)
+		if (Target != null)
 		{
-			return;
+			Vector2 direction = GlobalPosition.DirectionTo(Target.GlobalPosition);
+			_sprite.FlipH = direction.X < 0;
+			velocity.X = direction.X * Speed;
 		}
 
-		Vector2 direction = GlobalPosition.DirectionTo(Target.GlobalPosition);
-
-		// Make the zombie face the player
-		if (direction.X < 0)
-		{
-			_sprite.FlipH = true;
-		}
-		else if (direction.X > 0)
-		{
-			_sprite.FlipH = false;
-		}
-
-		// For Gravity to work you have to only target horizontal movement
-		velocity.X = direction.X * Speed;
-
-
-		// Add the gravity.
 		if (!IsOnFloor())
 		{
 			velocity += GetGravity() * (float)delta;
 		}
-
-		// Now apply the knockback and gradually reduce it
 
 		velocity += knockbackVelocity;
 		knockbackVelocity = knockbackVelocity.MoveToward(Vector2.Zero, 1200.0f * (float)delta);
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	public void SpawnDroppedItem()
+	{
+		if (DroppedItemScene == null) return;
+		RigidBody2D item = DroppedItemScene.Instantiate<RigidBody2D>();
+		GetTree().CurrentScene.AddChild(item);
+		item.GlobalPosition = GlobalPosition;
+		item.ApplyCentralImpulse(new Vector2((float)GD.RandRange(-100, 100), (float)GD.RandRange(-180, -120)));
 	}
 }

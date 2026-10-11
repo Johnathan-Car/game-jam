@@ -108,8 +108,6 @@ shape = SubResource("RectangleShape2D_jtd5m")
 debug_color = Color(0.41960785, 0.6, 0.24705882, 0.24705882)
 
 [node name="ContactArea" type="Area2D" parent="." unique_id=308456805]
-collision_layer = 2
-collision_mask = 2
 script = ExtResource("6_kxwit")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea" unique_id=1216137578]

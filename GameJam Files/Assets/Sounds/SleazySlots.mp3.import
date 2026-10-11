@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ibw66n1opcqu"
+path="res://.godot/imported/SleazySlots.mp3-e098a0b6cf9f6767852e810f8bbe7c80.mp3str"
+
+[deps]
+
+source_file="res://GameJam Files/Assets/Sounds/SleazySlots.mp3"
+dest_files=["res://.godot/imported/SleazySlots.mp3-e098a0b6cf9f6767852e810f8bbe7c80.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

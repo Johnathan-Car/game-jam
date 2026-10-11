@@ -1,9 +1,12 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cglffxhhixvbx"]
 
+[ext_resource type="Texture2D" uid="uid://dg7kf4byvg50i" path="res://GameJam Files/Assets/Items/Bracelet.png" id="1_84q0h"]
 [ext_resource type="Script" uid="uid://cwg33h1fqp2i6" path="res://GameJam Files/Scripts/ItemData.cs" id="1_ph4lh"]
 
 [resource]
 script = ExtResource("1_ph4lh")
-BaseName = "Bracelet_template"
+BaseName = "Bracelet"
+SlotType = 1
+Icon = ExtResource("1_84q0h")
 BaseDamage = 2
 metadata/_custom_type_script = "uid://cwg33h1fqp2i6"

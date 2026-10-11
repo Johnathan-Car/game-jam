@@ -40,7 +40,6 @@ public partial class Staircase : Interactable
 	{
 		if (string.IsNullOrEmpty(TargetScenePath))
 		{
-			GD.PrintErr($"[Staircase] TargetScenePath is empty on '{Name}'! Please assign a scene file in the Inspector.");
 			return;
 		}
 

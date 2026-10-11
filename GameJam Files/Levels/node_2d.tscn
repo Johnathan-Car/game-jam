@@ -4,12 +4,12 @@
 [ext_resource type="TileSet" uid="uid://bpf4pq7qdwj2i" path="res://GameJam Files/Assets/backgroundTiles.tres" id="3_ib808"]
 [ext_resource type="PackedScene" uid="uid://c4cacqouagcsn" path="res://GameJam Files/Scenes/player.tscn" id="4_74at1"]
 [ext_resource type="Texture2D" uid="uid://ppandv3vyw1d" path="res://GameJam Files/Images/GlobletteEdited.png" id="5_dhlxm"]
-[ext_resource type="Texture2D" uid="uid://dja5imkvh4j0" path="res://GameJam Files/Images/Glob3.png" id="6_ib808"]
-[ext_resource type="Texture2D" uid="uid://chs0cc8wy83b3" path="res://GameJam Files/Images/Glob2.png" id="7_ib808"]
 [ext_resource type="Script" uid="uid://bgtfq3ifw1vxa" path="res://GameJam Files/Scripts/HealthBar.cs" id="7_ihcyv"]
 [ext_resource type="PackedScene" uid="uid://hndwuksh5uv8" path="res://GameJam Files/Scenes/Staircase.tscn" id="8_74at1"]
+[ext_resource type="PackedScene" uid="uid://p1up4fb053ou" path="res://GameJam Files/Scenes/skeleton.tscn" id="9_1k3ja"]
 [ext_resource type="Texture2D" uid="uid://dl4ghju7bg4x0" path="res://GameJam Files/Texture_Art/RedExclamation.png" id="9_77gm7"]
 [ext_resource type="Script" uid="uid://de7ejhqtgltnu" path="res://GameJam Files/Levels/WaveManager.cs" id="10_dhlxm"]
+[ext_resource type="AudioStream" uid="uid://cscgo2rmmw3yh" path="res://GameJam Files/Assets/Sounds/PrisonBattle.mp3" id="11_1k3ja"]
 [ext_resource type="PackedScene" uid="uid://pbge1adjibto" path="res://GameJam Files/Scenes/AngrySkull.tscn" id="11_77gm7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_q6r6c"]
@@ -73,51 +73,7 @@ offset_transform_scale = Vector2(0.1, 0.1)
 text = "0
 "
 label_settings = SubResource("LabelSettings_q6r6c")
-horizontal_alignment = 1
-
-[node name="SkeletonBones" type="TextureRect" parent="CanvasLayer/Inventory" unique_id=1604039337]
-layout_mode = 0
-offset_left = -4.4000025
-offset_top = 4.6
-offset_right = 11.399997
-offset_bottom = 20.400003
-texture = ExtResource("6_ib808")
-expand_mode = 1
-
-[node name="SkeletonBonesCount" type="Label" parent="CanvasLayer/Inventory" unique_id=220771600]
-layout_mode = 0
-offset_left = -8.0
-offset_top = -82.0
-offset_right = 33.0
-offset_bottom = 117.0
-offset_transform_enabled = true
-offset_transform_scale = Vector2(0.1, 0.1)
-text = "0
-"
-label_settings = SubResource("LabelSettings_q6r6c")
-horizontal_alignment = 1
-
-[node name="WyvernScales" type="TextureRect" parent="CanvasLayer/Inventory" unique_id=995946986]
-layout_mode = 0
-offset_left = -4.0
-offset_top = 13.6
-offset_right = 12.399998
-offset_bottom = 29.999998
-texture = ExtResource("7_ib808")
-expand_mode = 1
-
-[node name="WyvernScalesCount" type="Label" parent="CanvasLayer/Inventory" unique_id=294143817]
-layout_mode = 0
-offset_left = -8.0
-offset_top = -73.0
-offset_right = 33.0
-offset_bottom = 126.0
-offset_transform_enabled = true
-offset_transform_scale = Vector2(0.1, 0.1)
-text = "0
-"
-label_settings = SubResource("LabelSettings_q6r6c")
-horizontal_alignment = 1
+horizontal_alignment = 3
 
 [node name="HSlider" type="HSlider" parent="CanvasLayer/Inventory" unique_id=1806234700]
 modulate = Color(1, 1, 1, 0.6666667)
@@ -136,19 +92,10 @@ script = ExtResource("7_ihcyv")
 
 [node name="Timer" type="Timer" parent="." unique_id=57237021]
 
-[node name="WaveManager" type="Node2D" parent="." unique_id=185001041 node_paths=PackedStringArray("_spawnPoints", "_warningIndicatorTemplate")]
-script = ExtResource("10_dhlxm")
-_spawnPoints = [NodePath("../Marker2D"), NodePath("../Marker2D2")]
-_warningIndicatorTemplate = NodePath("Sprite2D")
-_zombieScene = ExtResource("2_ihcyv")
-_skeletonScene = ExtResource("2_ihcyv")
-
-[node name="Sprite2D" type="Sprite2D" parent="WaveManager" unique_id=1346702949]
-texture = ExtResource("9_77gm7")
-
 [node name="Zombie" parent="." unique_id=1722942169 node_paths=PackedStringArray("Target") instance=ExtResource("2_ihcyv")]
 position = Vector2(216, 32)
 Target = NodePath("../Player")
+maxHealth = null
 
 [node name="AngrySkull" parent="." unique_id=302794620 node_paths=PackedStringArray("advance_staircase", "retreat_staircase") instance=ExtResource("11_77gm7")]
 position = Vector2(272, -24)
@@ -157,19 +104,34 @@ _phaseDuration = 1.0
 _enragedWaveInterval = 15.0
 advance_staircase = NodePath("../Up")
 retreat_staircase = NodePath("../Down")
+_floorId = null
 
-[node name="Marker2D" type="Marker2D" parent="." unique_id=730493978]
+[node name="WaveManager" type="Node2D" parent="." unique_id=185001041 node_paths=PackedStringArray("_spawnPoints", "_warningIndicatorTemplate")]
+script = ExtResource("10_dhlxm")
+_spawnPoints = [NodePath("Marker2D"), NodePath("Marker2D2")]
+_warningIndicatorTemplate = NodePath("Sprite2D")
+_warningDuration = 2.0
+_zombieScene = ExtResource("2_ihcyv")
+_skeletonScene = ExtResource("9_1k3ja")
+
+[node name="Marker2D" type="Marker2D" parent="WaveManager" unique_id=730493978]
 position = Vector2(392, 24)
 
-[node name="Marker2D2" type="Marker2D" parent="." unique_id=302346921]
+[node name="Marker2D2" type="Marker2D" parent="WaveManager" unique_id=302346921]
 position = Vector2(168, 24)
+
+[node name="Marker2D3" type="Marker2D" parent="WaveManager" unique_id=848565291]
+position = Vector2(272, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="WaveManager" unique_id=1346702949]
+texture = ExtResource("9_77gm7")
 
 [node name="Player" parent="." unique_id=1190707486 node_paths=PackedStringArray("ZombieFleshCount", "myHealth") instance=ExtResource("4_74at1")]
 position = Vector2(112, 33)
-baseSpeed = 100.0
 ZombieFleshCount = NodePath("../CanvasLayer/Inventory/ZombieFleshCount")
-slashOffset = 4.0
+MaxHP = 10
 myHealth = NodePath("../CanvasLayer/Inventory/HSlider")
+invincibilityDuration = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2116194214]
 zoom = Vector2(4.635, 4.635)
@@ -178,3 +140,7 @@ limit_right = 448
 limit_bottom = 70
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1091031150]
+stream = ExtResource("11_1k3ja")
+autoplay = true
