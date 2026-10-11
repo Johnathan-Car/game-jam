@@ -2,11 +2,85 @@
 
 [ext_resource type="Script" uid="uid://820j0eys46a4" path="res://GameJam Files/Scripts/Staircase.cs" id="1_s0pqj"]
 [ext_resource type="Texture2D" uid="uid://dhk6tr207uara" path="res://GameJam Files/Texture_Art/StairCase.png" id="2_mb8yk"]
+[ext_resource type="Texture2D" uid="uid://6nmv4nox470w" path="res://GameJam Files/Texture_Art/StairCaseCloseDoor.png" id="3_518lu"]
 [ext_resource type="Texture2D" uid="uid://dvekgnrb4aypk" path="res://GameJam Files/Assets/Input Buttons/tilemap_packed.png" id="3_o2ikj"]
+[ext_resource type="Texture2D" uid="uid://4fbq28al47r7" path="res://GameJam Files/Texture_Art/ClosedDoor.png" id="4_wo86u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2cqsg"]
 atlas = ExtResource("2_mb8yk")
 region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0pqj"]
+atlas = ExtResource("2_mb8yk")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mb8yk"]
+atlas = ExtResource("2_mb8yk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2ikj"]
+atlas = ExtResource("2_mb8yk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_518lu"]
+atlas = ExtResource("2_mb8yk")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ew5ch"]
+atlas = ExtResource("3_518lu")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ev6a5"]
+atlas = ExtResource("3_518lu")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2cwv"]
+atlas = ExtResource("3_518lu")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dscei"]
+atlas = ExtResource("3_518lu")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gjkb"]
+atlas = ExtResource("3_518lu")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3266"]
+atlas = ExtResource("3_518lu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3onh"]
+atlas = ExtResource("3_518lu")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sqbg"]
+atlas = ExtResource("3_518lu")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tmuf"]
+atlas = ExtResource("3_518lu")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqtuh"]
+atlas = ExtResource("4_wo86u")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byvpm"]
+atlas = ExtResource("4_wo86u")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_814cb"]
+atlas = ExtResource("4_wo86u")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yr041"]
+atlas = ExtResource("4_wo86u")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1o05"]
+atlas = ExtResource("4_wo86u")
+region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vg5iv"]
 animations = [{
@@ -15,21 +89,139 @@ animations = [{
 "texture": SubResource("AtlasTexture_2cqsg")
 }],
 "loop": 0,
-"name": &"spin",
+"name": &"door_1",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0pqj")
+}],
+"loop": 1,
+"name": &"door_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mb8yk")
+}],
+"loop": 1,
+"name": &"door_3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2ikj")
+}],
+"loop": 1,
+"name": &"door_4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_518lu")
+}],
+"loop": 1,
+"name": &"door_5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ew5ch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ev6a5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2cwv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dscei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gjkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3266")
+}],
+"loop": 0,
+"name": &"door_freed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3266")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3onh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sqbg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tmuf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dscei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gjkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2cwv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ev6a5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ew5ch")
+}],
+"loop": 0,
+"name": &"door_jailed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqtuh")
+}],
+"loop": 0,
+"name": &"door_locked",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqtuh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byvpm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_814cb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yr041")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1o05")
+}],
+"loop": 0,
+"name": &"door_opening",
+"speed": 8.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ey4h7"]
 radius = 24.0
 
-[node name="Staircase" type="Node2D" unique_id=998110794 node_paths=PackedStringArray("_promptSprite", "_highlightTarget")]
+[node name="Staircase" type="Node2D" unique_id=998110794 node_paths=PackedStringArray("_doorSprite", "_promptSprite", "_highlightTarget")]
 script = ExtResource("1_s0pqj")
+TargetScenePath = "uid://cdxbseps6pls7"
+_doorType = "5"
+_doorSprite = NodePath("AnimatedSprite2D")
 _promptSprite = NodePath("PromptSprite")
 _highlightTarget = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=317369447]
 sprite_frames = SubResource("SpriteFrames_vg5iv")
-animation = &"spin"
+animation = &"door_freed"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=423287807]
 collision_layer = 0

@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://pbge1adjibto"]
+
+[ext_resource type="Script" uid="uid://dxnq4vaptfg16" path="res://GameJam Files/Scripts/AngrySkull.cs" id="1_qsagg"]
+[ext_resource type="Texture2D" uid="uid://cmwp5bylyyv2q" path="res://GameJam Files/Texture_Art/SkullMarkerProgression1.png" id="2_nefrl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hot0t"]
+atlas = ExtResource("2_nefrl")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya0kr"]
+atlas = ExtResource("2_nefrl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajflh"]
+atlas = ExtResource("2_nefrl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lgau"]
+atlas = ExtResource("2_nefrl")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2snvo"]
+atlas = ExtResource("2_nefrl")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfssh"]
+atlas = ExtResource("2_nefrl")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6ije"]
+atlas = ExtResource("2_nefrl")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_364cp"]
+atlas = ExtResource("2_nefrl")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gor0r"]
+atlas = ExtResource("2_nefrl")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46cds"]
+atlas = ExtResource("2_nefrl")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3hd7q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hot0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya0kr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajflh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2lgau")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2snvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfssh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v6ije")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hot0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_364cp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gor0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46cds")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="AngrySkull" type="Node2D" unique_id=302794620 node_paths=PackedStringArray("_skullSprite", "_phaseTimer") groups=["AngrySkull"]]
+script = ExtResource("1_qsagg")
+_skullSprite = NodePath("_skullSprite")
+_phaseTimer = NodePath("WaveTimer")
+
+[node name="WaveTimer" type="Timer" parent="." unique_id=231809055]
+wait_time = 5.0
+autostart = true
+
+[node name="_skullSprite" type="AnimatedSprite2D" parent="." unique_id=1706746846]
+sprite_frames = SubResource("SpriteFrames_3hd7q")

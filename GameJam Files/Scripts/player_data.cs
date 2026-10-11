@@ -1,13 +1,13 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class player_data : Node
 {
 	public static player_data Instance { get; private set; }
 
 	// Resources & Currencies
-	public int ZombieFleshValue { get; set; } = 0;
-	public int SkeletonBonesValue { get; set; } = 0;
+	public int ZombieFleshValue { get; set; } = 100;
 
 	// Permanent Slot Machine Stat Ups
 	public int DamageBonus { get; set; } = 0;
@@ -68,5 +68,20 @@ public partial class player_data : Node
 		SpeedBonus = 0.0f;
 		MaxHealthBonus = 0;
 		LuckStat = 0;
+	}
+	
+	private HashSet<string> _completedFloors = new();
+
+	public bool IsFloorCompleted(string floorId)
+	{
+		return _completedFloors.Contains(floorId);
+	}
+
+	public void MarkFloorCompleted(string floorId)
+	{
+		if (!_completedFloors.Contains(floorId))
+		{
+			_completedFloors.Add(floorId);
+		}
 	}
 }
