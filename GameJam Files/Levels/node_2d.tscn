@@ -91,16 +91,6 @@ script = ExtResource("7_ihcyv")
 
 [node name="Timer" type="Timer" parent="." unique_id=57237021]
 
-[node name="WaveManager" type="Node2D" parent="." unique_id=185001041 node_paths=PackedStringArray("_spawnPoints", "_warningIndicatorTemplate")]
-script = ExtResource("10_dhlxm")
-_spawnPoints = [NodePath("../Marker2D"), NodePath("../Marker2D2")]
-_warningIndicatorTemplate = NodePath("Sprite2D")
-_zombieScene = ExtResource("2_ihcyv")
-_skeletonScene = ExtResource("9_1k3ja")
-
-[node name="Sprite2D" type="Sprite2D" parent="WaveManager" unique_id=1346702949]
-texture = ExtResource("9_77gm7")
-
 [node name="Zombie" parent="." unique_id=1722942169 node_paths=PackedStringArray("Target") instance=ExtResource("2_ihcyv")]
 position = Vector2(216, 32)
 Target = NodePath("../Player")
@@ -112,16 +102,29 @@ _phaseDuration = 1.0
 _enragedWaveInterval = 15.0
 advance_staircase = NodePath("../Up")
 retreat_staircase = NodePath("../Down")
+_floorId = null
 
-[node name="Marker2D" type="Marker2D" parent="." unique_id=730493978]
+[node name="WaveManager" type="Node2D" parent="." unique_id=185001041 node_paths=PackedStringArray("_spawnPoints", "_warningIndicatorTemplate")]
+script = ExtResource("10_dhlxm")
+_spawnPoints = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
+_warningIndicatorTemplate = NodePath("Sprite2D")
+_zombieScene = ExtResource("2_ihcyv")
+_skeletonScene = ExtResource("9_1k3ja")
+
+[node name="Marker2D" type="Marker2D" parent="WaveManager" unique_id=730493978]
 position = Vector2(392, 24)
 
-[node name="Marker2D2" type="Marker2D" parent="." unique_id=302346921]
+[node name="Marker2D2" type="Marker2D" parent="WaveManager" unique_id=302346921]
 position = Vector2(168, 24)
+
+[node name="Marker2D3" type="Marker2D" parent="WaveManager" unique_id=848565291]
+position = Vector2(272, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="WaveManager" unique_id=1346702949]
+texture = ExtResource("9_77gm7")
 
 [node name="Player" parent="." unique_id=1190707486 node_paths=PackedStringArray("ZombieFleshCount", "myHealth") instance=ExtResource("4_74at1")]
 position = Vector2(112, 33)
-baseSpeed = 100.0
 ZombieFleshCount = NodePath("../CanvasLayer/Inventory/ZombieFleshCount")
 slashOffset = 4.0
 myHealth = NodePath("../CanvasLayer/Inventory/HSlider")

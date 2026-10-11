@@ -20,15 +20,18 @@ public partial class Player : CharacterBody2D
 	public int HP = 10;
 
 	// Combo Management
-	private int comboStep = 0; // 0 = Idle/Rest, 1 = First Attack, 2 = Second Attack
+	private int comboStep = 0; 
 	private bool isAttacking = false;
 	private bool comboBuffered = false; // Tracks if attack input was pressed during attack 1
 	
 	private Vector2 knockbackVelocity = Vector2.Zero;
-	public const float JumpVelocity = -250.0f;
+	public const float JumpVelocity = -300.0f;
 	private bool facingLeft = false;
+	private bool dead = false;
+	private bool slumped = false;
 	
 	private int ZombieFleshValue = 0;
+	
 
 	public override void _Ready()
 	{
@@ -89,7 +92,6 @@ public partial class Player : CharacterBody2D
 
 	public void TakeDamage(int damage)
 	{
-		// If currently invincible, ignore damage entirely!
 		if (isInvincible) return;
 
 		HP = Mathf.Clamp(HP - damage, 0, MaxHP);
@@ -104,8 +106,10 @@ public partial class Player : CharacterBody2D
 		
 		if (HP <= 0)
 		{
+			Speed = 0;
 			GD.Print("Player has died!");
-			// Death behavior here.
+			dead = true;
+			_sprite.Play("death");
 			return;
 		}
 
@@ -178,6 +182,15 @@ public partial class Player : CharacterBody2D
 		{
 			ResetComboState();
 		}
+	}
+	
+	public void PlaySlumpedAnimation()
+	{
+		slumped=true;
+		GD.Print("SlumpedAnimation Playing");
+
+		_sprite.Play("slumped");
+		slumped = false;
 	}
 
 	private void ExecuteAttack1()
@@ -339,13 +352,15 @@ public partial class Player : CharacterBody2D
 				attackHitbox.Monitoring = false;
 			}
 
-			if (direction != Vector2.Zero)
+			if (direction != Vector2.Zero && !dead && !slumped)
 			{
 				_sprite.Play("run");
 			}
 			else
 			{
-				_sprite.Play("default");
+				if(!dead && !slumped){
+					_sprite.Play("default");
+				}
 			}
 		}
 

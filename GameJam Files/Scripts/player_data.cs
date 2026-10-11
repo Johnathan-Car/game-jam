@@ -10,10 +10,12 @@ public partial class player_data : Node
 	public int ZombieFleshValue { get; set; } = 100;
 
 	// Permanent Slot Machine Stat Ups
-	public int DamageBonus { get; set; } = 0;
+	public int DamageBonus { get; set; } = 4;
 	public float SpeedBonus { get; set; } = 0.0f;
 	public int MaxHealthBonus { get; set; } = 0;
 	public int LuckStat { get; set; } = 0;
+	public bool HasWokenUp { get; set; } = false;
+	
 	
 	public override void _EnterTree()
 	{
