@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cr4i5w8uqm4ij" path="res://GameJam Files/Assets/Prisoner.png" id="2_0k0t1"]
 [ext_resource type="PackedScene" uid="uid://qcnikf7ilcsb" path="res://GameJam Files/Scenes/SlotMachine.tscn" id="4_kv1mn"]
 [ext_resource type="PackedScene" uid="uid://c4cacqouagcsn" path="res://GameJam Files/Scenes/player.tscn" id="5_0k0t1"]
+[ext_resource type="PackedScene" uid="uid://hndwuksh5uv8" path="res://GameJam Files/Scenes/Staircase.tscn" id="5_k7j21"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ocnbp"]
 texture = ExtResource("1_kv1mn")
@@ -1473,10 +1474,15 @@ tile_set = SubResource("TileSet_3hd7q")
 [node name="SlotMachine" parent="." unique_id=1231506487 instance=ExtResource("4_kv1mn")]
 position = Vector2(271, 48)
 
+[node name="Staircase" parent="." unique_id=998110794 instance=ExtResource("5_k7j21")]
+position = Vector2(40, 50)
+TargetScenePath = "uid://c45namc2boewf"
+
 [node name="Player" parent="." unique_id=1190707486 instance=ExtResource("5_0k0t1")]
 position = Vector2(-115, 50)
 collision_layer = 3
 collision_mask = 3
+slashOffset = null
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=263235976]
 zoom = Vector2(5.075, 5.075)
