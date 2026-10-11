@@ -84,6 +84,8 @@ size = Vector2(16, 32)
 size = Vector2(18, 34)
 
 [node name="Zombie" type="CharacterBody2D" unique_id=1722942169]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_ng6t3")
 DroppedItemScene = ExtResource("2_ng6t3")
 
@@ -97,6 +99,7 @@ animation = &"hurt"
 [node name="Hurtbox" type="Area2D" parent="." unique_id=464867080]
 scale = Vector2(1.1999993, 1.1200007)
 collision_layer = 2
+collision_mask = 2
 script = ExtResource("5_qm0aa")
 KnockbackForce = 250.0
 
@@ -105,6 +108,8 @@ shape = SubResource("RectangleShape2D_jtd5m")
 debug_color = Color(0.41960785, 0.6, 0.24705882, 0.24705882)
 
 [node name="ContactArea" type="Area2D" parent="." unique_id=308456805]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("6_kxwit")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea" unique_id=1216137578]

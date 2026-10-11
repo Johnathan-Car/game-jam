@@ -4,12 +4,32 @@ public partial class SlotMachine : Interactable
 {
 	[Export] public Godot.Collections.Array<ItemData> ItemPool { get; set; } = new();
 	[Export] private AnimatedSprite2D _sprite;
-
-	// This replaces OnBodyEntered/Exited and _UnhandledInput!
+	[Export] private Label cost_label;
+	
+	[Export] private int baseCost = 5;       // Initial cost for the first spin
+	[Export] private int costIncrease = 5;
+	[Export] private int currentCost;
+	
+	private int currentSpinCount = 0;
+	
 	protected override void Interact()
 	{
 		if (ItemPool == null || ItemPool.Count == 0) return;
+		
+		currentCost = baseCost + (currentSpinCount * costIncrease);
+		if (player_data.Instance == null || player_data.Instance.ZombieFleshValue < currentCost)
+		{
+			GD.Print("[SlotMachine] Not enough Zombie Flesh to spin!");
+			return;
+		}
+		
+		// Deduct currency
+		player_data.Instance.AddZombieFlesh(-currentCost);
 
+		// Increment spin tracker for next time
+		currentSpinCount++;
+		UpdateCostLabel();
+		
 		_sprite?.Play("spin");
 
 		int playerLuck = CurrentPlayer != null ? player_data.Instance.LuckStat : 0;
@@ -27,6 +47,15 @@ public partial class SlotMachine : Interactable
 		GD.Print($"Luck:      {reward.FinalLuck}");
 		GD.Print("---------------------------");
 
+	}
+	
+	private void UpdateCostLabel()
+	{
+		if (cost_label != null)
+		{
+			int currentCost = baseCost + (currentSpinCount * costIncrease);
+			cost_label.Text = $"C: {currentCost} \n O: {player_data.Instance.ZombieFleshValue}";
+		}
 	}
 
 	private ItemRarity RollRarity(int luck)
