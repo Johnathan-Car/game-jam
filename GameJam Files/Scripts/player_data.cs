@@ -55,15 +55,9 @@ public partial class player_data : Node
 		ZombieFleshValue += amount;
 	}
 
-	public void AddSkeletonBones(int amount = 1)
-	{
-		SkeletonBonesValue += amount;
-	}
-
 	public void ResetData()
 	{
 		ZombieFleshValue = 0;
-		SkeletonBonesValue = 0;
 		DamageBonus = 0;
 		SpeedBonus = 0.0f;
 		MaxHealthBonus = 0;
