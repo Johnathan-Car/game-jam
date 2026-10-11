@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://ckhaoer6v56w4"]
+
+[ext_resource type="Script" uid="uid://bdetiwugceglr" path="res://GameJam Files/Scripts/WorldItem.cs" id="1_32nop"]
+[ext_resource type="PackedScene" uid="uid://dsaw2vvf8sij" path="res://GameJam Files/Scenes/item_popup.tscn" id="2_32nop"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fo8ah"]
+bounce = 0.3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3hd7q"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ck23a"]
+radius = 10.049875
+
+[node name="Area2D" type="RigidBody2D" unique_id=2027746324 node_paths=PackedStringArray("_itemSprite", "_pickupArea")]
+physics_material_override = SubResource("PhysicsMaterial_fo8ah")
+script = ExtResource("1_32nop")
+_itemSprite = NodePath("Sprite2D")
+_pickupArea = NodePath("Area2D")
+itemPopupScene = ExtResource("2_32nop")
+launchForceX = 30.0
+launchForceY = -10.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=303226614]
+scale = Vector2(0.595, 0.595)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=951939344]
+shape = SubResource("CircleShape2D_3hd7q")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=121810927]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=573035919]
+shape = SubResource("CircleShape2D_ck23a")
+debug_color = Color(0.87135303, 0.3181395, 0.38713494, 0.41960785)

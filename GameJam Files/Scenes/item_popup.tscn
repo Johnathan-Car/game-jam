@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dsaw2vvf8sij"]
+
+[ext_resource type="Script" uid="uid://cn7iob3tr8bp0" path="res://GameJam Files/Scripts/ItemPopup.cs" id="1_21776"]
+[ext_resource type="FontFile" uid="uid://bu6fsn6aofpov" path="res://GameJam Files/Assets/Fonts/Umbreia.ttf" id="2_85wo4"]
+
+[node name="ItemPopup" type="Control" unique_id=266004700 node_paths=PackedStringArray("_label")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_21776")
+_label = NodePath("PanelContainer/Label")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=328530981]
+layout_mode = 0
+offset_left = -38.0
+offset_top = -23.0
+offset_right = 2.0
+offset_bottom = 17.0
+
+[node name="Label" type="Label" parent="PanelContainer" unique_id=1406975393]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8188624, 0.60827833, 0.19325444, 1)
+theme_override_colors/font_outline_color = Color(0.6165664, 0.35125032, 0.14182913, 1)
+theme_override_fonts/font = ExtResource("2_85wo4")

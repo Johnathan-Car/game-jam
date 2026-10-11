@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://cglffxhhixvbx" path="res://GameJam Files/Assets/Items/Bracelet.tres" id="5_py8ii"]
 [ext_resource type="Resource" uid="uid://6sm6hk6jayd" path="res://GameJam Files/Assets/Items/Necklace.tres" id="6_jk15p"]
 [ext_resource type="Resource" uid="uid://pm7cbkhsfyqo" path="res://GameJam Files/Assets/Items/Ring.tres" id="7_t6tkd"]
+[ext_resource type="PackedScene" uid="uid://ckhaoer6v56w4" path="res://GameJam Files/Scenes/world_item.tscn" id="8_jk15p"]
 [ext_resource type="FontFile" uid="uid://bu6fsn6aofpov" path="res://GameJam Files/Assets/Fonts/Umbreia.ttf" id="9_gvr1f"]
 [ext_resource type="Texture2D" uid="uid://dvekgnrb4aypk" path="res://GameJam Files/Assets/Input Buttons/tilemap_packed.png" id="9_py8ii"]
 [ext_resource type="Texture2D" uid="uid://rkejkqsylrmh" path="res://GameJam Files/Images/Globlette.png" id="11_py8ii"]
@@ -68,12 +69,14 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ck23a"]
 radius = 24.083189
 
-[node name="SlotMachine" type="Node2D" unique_id=1231506487 node_paths=PackedStringArray("_sprite", "cost_label", "_promptSprite", "_highlightTarget")]
+[node name="SlotMachine" type="Node2D" unique_id=1231506487 node_paths=PackedStringArray("_sprite", "cost_label", "dropSpawnPoint", "_promptSprite", "_highlightTarget")]
 script = ExtResource("1_mmc0l")
 ItemPool = Array[ExtResource("2_4725o")]([ExtResource("3_4725o"), ExtResource("4_gvr1f"), ExtResource("5_py8ii"), ExtResource("6_jk15p"), ExtResource("7_t6tkd")])
 _sprite = NodePath("AnimatedSprite2D")
 cost_label = NodePath("PromptSprite/Label")
 costIncrease = 1
+worldItemScene = ExtResource("8_jk15p")
+dropSpawnPoint = NodePath("Marker2D")
 _promptSprite = NodePath("PromptSprite")
 _highlightTarget = NodePath("AnimatedSprite2D")
 
@@ -109,5 +112,8 @@ collision_mask = 3
 [node name="InteractionZone" type="CollisionShape2D" parent="Area2D" unique_id=203136760]
 position = Vector2(-6, 2)
 shape = SubResource("CircleShape2D_ck23a")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=344277553]
+position = Vector2(-13, 0)
 
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

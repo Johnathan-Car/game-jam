@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://gbg3xdhdbyb5"]
 
+[ext_resource type="Texture2D" uid="uid://b3n7r1efbwnh5" path="res://GameJam Files/Assets/Items/BeltBrown.png" id="1_6hyxm"]
 [ext_resource type="Script" uid="uid://cwg33h1fqp2i6" path="res://GameJam Files/Scripts/ItemData.cs" id="1_cu51e"]
 
 [resource]
 script = ExtResource("1_cu51e")
 BaseName = "Belt_template"
 SlotType = 4
+Icon = ExtResource("1_6hyxm")
 BaseDamage = 3
 BaseLuck = 2
 metadata/_custom_type_script = "uid://cwg33h1fqp2i6"
