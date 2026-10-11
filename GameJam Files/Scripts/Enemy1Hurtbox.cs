@@ -3,7 +3,7 @@ using System;
 
 public partial class Enemy1Hurtbox : Area2D
 {
-	private int enemy1Health = 3;
+	private int enemy1Health = 10;
 	
 	// Death flag to make sure it only activates once
 	private bool isDead = false;
@@ -19,10 +19,16 @@ public partial class Enemy1Hurtbox : Area2D
 		AreaEntered += OnAreaEntered;
 	}
 
+	private bool canTakeDamage = true;
+	[Export] 
+	public float DamageCooldown = 0.5f;
+
+
+	
 	public void OnAreaEntered(Area2D area)
 	{
 		// Goal is to check whether the area is the player's sword hitbox
-		if (!area.IsInGroup("PLAYERATTACK") || isDead)
+		if (!area.IsInGroup("PLAYERATTACK") || isDead || area.Monitoring == false)
 		{
 			return;
 		}
@@ -68,6 +74,64 @@ public partial class Enemy1Hurtbox : Area2D
 
 			// Remove the enemy
 			enemy.QueueFree();
+		}
+	}
+
+	// Temp
+	private async void TakeDamage()
+	{
+		canTakeDamage = false;
+
+		enemy1Health--;
+		GD.Print("Enemy health: " + enemy1Health);
+
+		if (Player != null)
+		{
+			Node2D enemy = GetParent<Node2D>();
+
+			if (enemy is Enemy1 enemyScript)
+			{
+				Vector2 direction =
+					(enemy.GlobalPosition - Player.GlobalPosition).Normalized();
+
+				enemyScript.ApplyKnockback(direction, KnockbackForce);
+				enemyScript.Hurt();
+
+				if (enemy1Health <= 0)
+				{
+					isDead = true;
+					enemy.CallDeferred(nameof(Enemy1.SpawnDroppedItem));
+					enemy.QueueFree();
+					return;
+				}
+			}
+		}
+
+		await ToSignal(
+			GetTree().CreateTimer(DamageCooldown),
+			SceneTreeTimer.SignalName.Timeout
+		);
+
+		canTakeDamage = true;
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (isDead)
+			return;
+
+		foreach (Area2D area in GetOverlappingAreas())
+		{
+			if (!area.IsInGroup("PLAYERATTACK"))
+				continue;
+
+			if (!area.Monitoring)
+				continue;
+
+			// The player's attack hitbox is overlapping the enemy.
+			GD.Print("Player attack is touching the enemy!");
+			TakeDamage();
+       		break;
 		}
 	}
 }

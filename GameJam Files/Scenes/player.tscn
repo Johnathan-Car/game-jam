@@ -196,17 +196,14 @@ sprite_frames = SubResource("SpriteFrames_4v6l2")
 animation = &"attack2"
 
 [node name="WeaponSlash" type="AnimatedSprite2D" parent="." unique_id=1446082445]
-visible = false
 position = Vector2(11, -2)
 sprite_frames = SubResource("SpriteFrames_3hd7q")
 animation = &"slash1"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1299802312 groups=["PLAYERATTACK"]]
-visible = false
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=523378212]
-position = Vector2(14.031549, -1.9999998)
-scale = Vector2(1.0689313, 0.36632615)
+scale = Vector2(1.5089306, 0.36632615)
 shape = SubResource("RectangleShape2D_cfepw")

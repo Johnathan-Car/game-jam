@@ -91,6 +91,7 @@ sprite_frames = SubResource("SpriteFrames_4v6l2")
 animation = &"hurt"
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=464867080]
+scale = Vector2(1.1999993, 1.1200007)
 collision_layer = 2
 script = ExtResource("5_qm0aa")
 KnockbackForce = 250.0

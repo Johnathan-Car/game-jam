@@ -18,7 +18,7 @@ public partial class Enemy1 : CharacterBody2D
 	private AnimatedSprite2D _sprite;
 
 	// Stats
-	private int health = 3;
+	private int health = 10;
 
 	// Hurt Animation Timer
 	private Timer hurtTimer;
@@ -103,6 +103,16 @@ public partial class Enemy1 : CharacterBody2D
 		}
 
 		Vector2 direction = GlobalPosition.DirectionTo(Target.GlobalPosition);
+
+		// Make the zombie face the player
+		if (direction.X < 0)
+		{
+			_sprite.FlipH = true;
+		}
+		else if (direction.X > 0)
+		{
+			_sprite.FlipH = false;
+		}
 
 		// For Gravity to work you have to only target horizontal movement
 		velocity.X = direction.X * Speed;

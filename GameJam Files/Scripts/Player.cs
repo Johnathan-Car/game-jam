@@ -9,6 +9,7 @@ public partial class Player : CharacterBody2D
 	[Export] private Area2D attackHitbox;
 	[Export] public Label ZombieFleshCount;
 	[Export] private float slashOffset = 16.0f;
+	[Export] private Timer attackHitboxTimer;
 
 	// Combo Management
 	private int comboStep = 0; // 0 = Idle/Rest, 1 = First Attack, 2 = Second Attack
@@ -37,7 +38,20 @@ public partial class Player : CharacterBody2D
 			attackHitbox.Monitoring = false;
 		}
 
+		if (attackHitboxTimer != null)
+		{
+			attackHitboxTimer.Timeout += OnAttackHitboxTimerTimeout;
+		}
+
 		UpdateSlashPosition();
+	}
+
+	private void OnAttackHitboxTimerTimeout()
+	{
+		if (attackHitbox != null)
+		{
+			attackHitbox.Monitoring = false;
+		}
 	}
 
 	// Item Collection Callback
@@ -89,6 +103,11 @@ public partial class Player : CharacterBody2D
 		if (attackHitbox != null)
 		{
 			attackHitbox.Monitoring = true;
+
+			if (attackHitboxTimer != null)
+			{
+				attackHitboxTimer.Start(0.2);
+			}
 		}
 	}
 
@@ -110,6 +129,11 @@ public partial class Player : CharacterBody2D
 		if (attackHitbox != null)
 		{
 			attackHitbox.Monitoring = true;
+			
+			if (attackHitboxTimer != null)
+			{
+				attackHitboxTimer.Start(0.5);
+			}
 		}
 	}
 
@@ -127,6 +151,11 @@ public partial class Player : CharacterBody2D
 		if (attackHitbox != null)
 		{
 			attackHitbox.Monitoring = false;
+		}
+
+		if (attackHitboxTimer != null)
+		{
+			attackHitboxTimer.Stop();
 		}
 	}
 
@@ -201,6 +230,11 @@ public partial class Player : CharacterBody2D
 		// Body animations when not attacking
 		if (!isAttacking)
 		{
+			if (attackHitbox != null)
+			{
+				attackHitbox.Monitoring = false;
+			}
+
 			if (direction != Vector2.Zero)
 			{
 				_sprite.Play("run");
