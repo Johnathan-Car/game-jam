@@ -29,15 +29,15 @@ public partial class Enemy1Hurtbox : Area2D
 	public float DamageCooldown = 0.5f;
 
 	private void OnBodyEntered(Node2D body)
-    {
-        if (!body.IsInGroup("PLAYER"))
-            return;
+	{
+		if (!body.IsInGroup("PLAYER"))
+			return;
 
-        if (body is Player player)
-        {
-            player.TakeDamage(Damage);
-        }
-    }
+		if (body is Player player)
+		{
+			player.TakeDamage(Damage);
+		}
+	}
 	
 	public void OnAreaEntered(Area2D area)
 	{
