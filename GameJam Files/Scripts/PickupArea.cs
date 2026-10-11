@@ -23,7 +23,7 @@ public partial class PickupArea : Area2D
 			collected = true;
 
 			// Update their inventory count
-			player.OnItemCollected();
+			player.OnZombieFleshCollected();
 
 			// Remove item
 			GetParent().QueueFree();
