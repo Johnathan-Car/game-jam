@@ -145,7 +145,7 @@ public partial class Enemy1Hurtbox : Area2D
 			// The player's attack hitbox is overlapping the enemy.
 			GD.Print("Player attack is touching the enemy!");
 			TakeDamage();
-       		break;
+	   		break;
 		}
 	}
 }

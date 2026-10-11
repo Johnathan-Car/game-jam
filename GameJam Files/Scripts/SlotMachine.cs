@@ -12,7 +12,7 @@ public partial class SlotMachine : Interactable
 
 		_sprite?.Play("spin");
 
-		int playerLuck = CurrentPlayer != null ? CurrentPlayer.LuckStat : 0;
+		int playerLuck = CurrentPlayer != null ? player_data.Instance.LuckStat : 0;
 		ItemRarity rolledRarity = RollRarity(playerLuck);
 
 		int randomIndex = (int)GD.RandRange(0, ItemPool.Count - 1);

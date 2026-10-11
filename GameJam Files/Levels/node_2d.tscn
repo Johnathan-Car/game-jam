@@ -29,9 +29,9 @@ corner_radius_bottom_left = 4
 [node name="Spawner" parent="." unique_id=1641200171 node_paths=PackedStringArray("EnemyHandler", "Player") instance=ExtResource("1_iwkon")]
 position = Vector2(112, 40)
 EnemyScene = ExtResource("2_ihcyv")
+SpawnInterval = 10.0
 EnemyHandler = NodePath("../Node2D")
 Player = NodePath("../Player")
-SpawnInterval = 10.0
 
 [node name="BackgroundTileMap" type="TileMapLayer" parent="." unique_id=49459614]
 scale = Vector2(2.0000014, 1.9999998)
@@ -40,9 +40,9 @@ tile_set = ExtResource("3_ib808")
 
 [node name="Player" parent="." unique_id=1190707486 node_paths=PackedStringArray("ZombieFleshCount", "myHealth") instance=ExtResource("4_74at1")]
 position = Vector2(256, 32)
-ZombieFleshCount = NodePath("../CanvasLayer/Inventory/ZombieFleshCount")
 slashOffset = 4.0
 myHealth = NodePath("../CanvasLayer/Inventory/HSlider")
+ZombieFleshCount = NodePath("../CanvasLayer/Inventory/ZombieFleshCount")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2116194214]
 zoom = Vector2(6.71, 6.71)

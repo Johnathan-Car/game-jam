@@ -3,7 +3,9 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	[Export] private float Speed = 120.0f;
+	[Export] private float baseSpeed = 120.0f;
+	private float Speed = 100;
+	private float LuckStat = 0;
 	[Export] private AnimatedSprite2D _sprite;
 	[Export] private AnimatedSprite2D slashSprite;
 	[Export] private Area2D attackHitbox;
@@ -21,10 +23,9 @@ public partial class Player : CharacterBody2D
 	
 	private Vector2 knockbackVelocity = Vector2.Zero;
 	public const float JumpVelocity = -250.0f;
-	public int LuckStat = 0;
-
 	private bool facingLeft = false;
-	public int ZombieFleshValue = 0;
+	
+	private int ZombieFleshValue = 0;
 
 	public override void _Ready()
 	{
@@ -37,6 +38,17 @@ public partial class Player : CharacterBody2D
 		}
 		
 		_sprite.Play("default");
+		
+		if (player_data.Instance != null)
+		{
+			Speed = baseSpeed + player_data.Instance.SpeedBonus;
+			ZombieFleshValue = player_data.Instance.ZombieFleshValue;
+			
+			if (ZombieFleshCount != null)
+			{
+				ZombieFleshCount.Text = ZombieFleshValue.ToString();
+			}
+		}
 
 		if (slashSprite != null)
 		{
@@ -93,11 +105,12 @@ public partial class Player : CharacterBody2D
 	// Item Collection Callback
 	public void OnItemCollected()
 	{
-		ZombieFleshValue += 1;
+		player_data.Instance.AddZombieFlesh(1);
 
 		if (ZombieFleshCount != null)
 		{
-			ZombieFleshCount.Text = ZombieFleshValue.ToString();
+			ZombieFleshCount.Text = player_data.Instance.ZombieFleshValue.ToString();
+			
 		}
 		else
 		{

@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="Game Jam"
+run/main_scene="uid://cdxbseps6pls7"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+PlayerData="*uid://bmvdc866nu3p8"
+SceneLoader="*uid://cxs2bc3y1772c"
 
 [display]
 
