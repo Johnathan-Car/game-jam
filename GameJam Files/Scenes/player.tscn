@@ -179,7 +179,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cfepw"]
 size = Vector2(20.640333, 52.80418)
 
-[node name="Player" type="CharacterBody2D" unique_id=1190707486 node_paths=PackedStringArray("_sprite", "slashSprite", "attackHitbox") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1190707486 node_paths=PackedStringArray("_sprite", "slashSprite", "attackHitbox") groups=["PLAYER", "Player"]]
 script = ExtResource("1_cfepw")
 Speed = 100.0
 _sprite = NodePath("PlayerSprite")
@@ -193,7 +193,6 @@ shape = SubResource("RectangleShape2D_3hd7q")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="." unique_id=1732284157]
 sprite_frames = SubResource("SpriteFrames_4v6l2")
-animation = &"attack2"
 
 [node name="WeaponSlash" type="AnimatedSprite2D" parent="." unique_id=1446082445]
 position = Vector2(11, -2)
