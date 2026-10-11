@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_01mrq")
-BaseName = "Boots_template"
+BaseName = "Boots"
 SlotType = 2
 Icon = ExtResource("1_qan7a")
 BaseLuck = -1

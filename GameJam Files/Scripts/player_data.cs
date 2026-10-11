@@ -14,7 +14,7 @@ public partial class player_data : Node
 	public float SpeedBonus { get; set; } = 0.0f;
 	public int MaxHealthBonus { get; set; } = 0;
 	public int LuckStat { get; set; } = 0;
-
+	
 	public override void _EnterTree()
 	{
 		if (Instance != null && Instance != this)
@@ -23,6 +23,16 @@ public partial class player_data : Node
 			return;
 		}
 		Instance = this;
+	}
+	
+	public void AddItemStats(int damage, int luck, int health, float speed)
+	{
+		DamageBonus += damage;
+		LuckStat += luck;
+		MaxHealthBonus += health;
+		SpeedBonus += speed;
+
+		GD.Print($"[PlayerData] Stats Updated -> Dmg: +{DamageBonus}, Luck: {LuckStat}, HP: +{MaxHealthBonus}, Speed: +{SpeedBonus}");
 	}
 
 	// Slot Machine Reward Handlers

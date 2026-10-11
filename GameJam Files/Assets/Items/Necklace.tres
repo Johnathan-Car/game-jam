@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_eaasn")
-BaseName = "Necklace_template"
+BaseName = "Necklace"
 SlotType = 0
 Icon = ExtResource("1_6613m")
 BaseDamage = 0

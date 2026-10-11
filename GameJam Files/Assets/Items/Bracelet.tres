@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_ph4lh")
-BaseName = "Bracelet_template"
+BaseName = "Bracelet"
 SlotType = 1
 Icon = ExtResource("1_84q0h")
 BaseDamage = 2

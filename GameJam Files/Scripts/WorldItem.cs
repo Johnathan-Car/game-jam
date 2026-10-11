@@ -12,6 +12,17 @@ public partial class WorldItem : RigidBody2D
 	[Export] private float launchForceY = -120.0f; // Negative Y gives an upward arc
 
 	private ItemData _itemData;
+	private RolledItemStats _itemStats;
+
+	public void Initialize(RolledItemStats stats)
+	{
+		_itemStats = stats;
+
+		if (_itemSprite != null && _itemStats?.Template != null)
+		{
+			_itemSprite.Texture = _itemStats.Template.Icon;
+		}
+	}
 
 	public override void _Ready()
 	{
@@ -21,16 +32,6 @@ public partial class WorldItem : RigidBody2D
 			_pickupArea.BodyEntered += OnBodyEntered;
 		}
 		ApplyImpulse(new Vector2(launchForceX, launchForceY));
-	}
-
-	public void Initialize(ItemData data)
-	{
-		_itemData = data;
-
-		if (_itemSprite != null && _itemData != null)
-		{
-			_itemSprite.Texture = _itemData.Icon;
-		}
 	}
 
 	private void OnBodyEntered(Node2D body)
@@ -45,8 +46,14 @@ public partial class WorldItem : RigidBody2D
 				
 				// Position it right above the player's head
 				popupInstance.GlobalPosition = player.GlobalPosition + new Vector2(-40, -40);
-				popupInstance.Initialize(_itemData.BaseName);
+				popupInstance.Initialize(_itemStats.DisplayName);
 			}
+			
+			if (player_data.Instance != null && _itemStats != null)
+			{
+				player_data.Instance.AddItemStats(_itemStats.Damage, _itemStats.Luck, _itemStats.Health, _itemStats.Speed);
+			}
+
 			QueueFree();
 		}
 	}

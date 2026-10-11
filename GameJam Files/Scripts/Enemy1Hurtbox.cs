@@ -47,9 +47,11 @@ public partial class Enemy1Hurtbox : Area2D
 			GD.Print("Hurtbox parent is not an Enemy1");
 			return;
 		}
-
+		
+		int totalDamage = 5 + (player_data.Instance != null ? player_data.Instance.DamageBonus : 0);
 		GD.Print("Enemy was hit!");
-		enemy1Health--;
+		enemy1Health=-totalDamage;
+
 
 		GD.Print("Enemy health: " + enemy1Health);
 

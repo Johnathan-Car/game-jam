@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_cu51e")
-BaseName = "Belt_template"
+BaseName = "Belt"
 SlotType = 4
 Icon = ExtResource("1_6hyxm")
 BaseDamage = 3

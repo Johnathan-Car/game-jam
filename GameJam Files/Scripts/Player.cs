@@ -33,20 +33,10 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		base._Ready();
-		if(IsInstanceValid(myHealth))
-		{
-			//myHealth.MaxValue = MaxHP;
-			myHealth.SetMaxHealth(MaxHP);
-			myHealth.SetHealth(HP);		
-		}
-		
 		_sprite.Play("default");
 		
 		if (player_data.Instance != null)
-		{
-			Speed = baseSpeed + player_data.Instance.SpeedBonus;
-			ZombieFleshValue = player_data.Instance.ZombieFleshValue;
-			
+		{		
 			if (ZombieFleshCount != null)
 			{
 				ZombieFleshCount.Text = ZombieFleshValue.ToString();
@@ -72,7 +62,26 @@ public partial class Player : CharacterBody2D
 
 		UpdateSlashPosition();
 	}
+	
+	public void LoadStatsFromPlayerData()
+	{
+		// Check if player_data singleton exists and is initialized
+		if (player_data.Instance == null)
+		{
+			GD.Print("[Player] player_data.Instance is null. Falling back to base inspector stats.");
+			
+			return;
+		}
 
+		var data = player_data.Instance;
+		
+		MaxHP += data.MaxHealthBonus;
+		myHealth.SetMaxHealth(MaxHP);
+		myHealth.SetHealth(HP);		
+		
+		Speed = Speed + data.SpeedBonus;
+		LuckStat = data.LuckStat;
+	}
 	public void ApplyKnockback(Vector2 direction, float force)
 	{
 		knockbackVelocity = direction * force;

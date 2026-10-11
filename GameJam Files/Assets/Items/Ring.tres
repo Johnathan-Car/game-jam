@@ -5,7 +5,6 @@
 
 [resource]
 script = ExtResource("1_c0tip")
-BaseName = "Ring_template"
 Icon = ExtResource("1_3l5dr")
 BaseDamage = 0
 metadata/_custom_type_script = "uid://cwg33h1fqp2i6"
