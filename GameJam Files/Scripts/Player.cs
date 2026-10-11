@@ -14,6 +14,9 @@ public partial class Player : CharacterBody2D
 	[Export] private Timer attackHitboxTimer;
 	[Export] public int MaxHP = 10;
 	[Export] public HealthBar myHealth;
+	private bool isInvincible = false;
+	[Export] private float invincibilityDuration = 1.0f; // 1 second of i-frames
+	
 	public int HP = 10;
 
 	// Combo Management
@@ -77,6 +80,9 @@ public partial class Player : CharacterBody2D
 
 	public void TakeDamage(int damage)
 	{
+		// If currently invincible, ignore damage entirely!
+		if (isInvincible) return;
+
 		HP = Mathf.Clamp(HP - damage, 0, MaxHP);
 
 		// For testing
@@ -91,7 +97,40 @@ public partial class Player : CharacterBody2D
 		{
 			GD.Print("Player has died!");
 			// Death behavior here.
+			return;
 		}
+
+		// Trigger I-Frames and sprite blinking
+		StartInvincibility();
+	}
+	
+	private async void StartInvincibility()
+	{
+		isInvincible = true;
+
+		SetCollisionMaskValue(2, false);
+
+		float elapsed = 0f;
+		while (elapsed < invincibilityDuration)
+		{
+			if (_sprite != null)
+			{
+				// Quick blinking feedback effect
+				_sprite.Visible = !_sprite.Visible;
+			}
+			await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
+			elapsed += 0.1f;
+		}
+
+		// Restore normal visibility
+		if (_sprite != null)
+		{
+			_sprite.Visible = true;
+		}
+
+		SetCollisionMaskValue(2, true);
+
+		isInvincible = false;
 	}
 
 	private void OnAttackHitboxTimerTimeout()
@@ -122,14 +161,12 @@ public partial class Player : CharacterBody2D
 
 	private void OnSlashAnimationFinished()
 	{
-		// Check if we just finished the first slash and the player buffered the second hit
 		if (comboStep == 1 && comboBuffered)
 		{
 			ExecuteAttack2();
 		}
 		else
 		{
-			// Reset back to rest state
 			ResetComboState();
 		}
 	}

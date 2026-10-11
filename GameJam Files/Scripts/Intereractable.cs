@@ -53,7 +53,7 @@ public abstract partial class Interactable : Node2D
 
 	protected abstract void Interact();
 
-	private void OnBodyEntered(Node2D body)
+	protected virtual void OnBodyEntered(Node2D body)
 	{
 		if (body is Player player)
 		{
