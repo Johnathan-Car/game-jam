@@ -11,6 +11,7 @@ public partial class Player : CharacterBody2D
 	[Export] private float slashOffset = 16.0f;
 	[Export] private Timer attackHitboxTimer;
 	[Export] public int MaxHP = 10;
+	[Export] public HealthBar myHealth;
 	public int HP = 10;
 
 	// Combo Management
@@ -27,6 +28,14 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
+		base._Ready();
+		if(IsInstanceValid(myHealth))
+		{
+			//myHealth.MaxValue = MaxHP;
+			myHealth.SetMaxHealth(MaxHP);
+			myHealth.SetHealth(HP);		
+		}
+		
 		_sprite.Play("default");
 
 		if (slashSprite != null)
@@ -61,6 +70,11 @@ public partial class Player : CharacterBody2D
 		// For testing
 		GD.Print("Player HP: " + HP + "/" + MaxHP);
 
+		if (IsInstanceValid(myHealth))
+		{
+			myHealth.SetHealth(HP);
+		}
+		
 		if (HP <= 0)
 		{
 			GD.Print("Player has died!");
