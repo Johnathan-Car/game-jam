@@ -58,9 +58,14 @@ public partial class EnemySpawner : Node2D
 
 			hurtbox.Player = Player;
 		}
-		else if(enemy is Enemy2 e2)
+		else if(enemy is Skeleton e2)
 		{
 			e2.Target = Player;
+
+			// Also assign the player to Skeletons hurtbox as well
+			SkeletonHurtbox hurtbox = e2.GetNode<SkeletonHurtbox>("Hurtbox");
+
+			hurtbox.Player = Player;
 		}
 		else if(enemy is Enemy3 e3)
 		{

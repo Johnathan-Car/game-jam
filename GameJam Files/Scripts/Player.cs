@@ -10,6 +10,7 @@ public partial class Player : CharacterBody2D
 	[Export] private AnimatedSprite2D slashSprite;
 	[Export] private Area2D attackHitbox;
 	[Export] public Label ZombieFleshCount;
+	[Export] public Label SkeletonBonesCount;
 	[Export] private float slashOffset = 16.0f;
 	[Export] private Timer attackHitboxTimer;
 	[Export] public int MaxHP = 10;
@@ -29,6 +30,8 @@ public partial class Player : CharacterBody2D
 	private bool facingLeft = false;
 	
 	private int ZombieFleshValue = 0;
+	private int SkeletonBonesValue = 0;
+
 
 	public override void _Ready()
 	{
@@ -46,10 +49,16 @@ public partial class Player : CharacterBody2D
 		{
 			Speed = baseSpeed + player_data.Instance.SpeedBonus;
 			ZombieFleshValue = player_data.Instance.ZombieFleshValue;
-			
+			SkeletonBonesValue = player_data.Instance.SkeletonBonesValue;
+
+
 			if (ZombieFleshCount != null)
 			{
 				ZombieFleshCount.Text = ZombieFleshValue.ToString();
+			}
+			if (SkeletonBonesCount != null)
+			{
+				SkeletonBonesCount.Text = SkeletonBonesValue.ToString();
 			}
 		}
 
@@ -142,7 +151,7 @@ public partial class Player : CharacterBody2D
 	}
 
 	// Item Collection Callback
-	public void OnItemCollected()
+	public void OnZombieFleshCollected()
 	{
 		player_data.Instance.AddZombieFlesh(1);
 
@@ -156,7 +165,24 @@ public partial class Player : CharacterBody2D
 			GD.PrintErr("The ZombieFleshCount label hasn't been assigned");
 		}
 
-		GD.Print("Zombie Flesh: " + ZombieFleshValue);
+		GD.Print("Zombie Flesh: " + player_data.Instance.ZombieFleshValue);
+	}
+
+	public void OnBonesCollected()
+	{
+		player_data.Instance.AddSkeletonBones(1);
+
+		if (SkeletonBonesCount != null)
+		{
+			SkeletonBonesCount.Text =
+				player_data.Instance.SkeletonBonesValue.ToString();
+		}
+		else
+		{
+			GD.PrintErr("The SkeletonBonesCount label hasn't been assigned");
+		}
+
+		GD.Print("Bones: " + player_data.Instance.SkeletonBonesValue);
 	}
 
 	private void OnSlashAnimationFinished()
