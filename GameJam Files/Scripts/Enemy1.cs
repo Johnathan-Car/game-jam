@@ -32,12 +32,6 @@ public partial class Enemy1 : CharacterBody2D
 
 		// Now play the default animation
 		_sprite.Play("default");
-		
-		
-		if (Target == null)
-		{
-			Target = GetTree().GetFirstNodeInGroup("Player") as Node2D;
-		}
 
 		// For Hurt Timer
 		hurtTimer = new Timer(); // Calls the method after the second has elapsed

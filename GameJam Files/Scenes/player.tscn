@@ -180,13 +180,11 @@ animations = [{
 size = Vector2(20.640333, 52.80418)
 
 [node name="Player" type="CharacterBody2D" unique_id=1190707486 node_paths=PackedStringArray("_sprite", "slashSprite", "attackHitbox") groups=["PLAYER", "Player"]]
-collision_layer = 3
-collision_mask = 3
 script = ExtResource("1_cfepw")
+Speed = 100.0
 _sprite = NodePath("PlayerSprite")
 slashSprite = NodePath("WeaponSlash")
 attackHitbox = NodePath("Hitbox")
-slashOffset = 8.0
 
 [node name="CollisionPlayer" type="CollisionShape2D" parent="." unique_id=1225210588 groups=["Player"]]
 position = Vector2(1.7881393e-07, 1.5000004)

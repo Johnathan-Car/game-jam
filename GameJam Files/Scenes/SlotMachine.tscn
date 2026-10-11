@@ -10,7 +10,6 @@
 [ext_resource type="Resource" uid="uid://pm7cbkhsfyqo" path="res://GameJam Files/Assets/Items/Ring.tres" id="7_t6tkd"]
 [ext_resource type="FontFile" uid="uid://bu6fsn6aofpov" path="res://GameJam Files/Assets/Fonts/Umbreia.ttf" id="9_gvr1f"]
 [ext_resource type="Texture2D" uid="uid://dvekgnrb4aypk" path="res://GameJam Files/Assets/Input Buttons/tilemap_packed.png" id="9_py8ii"]
-[ext_resource type="Texture2D" uid="uid://rkejkqsylrmh" path="res://GameJam Files/Images/Globlette.png" id="11_py8ii"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmlme"]
 atlas = ExtResource("1_agdmm")
@@ -66,14 +65,12 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ck23a"]
-radius = 24.083189
+radius = 39.812057
 
-[node name="SlotMachine" type="Node2D" unique_id=1231506487 node_paths=PackedStringArray("_sprite", "cost_label", "_promptSprite", "_highlightTarget")]
+[node name="SlotMachine" type="Node2D" unique_id=1231506487 node_paths=PackedStringArray("_sprite", "_promptSprite", "_highlightTarget")]
 script = ExtResource("1_mmc0l")
 ItemPool = Array[ExtResource("2_4725o")]([ExtResource("3_4725o"), ExtResource("4_gvr1f"), ExtResource("5_py8ii"), ExtResource("6_jk15p"), ExtResource("7_t6tkd")])
 _sprite = NodePath("AnimatedSprite2D")
-cost_label = NodePath("PromptSprite/Label")
-costIncrease = 1
 _promptSprite = NodePath("PromptSprite")
 _highlightTarget = NodePath("AnimatedSprite2D")
 
@@ -82,32 +79,29 @@ sprite_frames = SubResource("SpriteFrames_3hd7q")
 animation = &"spin"
 
 [node name="PromptSprite" type="Sprite2D" parent="." unique_id=904517606]
-position = Vector2(19, -5)
+visible = false
+position = Vector2(20, -5)
 scale = Vector2(0.625, 0.625)
 texture = ExtResource("9_py8ii")
 region_enabled = true
 region_rect = Rect2(304, 160, 16, 16)
 
-[node name="Label" type="Label" parent="PromptSprite" unique_id=1086804912]
-offset_left = 9.599998
-offset_top = -14.399998
-offset_right = 51.6
-offset_bottom = 8.600002
+[node name="Label" type="Label" parent="." unique_id=1086804912]
+visible = false
+offset_left = -51.0
+offset_top = -25.0
+offset_right = -9.0
+offset_bottom = -2.0
 theme_override_fonts/font = ExtResource("9_gvr1f")
 theme_override_font_sizes/font_size = 16
-text = "C: 5"
-
-[node name="Sprite2D" type="Sprite2D" parent="PromptSprite" unique_id=833994438]
-position = Vector2(44.8, -6.4)
-scale = Vector2(1.3499999, 1.3)
-texture = ExtResource("11_py8ii")
+text = "Spin"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=574827250]
 collision_layer = 0
 collision_mask = 3
 
 [node name="InteractionZone" type="CollisionShape2D" parent="Area2D" unique_id=203136760]
-position = Vector2(-6, 2)
+position = Vector2(-6, 0)
 shape = SubResource("CircleShape2D_ck23a")
 
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]
