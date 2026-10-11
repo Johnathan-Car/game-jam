@@ -12,12 +12,16 @@ public partial class Player : CharacterBody2D
 	[Export] public Label ZombieFleshCount;
 	[Export] private float slashOffset = 16.0f;
 	[Export] private Timer attackHitboxTimer;
+	[Export] public int MaxHP = 10;
+	[Export] public HealthBar myHealth;
+	public int HP = 10;
 
 	// Combo Management
 	private int comboStep = 0; // 0 = Idle/Rest, 1 = First Attack, 2 = Second Attack
 	private bool isAttacking = false;
 	private bool comboBuffered = false; // Tracks if attack input was pressed during attack 1
-
+	
+	private Vector2 knockbackVelocity = Vector2.Zero;
 	public const float JumpVelocity = -250.0f;
 	private bool facingLeft = false;
 	
@@ -25,6 +29,14 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
+		base._Ready();
+		if(IsInstanceValid(myHealth))
+		{
+			//myHealth.MaxValue = MaxHP;
+			myHealth.SetMaxHealth(MaxHP);
+			myHealth.SetHealth(HP);		
+		}
+		
 		_sprite.Play("default");
 		
 		if (player_data.Instance != null)
@@ -56,6 +68,30 @@ public partial class Player : CharacterBody2D
 		}
 
 		UpdateSlashPosition();
+	}
+
+	public void ApplyKnockback(Vector2 direction, float force)
+	{
+		knockbackVelocity = direction * force;
+	}
+
+	public void TakeDamage(int damage)
+	{
+		HP = Mathf.Clamp(HP - damage, 0, MaxHP);
+
+		// For testing
+		GD.Print("Player HP: " + HP + "/" + MaxHP);
+
+		if (IsInstanceValid(myHealth))
+		{
+			myHealth.SetHealth(HP);
+		}
+		
+		if (HP <= 0)
+		{
+			GD.Print("Player has died!");
+			// Death behavior here.
+		}
 	}
 
 	private void OnAttackHitboxTimerTimeout()
@@ -193,6 +229,10 @@ public partial class Player : CharacterBody2D
 	{
 		Vector2 velocity = Velocity;
 
+		velocity += knockbackVelocity;
+
+		knockbackVelocity = knockbackVelocity.MoveToward(Vector2.Zero, 14.0f * (float)delta);
+
 		if (!IsOnFloor())
 		{
 			velocity += GetGravity() * (float)delta;
@@ -218,7 +258,12 @@ public partial class Player : CharacterBody2D
 
 		_sprite.FlipH = facingLeft;
 
-		if (direction != Vector2.Zero)
+		if (knockbackVelocity.Length() > 10.0f)
+		{
+			// Let the knockback move the player... otherwise
+		}
+
+		else if (direction != Vector2.Zero)
 		{
 			velocity.X = direction.X * Speed;
 		}

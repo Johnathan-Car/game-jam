@@ -32,6 +32,8 @@ project/assembly_name="Game Jam"
 [global_group]
 
 PLAYERATTACK="The Player has done an attack"
+ENEMY="Anything that can hurt the player"
+PLAYER="For Player getting hurt"
 
 [input]
 

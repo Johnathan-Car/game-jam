@@ -13,17 +13,31 @@ public partial class Enemy1Hurtbox : Area2D
 	public float KnockbackForce = 200.0f;
 
 	[Export]
+	public int Damage = 2;
+
+	[Export]
 	public Node2D Player;
 	public override void _Ready()
 	{
 		AreaEntered += OnAreaEntered;
+		BodyEntered += OnBodyEntered;
 	}
+
 
 	private bool canTakeDamage = true;
 	[Export] 
 	public float DamageCooldown = 0.5f;
 
+	private void OnBodyEntered(Node2D body)
+    {
+        if (!body.IsInGroup("PLAYER"))
+            return;
 
+        if (body is Player player)
+        {
+            player.TakeDamage(Damage);
+        }
+    }
 	
 	public void OnAreaEntered(Area2D area)
 	{
