@@ -7,7 +7,7 @@ public partial class player_data : Node
 	public static player_data Instance { get; private set; }
 
 	// Resources & Currencies
-	public int ZombieFleshValue { get; set; } = 100;
+	public int ZombieFleshValue { get; set; } = 0;
 
 	// Permanent Slot Machine Stat Ups
 	public int DamageBonus { get; set; } = 4;

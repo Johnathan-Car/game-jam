@@ -1485,7 +1485,7 @@ tile_set = SubResource("TileSet_3hd7q")
 
 [node name="SlotMachine" parent="." unique_id=1231506487 instance=ExtResource("4_kv1mn")]
 position = Vector2(271, 48)
-baseCost = 5
+baseCost = null
 
 [node name="Staircase" parent="." unique_id=998110794 instance=ExtResource("5_k7j21")]
 position = Vector2(40, 50)

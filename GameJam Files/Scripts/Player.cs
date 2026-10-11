@@ -92,7 +92,7 @@ public partial class Player : CharacterBody2D
 
 	public void TakeDamage(int damage)
 	{
-		if (isInvincible) return;
+		if (isInvincible || dead) return;
 
 		HP = Mathf.Clamp(HP - damage, 0, MaxHP);
 
@@ -106,11 +106,14 @@ public partial class Player : CharacterBody2D
 		
 		if (HP <= 0 && !dead)
 		{
+			dead = true;
+			SetDeferred("collision_layer", 0);
+			SetDeferred("collision_mask", 0);
+			
 			Speed = 0;
 			GD.Print("Player has died!");
-			dead = true;
 			_sprite.Play("death");
-			SceneLoader.Instance.ChangeScene("res://GameJam Files/Levels/MainMenu.cs");
+			SceneLoader.Instance.ChangeScene("res://GameJam Files/Levels/main_menu.tscn");
 			return;
 		}
 
