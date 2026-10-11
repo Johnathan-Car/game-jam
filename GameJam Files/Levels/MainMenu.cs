@@ -16,6 +16,6 @@ public partial class MainMenu : Control
 	{
 		GD.Print("BeginGame");
 		string hubScenePath = "res://GameJam Files/Levels/main_dungeon.tscn"; 
-		Error err = GetTree().ChangeSceneToFile(hubScenePath);
+		SceneLoader.Instance.ChangeScene(hubScenePath);
 	}
 }

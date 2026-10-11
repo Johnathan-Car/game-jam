@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://p1up4fb053ou" path="res://GameJam Files/Scenes/skeleton.tscn" id="9_1k3ja"]
 [ext_resource type="Texture2D" uid="uid://dl4ghju7bg4x0" path="res://GameJam Files/Texture_Art/RedExclamation.png" id="9_77gm7"]
 [ext_resource type="Script" uid="uid://de7ejhqtgltnu" path="res://GameJam Files/Levels/WaveManager.cs" id="10_dhlxm"]
+[ext_resource type="AudioStream" uid="uid://cscgo2rmmw3yh" path="res://GameJam Files/Assets/Sounds/PrisonBattle.mp3" id="11_1k3ja"]
 [ext_resource type="PackedScene" uid="uid://pbge1adjibto" path="res://GameJam Files/Scenes/AngrySkull.tscn" id="11_77gm7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_q6r6c"]
@@ -94,6 +95,7 @@ script = ExtResource("7_ihcyv")
 [node name="Zombie" parent="." unique_id=1722942169 node_paths=PackedStringArray("Target") instance=ExtResource("2_ihcyv")]
 position = Vector2(216, 32)
 Target = NodePath("../Player")
+maxHealth = null
 
 [node name="AngrySkull" parent="." unique_id=302794620 node_paths=PackedStringArray("advance_staircase", "retreat_staircase") instance=ExtResource("11_77gm7")]
 position = Vector2(272, -24)
@@ -108,6 +110,7 @@ _floorId = null
 script = ExtResource("10_dhlxm")
 _spawnPoints = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
 _warningIndicatorTemplate = NodePath("Sprite2D")
+_warningDuration = 2.0
 _zombieScene = ExtResource("2_ihcyv")
 _skeletonScene = ExtResource("9_1k3ja")
 
@@ -126,7 +129,6 @@ texture = ExtResource("9_77gm7")
 [node name="Player" parent="." unique_id=1190707486 node_paths=PackedStringArray("ZombieFleshCount", "myHealth") instance=ExtResource("4_74at1")]
 position = Vector2(112, 33)
 ZombieFleshCount = NodePath("../CanvasLayer/Inventory/ZombieFleshCount")
-slashOffset = 4.0
 myHealth = NodePath("../CanvasLayer/Inventory/HSlider")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2116194214]
@@ -136,3 +138,7 @@ limit_right = 448
 limit_bottom = 70
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1091031150]
+stream = ExtResource("11_1k3ja")
+autoplay = true

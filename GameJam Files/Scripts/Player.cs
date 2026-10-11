@@ -104,12 +104,13 @@ public partial class Player : CharacterBody2D
 			myHealth.SetHealth(HP);
 		}
 		
-		if (HP <= 0)
+		if (HP <= 0 && !dead)
 		{
 			Speed = 0;
 			GD.Print("Player has died!");
 			dead = true;
 			_sprite.Play("death");
+			SceneLoader.Instance.ChangeScene("res://GameJam Files/Levels/MainMenu.cs");
 			return;
 		}
 
@@ -190,7 +191,6 @@ public partial class Player : CharacterBody2D
 		GD.Print("SlumpedAnimation Playing");
 
 		_sprite.Play("slumped");
-		slumped = false;
 	}
 
 	private void ExecuteAttack1()
@@ -297,19 +297,19 @@ public partial class Player : CharacterBody2D
 			velocity += GetGravity() * (float)delta;
 		}
 
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor() && !dead)
 		{
 			velocity.Y = JumpVelocity;
 		}
 
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 
-		if (direction.X < 0 && !facingLeft)
+		if (direction.X < 0 && !facingLeft && !dead)
 		{
 			facingLeft = true;
 			UpdateSlashPosition();
 		}
-		else if (direction.X > 0 && facingLeft)
+		else if (direction.X > 0 && facingLeft && !dead)
 		{
 			facingLeft = false;
 			UpdateSlashPosition();
@@ -319,11 +319,12 @@ public partial class Player : CharacterBody2D
 
 		if (knockbackVelocity.Length() > 10.0f)
 		{
-			// Let the knockback move the player... otherwise
+			// Temp Will Change
 		}
 
 		else if (direction != Vector2.Zero)
 		{
+			slumped = false;
 			velocity.X = direction.X * Speed;
 		}
 		else
@@ -332,7 +333,7 @@ public partial class Player : CharacterBody2D
 		}
 
 		// Input Handling for 1-2 Combo
-		if (Input.IsActionJustPressed("meleeAttack"))
+		if (Input.IsActionJustPressed("meleeAttack") && !dead)
 		{
 			if (comboStep == 0)
 			{

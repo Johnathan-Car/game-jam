@@ -15,9 +15,19 @@ public partial class SlotMachine : Interactable
 	[Export] private PackedScene worldItemScene; // Assign your WorldItem.tscn here in the Inspector
 	[Export] private Marker2D dropSpawnPoint;     // Where the item pops out of the machine
 
+	private AudioStreamPlayer2D _crankSound;
+	private AudioStreamPlayer2D _grindingSound;
+
+	public override void _Ready()
+	{
+		_crankSound = GetNode<AudioStreamPlayer2D>("CrankSound");
+		_grindingSound = GetNode<AudioStreamPlayer2D>("GrindingSound");
+	}
+	
 	protected override void Interact()
 	{
 		if (ItemPool == null || ItemPool.Count == 0) return;
+		
 
 		int currentCost = baseCost + (currentSpinCount * costIncrease);
 
@@ -31,6 +41,8 @@ public partial class SlotMachine : Interactable
 		currentSpinCount++;
 		UpdateCostLabel();
 		_sprite?.Play("spin");
+		_crankSound.Play();
+		_grindingSound.Play();
 
 		int playerLuck = player_data.Instance != null ? player_data.Instance.LuckStat : 0;
 		ItemRarity rolledRarity = RollRarity(playerLuck);

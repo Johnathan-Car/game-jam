@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cwytiisvk230p" path="res://GameJam Files/Levels/MainMenu.cs" id="1_2x1hw"]
 [ext_resource type="Texture2D" uid="uid://cthvd0ffi06q7" path="res://GameJam Files/Images/background.png" id="2_2s5kf"]
 [ext_resource type="Texture2D" uid="uid://bb5p5ws4efokt" path="res://GameJam Files/Images/Start_game_.png" id="3_tqlw5"]
+[ext_resource type="AudioStream" uid="uid://ibw66n1opcqu" path="res://GameJam Files/Assets/Sounds/SleazySlots.mp3" id="4_ertl6"]
 
 [node name="MainMenu" type="Control" unique_id=912181657]
 layout_mode = 3
@@ -24,3 +25,8 @@ offset_right = 752.0
 offset_bottom = 349.0
 scale = Vector2(3.634201, 2.3645644)
 icon = ExtResource("3_tqlw5")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=464400655]
+scale = Vector2(3.8246744, 2.1441755)
+stream = ExtResource("4_ertl6")
+autoplay = true

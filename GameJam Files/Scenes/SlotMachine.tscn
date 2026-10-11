@@ -12,6 +12,8 @@
 [ext_resource type="FontFile" uid="uid://bu6fsn6aofpov" path="res://GameJam Files/Assets/Fonts/Umbreia.ttf" id="9_gvr1f"]
 [ext_resource type="Texture2D" uid="uid://dvekgnrb4aypk" path="res://GameJam Files/Assets/Input Buttons/tilemap_packed.png" id="9_py8ii"]
 [ext_resource type="Texture2D" uid="uid://rkejkqsylrmh" path="res://GameJam Files/Images/Globlette.png" id="11_py8ii"]
+[ext_resource type="AudioStream" uid="uid://var0rdirxovb" path="res://GameJam Files/Assets/Sounds/SlotMachineLever.wav" id="13_t6tkd"]
+[ext_resource type="AudioStream" uid="uid://bbauw4f1u6coy" path="res://GameJam Files/Assets/Sounds/SlotGrind.wav" id="14_3x860"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmlme"]
 atlas = ExtResource("1_agdmm")
@@ -85,7 +87,8 @@ sprite_frames = SubResource("SpriteFrames_3hd7q")
 animation = &"spin"
 
 [node name="PromptSprite" type="Sprite2D" parent="." unique_id=904517606]
-position = Vector2(19, -5)
+visible = false
+position = Vector2(22, -7)
 scale = Vector2(0.625, 0.625)
 texture = ExtResource("9_py8ii")
 region_enabled = true
@@ -115,5 +118,13 @@ shape = SubResource("CircleShape2D_ck23a")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=344277553]
 position = Vector2(-13, 0)
+
+[node name="CrankSound" type="AudioStreamPlayer2D" parent="." unique_id=737224844]
+position = Vector2(-6, 2)
+stream = ExtResource("13_t6tkd")
+
+[node name="GrindingSound" type="AudioStreamPlayer2D" parent="." unique_id=584377821]
+position = Vector2(-6, 2)
+stream = ExtResource("14_3x860")
 
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

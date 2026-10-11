@@ -248,6 +248,8 @@ _sprite = NodePath("PlayerSprite")
 slashSprite = NodePath("WeaponSlash")
 attackHitbox = NodePath("PlayerSprite/Hitbox")
 slashOffset = 8.0
+MaxHP = null
+invincibilityDuration = null
 
 [node name="CollisionPlayer" type="CollisionShape2D" parent="." unique_id=1225210588 groups=["Player"]]
 position = Vector2(1.7881393e-07, 1.5000004)
@@ -259,7 +261,7 @@ sprite_frames = SubResource("SpriteFrames_4v6l2")
 animation = &"death"
 
 [node name="Hitbox" type="Area2D" parent="PlayerSprite" unique_id=1299802312 groups=["PLAYERATTACK"]]
-position = Vector2(14, 0)
+position = Vector2(15, 0)
 collision_layer = 6
 collision_mask = 2
 
@@ -268,6 +270,6 @@ scale = Vector2(1.5089306, 0.36632615)
 shape = SubResource("RectangleShape2D_cfepw")
 
 [node name="WeaponSlash" type="AnimatedSprite2D" parent="." unique_id=1446082445]
-position = Vector2(11, -2)
+position = Vector2(16, -2)
 sprite_frames = SubResource("SpriteFrames_3hd7q")
 animation = &"slash1"
