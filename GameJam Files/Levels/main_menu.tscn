@@ -1,32 +1,82 @@
 [gd_scene format=3 uid="uid://bxut4auvxmyhg"]
 
 [ext_resource type="Script" uid="uid://cwytiisvk230p" path="res://GameJam Files/Scripts/MainMenu.cs" id="1_2x1hw"]
-[ext_resource type="Texture2D" uid="uid://cthvd0ffi06q7" path="res://GameJam Files/Images/Background.png" id="2_2s5kf"]
+[ext_resource type="Texture2D" uid="uid://ky4bykqvoutg" path="res://GameJam Files/Assets/WelcomeScreenFrames/Unbenanntes_Projekt-1.png" id="1_qthsn"]
+[ext_resource type="Texture2D" uid="uid://vygy75pfpt5p" path="res://GameJam Files/Assets/WelcomeScreenFrames/Unbenanntes_Projekt-2.png" id="2_0qdfw"]
+[ext_resource type="Texture2D" uid="uid://bfkwj1mwqkn4e" path="res://GameJam Files/Assets/WelcomeScreenFrames/Unbenanntes_Projekt-3.png" id="3_j2c3u"]
 [ext_resource type="Texture2D" uid="uid://bb5p5ws4efokt" path="res://GameJam Files/Images/Start_game_.png" id="3_tqlw5"]
 [ext_resource type="AudioStream" uid="uid://ibw66n1opcqu" path="res://GameJam Files/Assets/Sounds/SleazySlots.mp3" id="4_ertl6"]
+[ext_resource type="Texture2D" uid="uid://b0apgjtb3gdrd" path="res://GameJam Files/Assets/WelcomeScreenFrames/Unbenanntes_Projekt-4.png" id="4_tvkky"]
+[ext_resource type="Texture2D" uid="uid://bh42t5urmtwc4" path="res://GameJam Files/Assets/WelcomeScreenFrames/Unbenanntes_Projekt-5.png" id="5_nqt4f"]
+[ext_resource type="Texture2D" uid="uid://dx012sl2whsjy" path="res://GameJam Files/Assets/WelcomeScreenFrames/Unbenanntes_Projekt-6.png" id="6_2h6sb"]
+[ext_resource type="Texture2D" uid="uid://cxst7y7lprx3k" path="res://GameJam Files/Assets/WelcomeScreenFrames/Unbenanntes_Projekt-7.png" id="7_celms"]
+[ext_resource type="Texture2D" uid="uid://b1bg206tb7qrr" path="res://GameJam Files/Assets/WelcomeScreenFrames/Unbenanntes_Projekt-8.png" id="8_bsyp2"]
+[ext_resource type="Texture2D" uid="uid://3r3hb653jg07" path="res://GameJam Files/Assets/WelcomeScreenFrames/Unbenanntes_Projekt-9.png" id="9_1pus5"]
+[ext_resource type="Texture2D" uid="uid://xub6ftb0gq1f" path="res://GameJam Files/Assets/WelcomeScreenFrames/Unbenanntes_Projekt-10.png" id="10_wefgm"]
 
-[node name="MainMenu" type="Control" unique_id=912181657]
+[sub_resource type="SpriteFrames" id="SpriteFrames_qlsmq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_qthsn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0qdfw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_j2c3u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tvkky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nqt4f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2h6sb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_celms")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bsyp2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_1pus5")
+}, {
+"duration": 5.0,
+"texture": ExtResource("10_wefgm")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="MainMenu" type="Node2D" unique_id=349288018]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=754132285]
+position = Vector2(576, 324)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_qlsmq")
+autoplay = "default"
+frame_progress = 0.6994756
+
+[node name="MainMenu" type="Control" parent="." unique_id=912181657]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_2x1hw")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1301310888]
+[node name="StartButton" type="Button" parent="MainMenu" unique_id=92505215]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(3.8246744, 2.1441755)
-texture = ExtResource("2_2s5kf")
-
-[node name="StartButton" type="Button" parent="." unique_id=92505215]
-layout_mode = 0
-offset_left = 623.0
-offset_top = 221.0
-offset_right = 752.0
-offset_bottom = 349.0
+offset_left = 630.0
+offset_top = 192.0
+offset_right = 759.0
+offset_bottom = 320.0
 scale = Vector2(3.634201, 2.3645644)
 icon = ExtResource("3_tqlw5")
+flat = true
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=464400655]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="MainMenu" unique_id=464400655]
 scale = Vector2(3.8246744, 2.1441755)
 stream = ExtResource("4_ertl6")
 autoplay = true
