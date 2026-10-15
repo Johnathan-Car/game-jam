@@ -1,75 +1,51 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 public partial class Player : CharacterBody2D
 {
-	// ── Constants ────────────────────────────────────────────────────────────
-	public const float JumpVelocity = -300.0f;
-
-	private const string ActionLeft = "ui_left";
-	private const string ActionRight = "ui_right";
-	private const string ActionJump = "ui_accept";
-	private const string ActionAttack = "meleeAttack";
-
-	private const string AnimIdle = "default";
-	private const string AnimRun = "run";
-	private const string AnimAttack1 = "attack1";
-	private const string AnimAttack2 = "attack2";
-	private const string AnimSlash1 = "slash1";
-	private const string AnimSlash2 = "slash2";
-	private const string AnimDeath = "death";
-	private const string AnimSlumped = "slumped";
-
-	private const double Attack1HitboxTime = 0.2;
-	private const double Attack2HitboxTime = 0.5;
-	private const float KnockbackDecay = 800.0f;
-	private const float KnockbackControlThreshold = 10.0f;
-	private const double DeathSceneDelay = 1.0;
-	private const string MainMenuScene = "res://GameJam Files/Levels/main_menu.tscn";
-
-	// ── Inspector references ─────────────────────────────────────────────────
-	[Export] private HealthComponent health;
+	[Export] private float baseSpeed = 120.0f;
+	private float Speed = 100;
+	private float LuckStat = 0;
 	[Export] private AnimatedSprite2D _sprite;
 	[Export] private AnimatedSprite2D slashSprite;
 	[Export] private Area2D attackHitbox;
-	[Export] private Timer attackHitboxTimer;
 	[Export] public Label ZombieFleshCount;
-	[Export] public HealthBar CurrentHealthBar;
-
-	// ── Inspector tuning ─────────────────────────────────────────────────────
-	[Export] private float baseSpeed = 100.0f;
 	[Export] private float slashOffset = 16.0f;
+	[Export] private Timer attackHitboxTimer;
 	[Export] public int MaxHP = 10;
+	[Export] public HealthBar myHealth;
+	private bool isInvincible = false;
+	[Export] private float invincibilityDuration = 1.0f; // 1 second of i-frames
+	
+	public int HP = 10;
 
-	// ── Stats ────────────────────────────────────────────────────────────────
-	private float speed;
-	public float LuckStat { get; private set; }
-	public int HP => health.CurrentHealth;
-
-	// ── State ────────────────────────────────────────────────────────────────
-	private bool facingLeft;
-	private bool dead;
-	private bool slumped;
+	// Combo Management
+	private int comboStep = 0; 
+	private bool isAttacking = false;
+	private bool comboBuffered = false; // Tracks if attack input was pressed during attack 1
+	
 	private Vector2 knockbackVelocity = Vector2.Zero;
-	private Tween blinkTween;
+	public const float JumpVelocity = -300.0f;
+	private bool facingLeft = false;
+	private bool dead = false;
+	private bool slumped = false;
+	
+	private int ZombieFleshValue = 0;
+	
 
-	// Combo
-	private int comboStep;
-	private bool isAttacking;
-	private bool comboBuffered;
-	private readonly HashSet<Node2D> enemiesHitThisSwing = new();
-
-	// ── Setup ────────────────────────────────────────────────────────────────
 	public override void _Ready()
 	{
-		health ??= GetNode<HealthComponent>("Health");
-
-		// Connect before Initialize so the health bar gets the starting value.
-		health.HealthChanged += OnHealthChanged;
-		health.Died += OnDied;
-		health.InvincibilityChanged += OnInvincibilityChanged;
-
-		_sprite.Play(AnimIdle);
+		base._Ready();
+		_sprite.Play("default");
+		
+		if (player_data.Instance != null)
+		{		
+			if (ZombieFleshCount != null)
+			{
+				ZombieFleshCount.Text = ZombieFleshValue.ToString();
+			}
+		}
 
 		if (slashSprite != null)
 		{
@@ -88,137 +64,190 @@ public partial class Player : CharacterBody2D
 			attackHitboxTimer.Timeout += OnAttackHitboxTimerTimeout;
 		}
 
-		LoadStatsFromPlayerData();
-		UpdateFleshLabel();
 		UpdateSlashPosition();
 	}
-
+	
 	public void LoadStatsFromPlayerData()
 	{
-		int maxHp = MaxHP;
-		speed = baseSpeed;
-		LuckStat = 0;
-
-		var data = player_data.Instance;
-		if (data != null)
-		{
-			maxHp += data.MaxHealthBonus;
-			speed += data.SpeedBonus;
-			LuckStat = data.LuckStat;
-		}
-		else
+		// Check if player_data singleton exists and is initialized
+		if (player_data.Instance == null)
 		{
 			GD.Print("[Player] player_data.Instance is null. Falling back to base inspector stats.");
+			
+			return;
 		}
 
-		health.Initialize(maxHp);
+		var data = player_data.Instance;
+		
+		MaxHP += data.MaxHealthBonus;
+		myHealth.SetMaxHealth(MaxHP);
+		myHealth.SetHealth(HP);		
+		
+		Speed = Speed + data.SpeedBonus;
+		LuckStat = data.LuckStat;
 	}
-
-	// ── Health ───────────────────────────────────────────────────────────────
-	public void TakeDamage(int damage)
-	{
-		health.TakeDamage(damage);
-	}
-
 	public void ApplyKnockback(Vector2 direction, float force)
 	{
-		// Horizontal only; direction.X decides which way we get pushed.
-		float side = direction.X >= 0 ? 1.0f : -1.0f;
-		knockbackVelocity = new Vector2(side * force, 0);
+		knockbackVelocity = direction * force;
 	}
 
-	private void OnHealthChanged(int current, int max)
+	public void TakeDamage(int damage)
 	{
-		if (IsInstanceValid(CurrentHealthBar))
+		if (isInvincible || dead) return;
+
+		HP = Mathf.Clamp(HP - damage, 0, MaxHP);
+
+		// For testing
+		GD.Print("Player HP: " + HP + "/" + MaxHP);
+
+		if (IsInstanceValid(myHealth))
 		{
-			CurrentHealthBar.SetHealth(current);
+			myHealth.SetHealth(HP);
 		}
-		GD.Print($"Player HP: {current}/{max}");
+		
+		if (HP <= 0 && !dead)
+		{
+			dead = true;
+			SetDeferred("collision_layer", 0);
+			SetDeferred("collision_mask", 0);
+			
+			Speed = 0;
+			GD.Print("Player has died!");
+			_sprite.Play("death");
+			SceneLoader.Instance.ChangeScene("res://GameJam Files/Levels/main_menu.tscn");
+			return;
+		}
+
+		// Trigger I-Frames and sprite blinking
+		StartInvincibility();
+	}
+	
+	private async void StartInvincibility()
+	{
+		isInvincible = true;
+
+		SetCollisionMaskValue(2, false);
+
+		float elapsed = 0f;
+		while (elapsed < invincibilityDuration)
+		{
+			if (_sprite != null)
+			{
+				// Quick blinking feedback effect
+				_sprite.Visible = !_sprite.Visible;
+			}
+			await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
+			elapsed += 0.1f;
+		}
+
+		// Restore normal visibility
+		if (_sprite != null)
+		{
+			_sprite.Visible = true;
+		}
+
+		SetCollisionMaskValue(2, true);
+
+		isInvincible = false;
 	}
 
-	private void OnInvincibilityChanged(bool active)
+	private void OnAttackHitboxTimerTimeout()
 	{
-		// Ignore enemy bodies (collision layer 2) while invincible.
-		SetCollisionMaskValue(2, !active);
-
-		blinkTween?.Kill();
-
-		if (active)
+		if (attackHitbox != null)
 		{
-			blinkTween = CreateTween().SetLoops();
-			blinkTween.TweenProperty(_sprite, "modulate:a", 0.3f, 0.1f);
-			blinkTween.TweenProperty(_sprite, "modulate:a", 1.0f, 0.1f);
+			attackHitbox.Monitoring = false;
+		}
+	}
+
+	// Item Collection Callback
+	public void OnItemCollected()
+	{
+		player_data.Instance.AddZombieFlesh(1);
+
+		if (ZombieFleshCount != null)
+		{
+			ZombieFleshCount.Text = player_data.Instance.ZombieFleshValue.ToString();
+			
 		}
 		else
 		{
-			_sprite.Modulate = Colors.White;
+			GD.PrintErr("The ZombieFleshCount label hasn't been assigned");
+		}
+
+		GD.Print("Zombie Flesh: " + ZombieFleshValue);
+	}
+
+	private void OnSlashAnimationFinished()
+	{
+		if (comboStep == 1 && comboBuffered)
+		{
+			ExecuteAttack2();
+		}
+		else
+		{
+			ResetComboState();
 		}
 	}
-
-	private void OnDied()
-	{
-		dead = true;
-		GD.Print("Player has died!");
-
-		blinkTween?.Kill();
-		_sprite.Modulate = Colors.White;
-		_sprite.Visible = true;
-
-		ResetComboState();
-		SetDeferred("collision_layer", 0);
-		SetDeferred("collision_mask", 0);
-
-		_sprite.Play(AnimDeath);
-
-		// Let the death animation play before leaving the level.
-		GetTree().CreateTimer(DeathSceneDelay).Timeout +=
-			() => SceneLoader.Instance.ChangeScene(MainMenuScene);
-	}
-
-	// ── Items / HUD ──────────────────────────────────────────────────────────
-	public void OnItemCollected()
-	{
-		if (player_data.Instance == null) return;
-
-		player_data.Instance.AddZombieFlesh(1);
-		UpdateFleshLabel();
-	}
-
-	private void UpdateFleshLabel()
-	{
-		if (ZombieFleshCount == null || player_data.Instance == null) return;
-
-		ZombieFleshCount.Text = player_data.Instance.ZombieFleshValue.ToString();
-	}
-
+	
 	public void PlaySlumpedAnimation()
 	{
-		slumped = true;
-		_sprite.Play(AnimSlumped);
+		slumped=true;
+		GD.Print("SlumpedAnimation Playing");
+
+		_sprite.Play("slumped");
 	}
 
-	// ── Combat ───────────────────────────────────────────────────────────────
-	private void StartAttack(int step)
+	private void ExecuteAttack1()
 	{
-		comboStep = step;
+		comboStep = 1;
 		isAttacking = true;
 		comboBuffered = false;
-		enemiesHitThisSwing.Clear(); // once per swing, not once per check
 
-		_sprite.Play(step == 1 ? AnimAttack1 : AnimAttack2);
+		_sprite.Play("attack1"); // Body swing 1
 
 		if (slashSprite != null)
 		{
 			slashSprite.Visible = true;
 			slashSprite.Frame = 0;
-			slashSprite.Play(step == 1 ? AnimSlash1 : AnimSlash2);
+			slashSprite.Play("slash1"); // First smear animation
 		}
 
 		if (attackHitbox != null)
 		{
-			// Overlaps are checked every physics frame while this is on (see _PhysicsProcess).
+			
 			attackHitbox.Monitoring = true;
-			attackHitboxTimer?.Start(step == 1 ? Attack1HitboxTime : Attack2HitboxTime);
+			CheckHitboxHits();
+			
+			if (attackHitboxTimer != null)
+			{
+				attackHitboxTimer.Start(0.2);
+			}
+		}
+	}
+
+	private void ExecuteAttack2()
+	{
+		comboStep = 2;
+		isAttacking = true;
+		comboBuffered = false;
+
+		_sprite.Play("attack2"); // Body swing 2
+
+		if (slashSprite != null)
+		{
+			slashSprite.Visible = true;
+			slashSprite.Frame = 0;
+			slashSprite.Play("slash2"); // Second smear animation
+		}
+
+		if (attackHitbox != null)
+		{
+			attackHitbox.Monitoring = true;
+			CheckHitboxHits();
+			if (attackHitboxTimer != null)
+			{
+				attackHitboxTimer.Start(0.5);
+			}
 		}
 	}
 
@@ -238,130 +267,118 @@ public partial class Player : CharacterBody2D
 			attackHitbox.Monitoring = false;
 		}
 
-		attackHitboxTimer?.Stop();
-	}
-
-	private void OnSlashAnimationFinished()
-	{
-		if (comboStep == 1 && comboBuffered)
+		if (attackHitboxTimer != null)
 		{
-			StartAttack(2);
+			attackHitboxTimer.Stop();
 		}
-		else
-		{
-			ResetComboState();
-		}
-	}
-
-	private void OnAttackHitboxTimerTimeout()
-	{
-		if (attackHitbox != null)
-		{
-			attackHitbox.Monitoring = false;
-		}
-	}
-
-	private void CheckHitboxHits()
-	{
-		foreach (Area2D area in attackHitbox.GetOverlappingAreas())
-		{
-			if (area is not EnemyHurtbox hurtbox) continue;
-			if (hurtbox.GetParent() is not Node2D enemyNode) continue;
-			if (!enemiesHitThisSwing.Add(enemyNode)) continue; // already hit this swing
-
-			int damage = 1 + (player_data.Instance != null ? player_data.Instance.DamageBonus : 0);
-			Vector2 knockbackDir = (enemyNode.GlobalPosition - GlobalPosition).Normalized();
-
-			hurtbox.TakeHit(damage, knockbackDir);
-		}
-	}
-
-	// ── Facing ───────────────────────────────────────────────────────────────
-	private void UpdateFacing(float inputX)
-	{
-		if (inputX < 0 && !facingLeft)
-		{
-			SetFacing(true);
-		}
-		else if (inputX > 0 && facingLeft)
-		{
-			SetFacing(false);
-		}
-	}
-
-	private void SetFacing(bool left)
-	{
-		facingLeft = left;
-		_sprite.FlipH = left;
-		UpdateSlashPosition();
 	}
 
 	private void UpdateSlashPosition()
 	{
-		Vector2 offset = new Vector2(facingLeft ? -slashOffset : slashOffset, 0);
+		float directionMultiplier = facingLeft ? -1.0f : 1.0f;
+		Vector2 offsetVector = new Vector2(slashOffset * directionMultiplier, 0);
 
 		if (slashSprite != null)
 		{
-			slashSprite.Position = offset;
+			slashSprite.Position = offsetVector;
 			slashSprite.FlipH = facingLeft;
 		}
 
 		if (attackHitbox != null)
 		{
-			attackHitbox.Position = offset;
+			attackHitbox.Position = offsetVector;
+		}
+	}
+	
+	private HashSet<Node2D> enemiesHitThisSwing = new HashSet<Node2D>();
+
+	private void CheckHitboxHits()
+	{
+		if (attackHitbox == null) return;
+
+		enemiesHitThisSwing.Clear();
+		
+		// Switch to GetOverlappingAreas() since the hurtbox is an Area2D
+		var overlappingAreas = attackHitbox.GetOverlappingAreas();
+
+		foreach (Area2D area in overlappingAreas)
+		{
+			if (area is EnemyHurtbox hurtbox)
+			{
+				Node2D enemyNode = hurtbox.GetParent() as Node2D;
+
+				if (enemyNode != null && !enemiesHitThisSwing.Contains(enemyNode))
+				{
+					enemiesHitThisSwing.Add(enemyNode);
+
+					// Calculate damage from player data
+					int totalDamage = 1 + (player_data.Instance != null ? player_data.Instance.DamageBonus : 0);
+					
+					// Calculate knockback direction from player to enemy
+					Vector2 knockbackDir = (enemyNode.GlobalPosition - GlobalPosition).Normalized();
+
+					// Call a clean method on the hurtbox
+					hurtbox.TakeHit(totalDamage, knockbackDir);
+				}
+			}
 		}
 	}
 
-	// ── Per-frame update ─────────────────────────────────────────────────────
 	public override void _PhysicsProcess(double delta)
 	{
-		float dt = (float)delta;
 		Vector2 velocity = Velocity;
+
+		velocity += knockbackVelocity;
+
+		knockbackVelocity = knockbackVelocity.MoveToward(Vector2.Zero, 14.0f * (float)delta);
 
 		if (!IsOnFloor())
 		{
-			velocity += GetGravity() * dt;
+			velocity += GetGravity() * (float)delta;
 		}
 
-		if (dead)
-		{
-			velocity.X = 0;
-			Velocity = velocity;
-			MoveAndSlide();
-			return;
-		}
-
-		float inputX = Input.GetAxis(ActionLeft, ActionRight);
-		UpdateFacing(inputX);
-
-		// Jump
-		if (Input.IsActionJustPressed(ActionJump) && IsOnFloor())
+		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor() && !dead)
 		{
 			velocity.Y = JumpVelocity;
 		}
 
-		// Horizontal movement. Knockback takes over from player control while it lasts.
-		knockbackVelocity = knockbackVelocity.MoveToward(Vector2.Zero, KnockbackDecay * dt);
+		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 
-		if (knockbackVelocity.Length() > KnockbackControlThreshold)
+		if (direction.X < 0 && !facingLeft && !dead)
 		{
-			velocity.X = knockbackVelocity.X;
+			facingLeft = true;
+			UpdateSlashPosition();
+		}
+		else if (direction.X > 0 && facingLeft && !dead)
+		{
+			facingLeft = false;
+			UpdateSlashPosition();
+		}
+
+		_sprite.FlipH = facingLeft;
+
+		if (knockbackVelocity.Length() > 10.0f)
+		{
+			// Temp Will Change
+		}
+
+		else if (direction != Vector2.Zero)
+		{
+			slumped = false;
+			velocity.X = direction.X * Speed;
 		}
 		else
 		{
-			if (!Mathf.IsZeroApprox(inputX))
-			{
-				slumped = false;
-			}
-			velocity.X = inputX * speed;
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 		}
 
-		// Attack input (1-2 combo)
-		if (Input.IsActionJustPressed(ActionAttack))
+		// Input Handling for 1-2 Combo
+		if (Input.IsActionJustPressed("meleeAttack") && !dead)
 		{
 			if (comboStep == 0)
 			{
-				StartAttack(1);
+				//attackHitbox.Monitoring = true; 
+				ExecuteAttack1();
 			}
 			else if (comboStep == 1 && isAttacking)
 			{
@@ -369,16 +386,24 @@ public partial class Player : CharacterBody2D
 			}
 		}
 
-		// Hit detection runs every frame while the hitbox is active.
-		if (isAttacking && attackHitbox != null && attackHitbox.Monitoring)
+		// Body animations when not attacking
+		if (!isAttacking)
 		{
-			CheckHitboxHits();
-		}
+			if (attackHitbox != null)
+			{
+				attackHitbox.Monitoring = false;
+			}
 
-		// Body animation when not attacking
-		if (!isAttacking && !slumped)
-		{
-			_sprite.Play(Mathf.IsZeroApprox(inputX) ? AnimIdle : AnimRun);
+			if (direction != Vector2.Zero && !dead && !slumped)
+			{
+				_sprite.Play("run");
+			}
+			else
+			{
+				if(!dead && !slumped){
+					_sprite.Play("default");
+				}
+			}
 		}
 
 		Velocity = velocity;

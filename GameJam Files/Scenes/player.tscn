@@ -250,6 +250,8 @@ slashSprite = NodePath("WeaponSlash")
 attackHitbox = NodePath("PlayerSprite/Hitbox")
 slashOffset = 8.0
 attackHitboxTimer = NodePath("Timer")
+MaxHP = null
+invincibilityDuration = null
 
 [node name="Node" type="Node" parent="." unique_id=1930857169]
 script = ExtResource("2_8qsk1")
