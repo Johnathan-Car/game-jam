@@ -240,16 +240,16 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=1190707486 node_paths=PackedStringArray("_sprite", "slashSprite", "attackHitbox", "attackHitboxTimer") groups=["PLAYER", "Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1190707486 node_paths=PackedStringArray("health", "_sprite", "slashSprite", "attackHitbox", "attackHitboxTimer") groups=["PLAYER", "Player"]]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_cfepw")
-baseSpeed = 100.0
+health = NodePath("Node")
 _sprite = NodePath("PlayerSprite")
 slashSprite = NodePath("WeaponSlash")
 attackHitbox = NodePath("PlayerSprite/Hitbox")
-slashOffset = 8.0
 attackHitboxTimer = NodePath("Timer")
+slashOffset = 8.0
 
 [node name="Node" type="Node" parent="." unique_id=1930857169]
 script = ExtResource("2_8qsk1")
