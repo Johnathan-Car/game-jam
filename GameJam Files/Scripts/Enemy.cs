@@ -83,7 +83,6 @@ public partial class Enemy : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		// ... (keep your existing movement and targeting physics process code here) ...
 		Vector2 velocity = Velocity;
 		if (Target != null)
 		{

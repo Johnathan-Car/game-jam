@@ -94,24 +94,24 @@ script = ExtResource("7_ihcyv")
 
 [node name="Zombie" parent="." unique_id=1722942169 node_paths=PackedStringArray("Target") instance=ExtResource("2_ihcyv")]
 position = Vector2(216, 32)
-Target = NodePath("../Player")
 maxHealth = 10
+Target = NodePath("../Player")
 
 [node name="AngrySkull" parent="." unique_id=302794620 node_paths=PackedStringArray("advance_staircase", "retreat_staircase") instance=ExtResource("11_77gm7")]
 position = Vector2(272, -24)
 scale = Vector2(0.8470247, 0.80260015)
 _phaseDuration = 1.0
 _enragedWaveInterval = 15.0
+_floorId = null
 advance_staircase = NodePath("../Up")
 retreat_staircase = NodePath("../Down")
-_floorId = null
 
 [node name="WaveManager" type="Node2D" parent="." unique_id=185001041 node_paths=PackedStringArray("_warningIndicatorTemplate")]
 script = ExtResource("10_dhlxm")
-_warningIndicatorTemplate = NodePath("Sprite2D")
 _warningDuration = 2.0
 _zombieScene = ExtResource("2_ihcyv")
 _skeletonScene = ExtResource("9_1k3ja")
+_warningIndicatorTemplate = NodePath("Sprite2D")
 
 [node name="Marker2D" type="Marker2D" parent="WaveManager" unique_id=730493978]
 position = Vector2(392, 24)
@@ -125,12 +125,11 @@ position = Vector2(272, 32)
 [node name="Sprite2D" type="Sprite2D" parent="WaveManager" unique_id=1346702949]
 texture = ExtResource("9_77gm7")
 
-[node name="Player" parent="." unique_id=1190707486 node_paths=PackedStringArray("ZombieFleshCount", "myHealth") instance=ExtResource("4_74at1")]
+[node name="Player" parent="." unique_id=1190707486 node_paths=PackedStringArray("ZombieFleshCount", "CurrentHealthBar") instance=ExtResource("4_74at1")]
 position = Vector2(112, 33)
+MaxHP = 1000000
 ZombieFleshCount = NodePath("../CanvasLayer/Inventory/ZombieFleshCount")
-MaxHP = 10
-myHealth = NodePath("../CanvasLayer/Inventory/HSlider")
-invincibilityDuration = 1.0
+CurrentHealthBar = NodePath("../CanvasLayer/Inventory/HSlider")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2116194214]
 zoom = Vector2(4.635, 4.635)

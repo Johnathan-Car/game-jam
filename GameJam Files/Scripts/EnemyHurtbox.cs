@@ -8,7 +8,6 @@ public partial class EnemyHurtbox : Area2D
 
 	public override void _Ready()
 	{
-		// Keep body collision if you want touching the enemy to hurt the player
 		BodyEntered += OnBodyEntered;
 	}
 
@@ -16,7 +15,8 @@ public partial class EnemyHurtbox : Area2D
 	{
 		if (body.IsInGroup("PLAYER") && body is Player player)
 		{
-			player.TakeDamage(Damage);
+			//Hurtbox shouldn't do damage?
+			//player.TakeDamage(Damage);
 		}
 	}
 	
