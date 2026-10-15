@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Enemy1ContactArea : Area2D
+public partial class EnemyContactArea : Area2D
 {
 	[Export] public int Damage = 1;
 

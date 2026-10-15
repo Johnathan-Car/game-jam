@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Enemy1 : CharacterBody2D
+public partial class Enemy : CharacterBody2D
 {
 	[Export] public Node2D Target;
 	[Export] public PackedScene DroppedItemScene;

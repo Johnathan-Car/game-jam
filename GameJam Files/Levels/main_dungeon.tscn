@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cdxbseps6pls7"]
 
-[ext_resource type="Script" uid="uid://c0ogfwid4k2jy" path="res://GameJam Files/Levels/MainDungeon.cs" id="1_k7j21"]
+[ext_resource type="Script" uid="uid://c0ogfwid4k2jy" path="res://GameJam Files/Scripts/MainDungeon.cs" id="1_k7j21"]
 [ext_resource type="Texture2D" uid="uid://msulc4vkvi5n" path="res://GameJam Files/Assets/Tilesetv3.png" id="1_kv1mn"]
 [ext_resource type="Texture2D" uid="uid://cr4i5w8uqm4ij" path="res://GameJam Files/Assets/Prisoner.png" id="2_0k0t1"]
 [ext_resource type="PackedScene" uid="uid://qcnikf7ilcsb" path="res://GameJam Files/Scenes/SlotMachine.tscn" id="4_kv1mn"]

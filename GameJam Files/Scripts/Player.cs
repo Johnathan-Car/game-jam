@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Player : CharacterBody2D
 {
@@ -213,8 +214,10 @@ public partial class Player : CharacterBody2D
 
 		if (attackHitbox != null)
 		{
+			
 			attackHitbox.Monitoring = true;
-
+			CheckHitboxHits();
+			
 			if (attackHitboxTimer != null)
 			{
 				attackHitboxTimer.Start(0.2);
@@ -240,7 +243,7 @@ public partial class Player : CharacterBody2D
 		if (attackHitbox != null)
 		{
 			attackHitbox.Monitoring = true;
-			
+			CheckHitboxHits();
 			if (attackHitboxTimer != null)
 			{
 				attackHitboxTimer.Start(0.5);
@@ -284,6 +287,40 @@ public partial class Player : CharacterBody2D
 		if (attackHitbox != null)
 		{
 			attackHitbox.Position = offsetVector;
+		}
+	}
+	
+	private HashSet<Node2D> enemiesHitThisSwing = new HashSet<Node2D>();
+
+	private void CheckHitboxHits()
+	{
+		if (attackHitbox == null) return;
+
+		enemiesHitThisSwing.Clear();
+		
+		// Switch to GetOverlappingAreas() since the hurtbox is an Area2D
+		var overlappingAreas = attackHitbox.GetOverlappingAreas();
+
+		foreach (Area2D area in overlappingAreas)
+		{
+			if (area is EnemyHurtbox hurtbox)
+			{
+				Node2D enemyNode = hurtbox.GetParent() as Node2D;
+
+				if (enemyNode != null && !enemiesHitThisSwing.Contains(enemyNode))
+				{
+					enemiesHitThisSwing.Add(enemyNode);
+
+					// Calculate damage from player data
+					int totalDamage = 1 + (player_data.Instance != null ? player_data.Instance.DamageBonus : 0);
+					
+					// Calculate knockback direction from player to enemy
+					Vector2 knockbackDir = (enemyNode.GlobalPosition - GlobalPosition).Normalized();
+
+					// Call a clean method on the hurtbox
+					hurtbox.TakeHit(totalDamage, knockbackDir);
+				}
+			}
 		}
 	}
 
@@ -340,6 +377,7 @@ public partial class Player : CharacterBody2D
 		{
 			if (comboStep == 0)
 			{
+				//attackHitbox.Monitoring = true; 
 				ExecuteAttack1();
 			}
 			else if (comboStep == 1 && isAttacking)
