@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://drj4exwnxl25w"]
-
-[ext_resource type="Texture2D" uid="uid://v65haixj2byo" path="res://GameJam Files/Images/clouds/Unbenanntes_Projekt-5.png" id="1_c875w"]
-[ext_resource type="Script" uid="uid://d2j0lmqemx8sh" path="res://GameJam Files/Scripts/Cloud.cs" id="2_l460p"]
-
-[node name="Cloud" type="Sprite2D" unique_id=1863263269]
-scale = Vector2(2, 2)
-texture = ExtResource("1_c875w")
-script = ExtResource("2_l460p")
