@@ -19,10 +19,10 @@ public partial class AngrySkull : Node2D
 	[ExportGroup("Skull Frames")]
 	[Export] private int _completedFrame = 0;  // shown when the floor was already beaten on entry
 	[Export] private int _dormantFrame = 1;    // eyes closed
-	[Export] private int _fullAwakeFrame = 6;  // max awakeness for a normal round
-	[Export] private int _successFrame = 7;    // white / finished
-	[Export] private int _angryFrameA = 8;
-	[Export] private int _angryFrameB = 9;
+	[Export] private int _fullAwakeFrame = 5;  // max awakeness for a normal round
+	[Export] private int _successFrame = 5;    // white / finished
+	[Export] private int _angryFrameA = 9;
+	[Export] private int _angryFrameB = 10;
 
 	private enum SkullState { Waiting, InRound, Finished }
 	private SkullState _state = SkullState.Waiting;
@@ -236,10 +236,9 @@ public partial class AngrySkull : Node2D
 
 	private void MarkFloorComplete()
 	{
-		// ASSUMPTION: adjust to whatever your player_data exposes for saving completion.
 		if (player_data.Instance != null && player_data.Instance.HasMethod("CompleteFloor"))
 		{
-			player_data.Instance.Call("CompleteFloor", _floorId);
+			player_data.Instance.MarkFloorCompleted("Floor1");
 		}
 		else
 		{

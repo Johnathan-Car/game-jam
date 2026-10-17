@@ -10,6 +10,12 @@ public partial class Player : CharacterBody2D
 	private const string ActionRight = "ui_right";
 	private const string ActionJump = "ui_accept";
 	private const string ActionAttack = "meleeAttack";
+	private const string ActionDown = "ui_down";
+
+	private const string AnimPogo = "pogo";            
+	private const string AnimPogoSlash = "pogo_slash"; 
+	private const double PogoDuration = 0.25;
+	private const float PogoBounceVelocity = -250.0f;
 
 	private const string AnimIdle = "default";
 	private const string AnimRun = "run";
@@ -33,12 +39,15 @@ public partial class Player : CharacterBody2D
 	[Export] private AnimatedSprite2D slashSprite;
 	[Export] private Area2D attackHitbox;
 	[Export] private Timer attackHitboxTimer;
+	[Export] private Area2D pogoHitbox;
+	[Export] private AnimatedSprite2D pogoSlashSprite;
 	[Export] public Label ZombieFleshCount;
 	[Export] public HealthBar CurrentHealthBar;
 
 	// ── Inspector tuning ─────────────────────────────────────────────────────
 	[Export] private float baseSpeed = 100.0f;
 	[Export] private float slashOffset = 16.0f;
+	[Export] private float pogoOffset = 16.0f; // how far below the player the pogo hitbox/effect sits
 	[Export] public int MaxHP = 10;
 
 	// ── Stats ────────────────────────────────────────────────────────────────
@@ -58,6 +67,11 @@ public partial class Player : CharacterBody2D
 	private bool isAttacking;
 	private bool comboBuffered;
 	private readonly HashSet<Node2D> enemiesHitThisSwing = new();
+
+	// Pogo
+	private bool isPogoing;
+	private bool pogoBounced;
+	private Timer pogoTimer;
 
 	// ── Setup ────────────────────────────────────────────────────────────────
 	public override void _Ready()
@@ -87,6 +101,23 @@ public partial class Player : CharacterBody2D
 		{
 			attackHitboxTimer.Timeout += OnAttackHitboxTimerTimeout;
 		}
+
+		if (pogoSlashSprite != null)
+		{
+			pogoSlashSprite.Visible = false;
+			pogoSlashSprite.Position = new Vector2(0, pogoOffset);
+		}
+
+		if (pogoHitbox != null)
+		{
+			pogoHitbox.Monitoring = false;
+			pogoHitbox.Position = new Vector2(0, pogoOffset);
+		}
+
+		// Ends the pogo window
+		pogoTimer = new Timer { OneShot = true, WaitTime = PogoDuration };
+		AddChild(pogoTimer);
+		pogoTimer.Timeout += EndPogo;
 
 		LoadStatsFromPlayerData();
 		UpdateFleshLabel();
@@ -165,6 +196,7 @@ public partial class Player : CharacterBody2D
 		_sprite.Visible = true;
 
 		ResetComboState();
+		EndPogo();
 		SetDeferred("collision_layer", 0);
 		SetDeferred("collision_mask", 0);
 
@@ -276,6 +308,68 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	// ── Pogo ─────────────────────────────────────────────────────────────────
+	private void StartPogo()
+	{
+		isPogoing = true;
+		pogoBounced = false;
+		enemiesHitThisSwing.Clear();
+
+		_sprite.Play(AnimPogo);
+
+		if (pogoSlashSprite != null)
+		{
+			pogoSlashSprite.Visible = true;
+			pogoSlashSprite.Frame = 0;
+			pogoSlashSprite.Play(AnimPogoSlash);
+		}
+
+		if (pogoHitbox != null)
+		{
+			pogoHitbox.Monitoring = true;
+		}
+
+		pogoTimer.Start();
+	}
+
+	private void EndPogo()
+	{
+		isPogoing = false;
+		pogoTimer?.Stop();
+
+		if (pogoSlashSprite != null)
+		{
+			pogoSlashSprite.Visible = false;
+		}
+
+		if (pogoHitbox != null)
+		{
+			pogoHitbox.Monitoring = false;
+		}
+	}
+
+	// Returns true if at least one enemy was newly hit this frame.
+	private bool CheckPogoHits()
+	{
+		bool hitSomething = false;
+
+		foreach (Area2D area in pogoHitbox.GetOverlappingAreas())
+		{
+			if (area is not EnemyHurtbox hurtbox) continue;
+			if (hurtbox.GetParent() is not Node2D enemyNode) continue;
+			if (!enemiesHitThisSwing.Add(enemyNode)) continue;
+
+			int damage = 1 + (player_data.Instance != null ? player_data.Instance.DamageBonus : 0);
+
+			float side = enemyNode.GlobalPosition.X >= GlobalPosition.X ? 1.0f : -1.0f;
+			hurtbox.TakeHit(damage, new Vector2(side, 0));
+
+			hitSomething = true;
+		}
+
+		return hitSomething;
+	}
+
 	// ── Facing ───────────────────────────────────────────────────────────────
 	private void UpdateFacing(float inputX)
 	{
@@ -340,7 +434,7 @@ public partial class Player : CharacterBody2D
 			velocity.Y = JumpVelocity;
 		}
 
-		// Horizontal movement. Knockback takes over from player control while it lasts.
+		// Horizontal movement
 		knockbackVelocity = knockbackVelocity.MoveToward(Vector2.Zero, KnockbackDecay * dt);
 
 		if (knockbackVelocity.Length() > KnockbackControlThreshold)
@@ -359,13 +453,21 @@ public partial class Player : CharacterBody2D
 		// Attack input (1-2 combo)
 		if (Input.IsActionJustPressed(ActionAttack))
 		{
-			if (comboStep == 0)
+			// Down + attack in the air = pogo
+			if (!IsOnFloor() && Input.IsActionPressed(ActionDown) && !isAttacking && !isPogoing)
 			{
-				StartAttack(1);
+				StartPogo();
 			}
-			else if (comboStep == 1 && isAttacking)
+			else if (!isPogoing)
 			{
-				comboBuffered = true;
+				if (comboStep == 0)
+				{
+					StartAttack(1);
+				}
+				else if (comboStep == 1 && isAttacking)
+				{
+					comboBuffered = true;
+				}
 			}
 		}
 
@@ -375,8 +477,22 @@ public partial class Player : CharacterBody2D
 			CheckHitboxHits();
 		}
 
+		// Pogo: landing cancels it; a hit bounces us upward (applied to the local velocity).
+		if (isPogoing)
+		{
+			if (IsOnFloor())
+			{
+				EndPogo();
+			}
+			else if (pogoHitbox != null && pogoHitbox.Monitoring && CheckPogoHits() && !pogoBounced)
+			{
+				velocity.Y = PogoBounceVelocity;
+				pogoBounced = true;
+			}
+		}
+
 		// Body animation when not attacking
-		if (!isAttacking && !slumped)
+		if (!isAttacking && !isPogoing && !slumped)
 		{
 			_sprite.Play(Mathf.IsZeroApprox(inputX) ? AnimIdle : AnimRun);
 		}

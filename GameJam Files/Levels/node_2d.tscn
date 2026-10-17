@@ -92,11 +92,6 @@ script = ExtResource("7_ihcyv")
 
 [node name="Timer" type="Timer" parent="." unique_id=57237021]
 
-[node name="Zombie" parent="." unique_id=1722942169 node_paths=PackedStringArray("Target") instance=ExtResource("2_ihcyv")]
-position = Vector2(216, 32)
-Target = NodePath("../Player")
-maxHealth = 10
-
 [node name="AngrySkull" parent="." unique_id=302794620 node_paths=PackedStringArray("advance_staircase", "retreat_staircase") instance=ExtResource("11_77gm7")]
 position = Vector2(272, -24)
 scale = Vector2(0.8470247, 0.80260015)
@@ -135,7 +130,8 @@ position = Vector2(112, 33)
 ZombieFleshCount = NodePath("../CanvasLayer/Inventory/ZombieFleshCount")
 CurrentHealthBar = NodePath("../CanvasLayer/Inventory/HSlider")
 baseSpeed = 120.0
-MaxHP = 1000000
+pogoOffset = 4.0
+MaxHP = 10
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2116194214]
 zoom = Vector2(4.635, 4.635)

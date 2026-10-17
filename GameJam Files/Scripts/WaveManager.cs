@@ -65,11 +65,11 @@ public partial class WaveManager : Node
 
 		for (int i = 0; i < totalWaves; i++)
 		{
-			// 1. Telegraph and spawn
+			// Telegraph and spawn
 			List<Node2D> spawned = await SpawnWaveAsync(waveConfigs[i], healthMultiplier);
 			if (Aborted()) return;
 
-			// 2. Wait for the room to clear, reporting progress as enemies fall
+			//Wait for the room to clear, reporting progress as enemies fall
 			int lastAlive = -1;
 			while (true)
 			{
@@ -90,7 +90,7 @@ public partial class WaveManager : Node
 			EmitSignal(SignalName.WaveProgressChanged, (i + 1) / (float)totalWaves);
 			GD.Print($"[WaveManager] Wave {i + 1}/{totalWaves} cleared.");
 
-			// 3. Breather between waves (not after the last one)
+			// Breather between waves (not after the last one)
 			if (i < totalWaves - 1)
 			{
 				await ToSignal(GetTree().CreateTimer(Mathf.Max(0.0f, _breatherDuration)), SceneTreeTimer.SignalName.Timeout);
@@ -175,7 +175,7 @@ public partial class WaveManager : Node
 			enemy.GlobalPosition = targetMarker.GlobalPosition;
 			enemy.AddToGroup("Enemies");
 
-			// Optional hook: implement `public void ApplyHealthMultiplier(float m)` on your enemy scripts.
+			//Maybe hook this into enemy??
 			if (!Mathf.IsEqualApprox(healthMultiplier, 1.0f) && enemy.HasMethod("ApplyHealthMultiplier"))
 			{
 				enemy.Call("ApplyHealthMultiplier", healthMultiplier);
