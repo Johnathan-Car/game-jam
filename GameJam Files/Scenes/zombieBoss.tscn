@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bsje7hbywanc4"]
+
+[ext_resource type="PackedScene" uid="uid://0ch7jvklyekx" path="res://GameJam Files/Scenes/zombie.tscn" id="1_12et8"]
+
+[node name="Zombie" unique_id=1722942169 instance=ExtResource("1_12et8")]
+Speed = 30.0
+DropItemCount = 4
+maxHealth = 40
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=1813540036]
+position = Vector2(0, -1)
+scale = Vector2(1.8, 1.6800005)
+
+[node name="AnimatedSprite2D" parent="." index="1" unique_id=268648142]
+modulate = Color(0.56078434, 0.6039216, 0.40784314, 1)
+scale = Vector2(1.7, 1.7)
+speed_scale = 0.9
+
+[node name="Hurtbox" parent="." index="2" unique_id=464867080]
+position = Vector2(0, -0.99999994)
+scale = Vector2(1.9, 1.774)
+KnockbackForce = 180.0
+Damage = 4
+
+[node name="ContactArea" parent="." index="3" unique_id=308456805]
+position = Vector2(0, -1)
+scale = Vector2(1.7, 1.620001)
+Damage = 2

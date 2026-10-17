@@ -5,8 +5,8 @@ public partial class Enemy : CharacterBody2D
 {
 	[Export] public Node2D Target;
 	[Export] public PackedScene DroppedItemScene;
-
-	public const float Speed = 40.0f;
+	[Export] public float Speed = 40.0f;
+	[Export] public int DropItemCount = 1;
 	private AnimatedSprite2D _sprite;
 
 	// Centralized Stats & Invincibility
@@ -59,7 +59,11 @@ public partial class Enemy : CharacterBody2D
 
 		if (currentHealth <= 0)
 		{
-			CallDeferred(nameof(SpawnDroppedItem));
+			for (int i = 0; i < DropItemCount; i++)
+			{
+				CallDeferred(nameof(SpawnDroppedItem));
+			}
+			
 			QueueFree();
 		}
 	}
