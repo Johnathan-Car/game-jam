@@ -62,7 +62,7 @@ _doorType = "jailed"
 [node name="Up" parent="." unique_id=753489281 instance=ExtResource("2_l2y8a")]
 position = Vector2(56, 114)
 TargetScenePath = "uid://r3ycjnrx03pn"
-_doorType = "locked"
+_doorType = "unlocked"
 
 [node name="Player" parent="." unique_id=1190707486 node_paths=PackedStringArray("ZombieFleshCount", "CurrentHealthBar") instance=ExtResource("2_j3a0h")]
 position = Vector2(57, 343)

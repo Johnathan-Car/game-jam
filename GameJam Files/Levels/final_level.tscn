@@ -227,6 +227,7 @@ collision_visibility_mode = 1
 position = Vector2(352, 448)
 baseSpeed = 100.0
 pogoOffset = 4.0
+MaxHP = 10
 
 [node name="CameraEnding" type="Camera2D" parent="Player" unique_id=995322534]
 offset = Vector2(0, -16.28)
@@ -237,7 +238,7 @@ limit_right = 1207
 limit_bottom = 650
 position_smoothing_enabled = true
 script = ExtResource("10_t5eiy")
-FinalCameraPosition = Vector2(650, 150)
+FinalCameraPosition = Vector2(625, 165)
 PauseDuration = 0.6
 
 [node name="CameraTrigger" type="Area2D" parent="." unique_id=1126368682 node_paths=PackedStringArray("Camera", "Player")]
