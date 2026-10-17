@@ -84,6 +84,12 @@ public partial class Enemy : CharacterBody2D
 	{
 		knockbackVelocity = direction * force;
 	}
+	
+	public void ApplyHealthMultiplier(float mult)
+	{
+	  	maxHealth = Mathf.RoundToInt(maxHealth * mult);
+	  	currentHealth = maxHealth;
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{

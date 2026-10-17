@@ -10,6 +10,8 @@ public partial class WaveManager : Node
 	[Export] private float _warningDuration = 1.5f;
 	[Export] private float _breatherDuration = 1.0f; // pause between waves
 
+	// Per-level: assign whichever enemies this floor uses to these three slots.
+	// The names in the wave text ("zombie", "skeleton", "groblin") pick the slot.
 	[ExportGroup("Enemy Scenes")]
 	[Export] private PackedScene _zombieScene;
 	[Export] private PackedScene _skeletonScene;
@@ -68,7 +70,7 @@ public partial class WaveManager : Node
 			List<Node2D> spawned = await SpawnWaveAsync(waveConfigs[i], healthMultiplier);
 			if (Aborted()) return;
 
-			//Wait for the room to clear, reporting progress as enemies fall
+			// Wait for the room to clear, reporting progress as enemies fall
 			int lastAlive = -1;
 			while (true)
 			{
@@ -147,7 +149,6 @@ public partial class WaveManager : Node
 
 		// Warn at exactly the markers that will be used. The flash is what tells the
 		// player to get out of the way, so spawning on top of them is intentional.
-		
 		int markersUsed = Mathf.Min(enemyTypes.Length, candidates.Count);
 		for (int m = 0; m < markersUsed; m++)
 		{
@@ -175,7 +176,6 @@ public partial class WaveManager : Node
 			enemy.GlobalPosition = targetMarker.GlobalPosition;
 			enemy.AddToGroup("Enemies");
 
-			//Maybe hook this into enemy??
 			if (!Mathf.IsEqualApprox(healthMultiplier, 1.0f) && enemy.HasMethod("ApplyHealthMultiplier"))
 			{
 				enemy.Call("ApplyHealthMultiplier", healthMultiplier);
@@ -189,13 +189,20 @@ public partial class WaveManager : Node
 
 	private PackedScene GetEnemyScene(string type)
 	{
-		return type.ToLower() switch
+		PackedScene scene = type.ToLower() switch
 		{
 			"zombie" => _zombieScene,
 			"skeleton" => _skeletonScene,
 			"groblin" => _groblinScene,
-			_ => _zombieScene
+			_ => null
 		};
+
+		if (scene == null)
+		{
+			// Typos and unassigned slots now say so instead of silently spawning a zombie.
+			GD.PrintErr($"[WaveManager] No enemy scene for '{type}' (typo, or slot not assigned on this level).");
+		}
+		return scene;
 	}
 
 	private void PlaySpawnWarning(Vector2 position, float duration)

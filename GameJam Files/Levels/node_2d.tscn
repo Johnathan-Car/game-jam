@@ -37,6 +37,7 @@ tile_set = ExtResource("3_ib808")
 
 [node name="Up" parent="." unique_id=998110794 instance=ExtResource("8_74at1")]
 position = Vector2(272, 32)
+TargetScenePath = "uid://bkggbig461628"
 _doorType = "locked"
 
 [node name="Down" parent="." unique_id=1963199073 instance=ExtResource("8_74at1")]
@@ -98,6 +99,11 @@ position = Vector2(272, -24)
 scale = Vector2(0.8470247, 0.80260015)
 advance_staircase = NodePath("../Up")
 retreat_staircase = NodePath("../Down")
+_round1 = PackedStringArray("zombie zombie", "zombie skeleton", "skeleton skeleton")
+_round2 = PackedStringArray("groblin", "skeleton skeleton zombie", "zombie skeleton groblin")
+_round3 = PackedStringArray("zombie zombie zombie zombie", "zombie zombie skeleton skeleton", "groblin groblin skeleton")
+_round4Angry = PackedStringArray("groblin groblin groblin groblin")
+_healthMultipliers = PackedFloat32Array(1, 1.2, 1.3, 1.5)
 _phaseDuration = 1.0
 
 [node name="WaveManager" type="Node2D" parent="." unique_id=185001041 node_paths=PackedStringArray("_spawnPoints", "_warningIndicatorTemplate")]
