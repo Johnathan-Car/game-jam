@@ -13,7 +13,39 @@
 [ext_resource type="Script" uid="uid://bv0b6tb4p8axj" path="res://GameJam Files/Scripts/CameraTrigger.cs" id="11_quqn1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c750j"]
-size = Vector2(22, 108)
+size = Vector2(22, 175)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quqn1"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="FontFile" id="FontFile_quqn1"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/72/0/ascent = 0.0
+cache/0/72/0/descent = 0.0
+cache/0/72/0/underline_position = 0.0
+cache/0/72/0/underline_thickness = 0.0
+cache/0/72/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_q6r6c"]
+line_spacing = 1.0
+font = SubResource("FontFile_quqn1")
+font_size = 72
+font_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.8977642, 0.8765251, 0.6435659, 0.49803922)
+shadow_offset = Vector2(0.285, 5.635)
 
 [node name="Final_Level" type="Node2D" unique_id=311499710]
 
@@ -185,10 +217,8 @@ collision_visibility_mode = 1
 
 [node name="Player" parent="." unique_id=1190707486 instance=ExtResource("9_hvkuy")]
 position = Vector2(352, 448)
-baseSpeed = null
-MaxHP = null
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=995322534]
+[node name="CameraEnding" type="Camera2D" parent="Player" unique_id=995322534]
 offset = Vector2(0, -16.28)
 zoom = Vector2(3.67, 3.67)
 limit_left = 64
@@ -197,10 +227,54 @@ limit_right = 1207
 limit_bottom = 650
 position_smoothing_enabled = true
 script = ExtResource("10_t5eiy")
+FinalCameraPosition = Vector2(650, 150)
+PauseDuration = 0.6
 
-[node name="CameraTrigger" type="Area2D" parent="." unique_id=1126368682]
+[node name="CameraTrigger" type="Area2D" parent="." unique_id=1126368682 node_paths=PackedStringArray("Camera", "Player")]
 script = ExtResource("11_quqn1")
+Camera = NodePath("../Player/CameraEnding")
+Player = NodePath("../Player")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTrigger" unique_id=689930082]
-position = Vector2(1077, 418)
+position = Vector2(1077, 384.5)
 shape = SubResource("RectangleShape2D_c750j")
+
+[node name="CameraTrigger2" type="Area2D" parent="." unique_id=2052133973 node_paths=PackedStringArray("Camera", "Player")]
+position = Vector2(-897, 0)
+script = ExtResource("11_quqn1")
+Camera = NodePath("../Player/CameraEnding")
+Player = NodePath("../Player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTrigger2" unique_id=1850491524]
+position = Vector2(1077, 384.5)
+shape = SubResource("RectangleShape2D_c750j")
+
+[node name="Credits" type="Panel" parent="." unique_id=1470596207]
+custom_minimum_size = Vector2(1, 1)
+offset_left = 532.00006
+offset_top = 80.0
+offset_right = 579.60004
+offset_bottom = 103.19999
+scale = Vector2(5, 5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_quqn1")
+
+[node name="Credit Text" type="Label" parent="Credits" unique_id=673466718]
+layout_mode = 0
+offset_left = -362.0
+offset_top = -284.0
+offset_right = 409.0
+offset_bottom = 303.0
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.055, 0.055)
+theme_override_font_sizes/font_size = 16
+text = "Thank you for Playing!
+Coders:
+Johnathan Carrion
+Christian Zabinski
+Artists:
+Pjark Sander"
+label_settings = SubResource("LabelSettings_q6r6c")
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="CameraTrigger" to="CameraTrigger" method="OnBodyEntered"]
+[connection signal="body_entered" from="CameraTrigger2" to="CameraTrigger2" method="OnBodyEntered"]

@@ -2,9 +2,9 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
-public partial class CameraController : Camera2D
+public partial class CameraEnding : Camera2D
 {
-    [Export] public Vector2 FinalCameraPosition = new Vector2(500, 100);
+    [Export] public Vector2 FinalCameraPosition = new Vector2(600, 200);
     [Export] public float PauseDuration = 1.0f;
     [Export] public float ScrollDuration = 2.0f;
 

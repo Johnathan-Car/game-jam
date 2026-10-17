@@ -3,7 +3,8 @@ using System;
 
 public partial class CameraTrigger : Area2D
 {
-    [Export] public CameraController Camera;
+    [Export] public CameraEnding Camera;
+	[Export] public Player Player;
 
     private bool hasTriggered = false;
 
@@ -26,6 +27,8 @@ public partial class CameraTrigger : Area2D
 		}
 
         hasTriggered = true;
+		Player.MovementLocked = true;
+
         Camera.StartCameraSequence();
     }
 }

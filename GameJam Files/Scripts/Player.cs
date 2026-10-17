@@ -52,6 +52,7 @@ public partial class Player : CharacterBody2D
 	private bool slumped;
 	private Vector2 knockbackVelocity = Vector2.Zero;
 	private Tween blinkTween;
+	public bool MovementLocked = false;
 
 	// Combo
 	private int comboStep;
@@ -315,6 +316,13 @@ public partial class Player : CharacterBody2D
 	// ── Per-frame update ─────────────────────────────────────────────────────
 	public override void _PhysicsProcess(double delta)
 	{
+		if (MovementLocked)
+		{
+			Velocity = Vector2.Zero;
+			MoveAndSlide();
+			return;
+		}
+
 		float dt = (float)delta;
 		Vector2 velocity = Velocity;
 
