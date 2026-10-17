@@ -9,6 +9,11 @@
 [ext_resource type="TileSet" uid="uid://dus5di3lw6jan" path="res://GameJam Files/Assets/mainTileSet.tres" id="7_qaqax"]
 [ext_resource type="TileSet" uid="uid://bhia4o3vt4vkl" path="res://GameJam Files/Assets/mainTileSetPhysics.tres" id="7_tasu8"]
 [ext_resource type="PackedScene" uid="uid://c4cacqouagcsn" path="res://GameJam Files/Scenes/player.tscn" id="9_hvkuy"]
+[ext_resource type="Script" uid="uid://cmebml35ria4h" path="res://GameJam Files/Scripts/CameraEnding.cs" id="10_t5eiy"]
+[ext_resource type="Script" uid="uid://bv0b6tb4p8axj" path="res://GameJam Files/Scripts/CameraTrigger.cs" id="11_quqn1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c750j"]
+size = Vector2(22, 108)
 
 [node name="Final_Level" type="Node2D" unique_id=311499710]
 
@@ -180,6 +185,8 @@ collision_visibility_mode = 1
 
 [node name="Player" parent="." unique_id=1190707486 instance=ExtResource("9_hvkuy")]
 position = Vector2(352, 448)
+baseSpeed = null
+MaxHP = null
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=995322534]
 offset = Vector2(0, -16.28)
@@ -189,3 +196,11 @@ limit_top = 0
 limit_right = 1207
 limit_bottom = 650
 position_smoothing_enabled = true
+script = ExtResource("10_t5eiy")
+
+[node name="CameraTrigger" type="Area2D" parent="." unique_id=1126368682]
+script = ExtResource("11_quqn1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTrigger" unique_id=689930082]
+position = Vector2(1077, 418)
+shape = SubResource("RectangleShape2D_c750j")
