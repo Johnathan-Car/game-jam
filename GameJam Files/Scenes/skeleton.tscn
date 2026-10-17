@@ -71,6 +71,9 @@ size = Vector2(18, 34)
 [node name="Skeleton" type="CharacterBody2D" unique_id=1722942169]
 script = ExtResource("1_ykts5")
 DroppedItemScene = ExtResource("2_ykts5")
+Speed = 45.0
+DropItemCount = 2
+maxHealth = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1813540036]
 shape = SubResource("RectangleShape2D_4v6l2")

@@ -217,6 +217,8 @@ collision_visibility_mode = 1
 
 [node name="Player" parent="." unique_id=1190707486 instance=ExtResource("9_hvkuy")]
 position = Vector2(352, 448)
+baseSpeed = 100.0
+pogoOffset = 4.0
 
 [node name="CameraEnding" type="Camera2D" parent="Player" unique_id=995322534]
 offset = Vector2(0, -16.28)
@@ -231,16 +233,16 @@ FinalCameraPosition = Vector2(650, 150)
 PauseDuration = 0.6
 
 [node name="CameraTrigger" type="Area2D" parent="." unique_id=1126368682 node_paths=PackedStringArray("Camera", "Player")]
+position = Vector2(1008, 376)
 script = ExtResource("11_quqn1")
 Camera = NodePath("../Player/CameraEnding")
 Player = NodePath("../Player")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTrigger" unique_id=689930082]
-position = Vector2(1077, 384.5)
 shape = SubResource("RectangleShape2D_c750j")
 
 [node name="CameraTrigger2" type="Area2D" parent="." unique_id=2052133973 node_paths=PackedStringArray("Camera", "Player")]
-position = Vector2(-897, 0)
+position = Vector2(-896, 0)
 script = ExtResource("11_quqn1")
 Camera = NodePath("../Player/CameraEnding")
 Player = NodePath("../Player")

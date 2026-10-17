@@ -1493,6 +1493,9 @@ _doorType = "3"
 
 [node name="Player" parent="." unique_id=1190707486 instance=ExtResource("5_0k0t1")]
 position = Vector2(-115, 50)
+baseSpeed = 100.0
+pogoOffset = 16.0
+MaxHP = 10
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=263235976]
 zoom = Vector2(5.075, 5.075)

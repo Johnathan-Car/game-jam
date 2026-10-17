@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://hndwuksh5uv8" path="res://GameJam Files/Scenes/Staircase.tscn" id="8_74at1"]
 [ext_resource type="PackedScene" uid="uid://p1up4fb053ou" path="res://GameJam Files/Scenes/skeleton.tscn" id="9_1k3ja"]
 [ext_resource type="Texture2D" uid="uid://dl4ghju7bg4x0" path="res://GameJam Files/Texture_Art/RedExclamation.png" id="9_77gm7"]
+[ext_resource type="PackedScene" uid="uid://dranyh3w5p6su" path="res://GameJam Files/Scenes/Groblin.tscn" id="9_lbua7"]
 [ext_resource type="Script" uid="uid://de7ejhqtgltnu" path="res://GameJam Files/Scripts/WaveManager.cs" id="10_dhlxm"]
 [ext_resource type="AudioStream" uid="uid://cscgo2rmmw3yh" path="res://GameJam Files/Assets/Sounds/PrisonBattle.mp3" id="11_1k3ja"]
 [ext_resource type="PackedScene" uid="uid://pbge1adjibto" path="res://GameJam Files/Scenes/AngrySkull.tscn" id="11_77gm7"]
@@ -106,6 +107,7 @@ _warningIndicatorTemplate = NodePath("Sprite2D")
 _warningDuration = 2.0
 _zombieScene = ExtResource("2_ihcyv")
 _skeletonScene = ExtResource("9_1k3ja")
+_groblinScene = ExtResource("9_lbua7")
 
 [node name="Marker2D" type="Marker2D" parent="WaveManager" unique_id=730493978]
 position = Vector2(392, 24)

@@ -309,15 +309,10 @@ attackHitbox = NodePath("PlayerSprite/SideHitbox")
 attackHitboxTimer = NodePath("Timer")
 pogoHitbox = NodePath("PlayerSprite/DownHitBox")
 pogoSlashSprite = NodePath("PlayerSprite/DownHitBox/DownSlash")
-baseSpeed = null
 slashOffset = 8.0
-pogoOffset = null
-MaxHP = null
 
 [node name="Node" type="Node" parent="." unique_id=1930857169]
 script = ExtResource("2_8qsk1")
-MaxHealth = null
-InvincibilityDuration = null
 
 [node name="CollisionPlayer" type="CollisionShape2D" parent="." unique_id=1225210588 groups=["Player"]]
 position = Vector2(1.7881393e-07, 1.5000004)

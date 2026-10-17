@@ -13,12 +13,12 @@ public partial class WaveManager : Node
 	[ExportGroup("Enemy Scenes")]
 	[Export] private PackedScene _zombieScene;
 	[Export] private PackedScene _skeletonScene;
+	[Export] private PackedScene _groblinScene;
 
-	/// <summary>
 	/// Overall progress through the current sequence, 0..1.
 	/// Wave k of N reports (k + 1 - 0.5 * fractionAlive) / N, so the value rises the moment a wave
 	/// spawns, climbs as enemies die, and hits exactly 1.0 when the final wave is cleared.
-	/// </summary>
+
 	[Signal] public delegate void WaveProgressChangedEventHandler(float progress);
 	[Signal] public delegate void AllWavesCompletedEventHandler();
 
@@ -50,7 +50,6 @@ public partial class WaveManager : Node
 
 	private bool Aborted() => _isCleaningUp || !GodotObject.IsInstanceValid(this);
 
-	/// <param name="waveConfigs">One string[] of enemy types per wave.</param>
 	/// <param name="healthMultiplier">Difficulty scaling applied to every enemy spawned in this sequence.</param>
 	public async void StartWaveSequence(string[][] waveConfigs, float healthMultiplier = 1.0f)
 	{
@@ -148,6 +147,7 @@ public partial class WaveManager : Node
 
 		// Warn at exactly the markers that will be used. The flash is what tells the
 		// player to get out of the way, so spawning on top of them is intentional.
+		
 		int markersUsed = Mathf.Min(enemyTypes.Length, candidates.Count);
 		for (int m = 0; m < markersUsed; m++)
 		{
@@ -193,6 +193,7 @@ public partial class WaveManager : Node
 		{
 			"zombie" => _zombieScene,
 			"skeleton" => _skeletonScene,
+			"groblin" => _groblinScene,
 			_ => _zombieScene
 		};
 	}

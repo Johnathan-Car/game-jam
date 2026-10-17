@@ -45,14 +45,14 @@ public partial class AngrySkull : Node2D
 		{
 			new[] { "zombie", "zombie", "skeleton" },
 			new[] { "skeleton", "skeleton", "zombie" },
-			new[] { "zombie", "skeleton", "skeleton" },
+			new[] { "groblin" },
 		}, 1.25f),
 
 		// Round 3: tougher again
 		new(new[]
 		{
 			new[] { "zombie", "zombie", "skeleton", "skeleton" },
-			new[] { "skeleton", "skeleton", "skeleton" },
+			new[] { "groblin", "skeleton" },
 			new[] { "zombie", "zombie", "zombie", "skeleton" },
 		}, 1.5f),
 

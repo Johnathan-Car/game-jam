@@ -84,7 +84,6 @@ size = Vector2(16, 32)
 size = Vector2(18, 34)
 
 [node name="Zombie" type="CharacterBody2D" unique_id=1722942169]
-collision_mask = 3
 script = ExtResource("1_ng6t3")
 DroppedItemScene = ExtResource("2_ng6t3")
 maxHealth = 5
