@@ -84,10 +84,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="AngrySkull" type="Node2D" unique_id=302794620 node_paths=PackedStringArray("_skullSprite", "_phaseTimer") groups=["AngrySkull"]]
+[node name="AngrySkull" type="Node2D" unique_id=302794620 node_paths=PackedStringArray("_phaseTimer", "_skullSprite") groups=["AngrySkull"]]
 script = ExtResource("1_qsagg")
-_skullSprite = NodePath("_skullSprite")
 _phaseTimer = NodePath("WaveTimer")
+_skullSprite = NodePath("_skullSprite")
 
 [node name="WaveTimer" type="Timer" parent="." unique_id=231809055]
 wait_time = 5.0

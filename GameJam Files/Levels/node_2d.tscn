@@ -94,24 +94,23 @@ script = ExtResource("7_ihcyv")
 
 [node name="Zombie" parent="." unique_id=1722942169 node_paths=PackedStringArray("Target") instance=ExtResource("2_ihcyv")]
 position = Vector2(216, 32)
-maxHealth = 10
 Target = NodePath("../Player")
+maxHealth = 10
 
 [node name="AngrySkull" parent="." unique_id=302794620 node_paths=PackedStringArray("advance_staircase", "retreat_staircase") instance=ExtResource("11_77gm7")]
 position = Vector2(272, -24)
 scale = Vector2(0.8470247, 0.80260015)
-_phaseDuration = 1.0
-_enragedWaveInterval = 15.0
-_floorId = null
 advance_staircase = NodePath("../Up")
 retreat_staircase = NodePath("../Down")
+_phaseDuration = 1.0
 
-[node name="WaveManager" type="Node2D" parent="." unique_id=185001041 node_paths=PackedStringArray("_warningIndicatorTemplate")]
+[node name="WaveManager" type="Node2D" parent="." unique_id=185001041 node_paths=PackedStringArray("_spawnPoints", "_warningIndicatorTemplate")]
 script = ExtResource("10_dhlxm")
+_spawnPoints = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3"), NodePath("Marker2D4"), NodePath("Marker2D5")]
+_warningIndicatorTemplate = NodePath("Sprite2D")
 _warningDuration = 2.0
 _zombieScene = ExtResource("2_ihcyv")
 _skeletonScene = ExtResource("9_1k3ja")
-_warningIndicatorTemplate = NodePath("Sprite2D")
 
 [node name="Marker2D" type="Marker2D" parent="WaveManager" unique_id=730493978]
 position = Vector2(392, 24)
@@ -122,14 +121,21 @@ position = Vector2(168, 24)
 [node name="Marker2D3" type="Marker2D" parent="WaveManager" unique_id=848565291]
 position = Vector2(272, 32)
 
+[node name="Marker2D4" type="Marker2D" parent="WaveManager" unique_id=1441307097]
+position = Vector2(111, -13)
+
+[node name="Marker2D5" type="Marker2D" parent="WaveManager" unique_id=387774450]
+position = Vector2(412, -10)
+
 [node name="Sprite2D" type="Sprite2D" parent="WaveManager" unique_id=1346702949]
 texture = ExtResource("9_77gm7")
 
 [node name="Player" parent="." unique_id=1190707486 node_paths=PackedStringArray("ZombieFleshCount", "CurrentHealthBar") instance=ExtResource("4_74at1")]
 position = Vector2(112, 33)
-MaxHP = 1000000
 ZombieFleshCount = NodePath("../CanvasLayer/Inventory/ZombieFleshCount")
 CurrentHealthBar = NodePath("../CanvasLayer/Inventory/HSlider")
+baseSpeed = 120.0
+MaxHP = 1000000
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2116194214]
 zoom = Vector2(4.635, 4.635)

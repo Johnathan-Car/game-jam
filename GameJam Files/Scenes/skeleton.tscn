@@ -81,8 +81,8 @@ animation = &"hurt"
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=464867080]
 scale = Vector2(1.1999993, 1.1200007)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("5_kwx28")
 KnockbackForce = 250.0
 Damage = 3
